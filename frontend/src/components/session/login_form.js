@@ -62,6 +62,7 @@ class LoginForm extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <div>
+            <br />
             <input type="text"
               value={this.state.username}
               onChange={this.update('username')}
