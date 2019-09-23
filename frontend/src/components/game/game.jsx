@@ -12,24 +12,20 @@ class Canvas extends React.Component {
     }
   }
 
-  render() {
-    // const canv = document.getElementById('canv');
-    // const ctx
+  componentDidMount() {
+    const canvas = this.refs.canvas;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = "#5C93FC"
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
 
+  render() {
     return (
       <div>
-        <canvas
-          id="canv"
-        >
-
-        </canvas>
-
-
+        <canvas ref="canvas" width="900" height="300"/>
       </div>
     )
   }
 }
 
 export default Canvas;
-
-// 5C93FC
