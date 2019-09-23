@@ -7,7 +7,6 @@ import passport from 'passport';
 const path = require("path");
 
 import users from "./routes/api/users";
-// import tweets from "./routes/api/tweets";
 
 mongoose
   .connect(db, { useNewUrlParser: true })
