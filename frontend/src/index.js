@@ -1,31 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
 import Root from './components/root';
-
-// We set this up in the last section
 import configureStore from './store/store';
-
 import jwt_decode from 'jwt-decode';
-
 import { setAuthToken } from './util/session_api_util';
-
 import { logout } from './actions/session_actions';
 
 document.addEventListener('DOMContentLoaded', () => {
   let store;
 
   if (localStorage.jwtToken) {
-
     setAuthToken(localStorage.jwtToken);
 
     const decodedUser = jwt_decode(localStorage.jwtToken);
-
     const preloadedState = { session: { isAuthenticated: true, user: decodedUser } };
+    const currentTime = Date.now() / 1000;
 
     store = configureStore(preloadedState);
-
-    const currentTime = Date.now() / 1000;
 
     // If the user's token has expired
     if (decodedUser.exp < currentTime) {
@@ -37,7 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // If this is a first time user, start with an empty store
     store = configureStore({});
   }
-  const root = document.getElementById('root');
 
+  window.getState = store.getState;
+
+  const root = document.getElementById('root');
   ReactDOM.render(<Root store={store} />, root);
 });
