@@ -24,9 +24,9 @@ class NavBar extends React.Component {
       );
     } else {
       return (
-        <div>
-          <Link to={'/signup'}>Signup</Link>
-          <Link to={'/login'}>Login</Link>
+        <div >
+          <Link className="signup-login" to={'/signup'}>Signup</Link>
+          <Link className="signup-login" to={'/login'}>Login</Link>
         </div>
       );
     }
@@ -34,7 +34,7 @@ class NavBar extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="navbar">
         <h1>Jumpy Kart</h1>
         {this.getLinks()}
       </div>
