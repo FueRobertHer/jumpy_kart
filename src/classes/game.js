@@ -11,7 +11,6 @@ class Game {
     this.hostId = hostId;
     this.gameId = gameId;
     this.pipes = [];
-
   }
 
   async loadGame(){

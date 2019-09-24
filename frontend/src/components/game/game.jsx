@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 // import pipeSprite from '../../assets/images/pipes_sprite.png';
 import { Pipe } from '../../classes/pipe';
 import openSocket from 'socket.io-client';
+// import Game from '../../../../src/classes/game';
 import * as DrawUtil from './drawUtil';
 
 let SERVER = openSocket("http://localhost:5000");
@@ -47,6 +48,9 @@ class Canvas extends React.Component {
     this.openSocket();
   }
 
+  componentWillUnmount() {
+  }
+
   drawBackground(ctx) {
     ctx.fillStyle = "#5C93FC";
     ctx.fillRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
@@ -63,8 +67,8 @@ class Canvas extends React.Component {
     }
 
     return (
-      <div>
-        <canvas ref="canvas" width="900" height="500"/>
+      <div className='canvas-container'>
+        <canvas ref="canvas" width="2000" height="500"/>
         <p>{this.state.time}</p>
       </div>
     )

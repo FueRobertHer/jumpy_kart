@@ -5,33 +5,7 @@ import yoshiSprite from '../../assets/images/yoshi_sprite.png';
 import pipeSprite from '../../assets/images/pipes_sprite.png';
 
 export const _drawKart = (ctx, player) => {
-
-  // if (player.color === "RED") {
-  //   if (player.invuln > 0) {
-  //     img.src = redGod;
-  //   } else {
-  //     img.src = redShip;
-  //   }
-  // } else if (player.color === "BLUE") {
-  //   if (player.invuln > 0) {
-  //     img.src = blueGod;
-  //   } else {
-  //     img.src = blueShip;
-  //   }
-  // } else if (player.color === "GREEN") {
-  //   if (player.invuln > 0) {
-  //     img.src = greenGod;
-  //   } else {
-  //     img.src = greenShip;
-  //   }
-  // } else if (player.color === "YELLOW") {
-  //   if (player.invuln > 0) {
-  //     img.src = yellowGod;
-  //   } else {
-  //     img.src = yellowShip;
-  //   }
-  // }
-
+  
   let mario = new Image();
   mario.src = marioSprite;
   mario.onload = () => {
