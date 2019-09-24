@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 import marioSprite from '../../assets/images/mario_sprite.png';
 import pipeSprite from '../../assets/images/pipes_sprite.png';
 import { Pipe } from '../../classes/pipe';
-import io from 'socket.io-client';
+import openSocket from 'socket.io-client';
 
-const server = "http://localhost:5000";
+let SERVER = openSocket("http://localhost:5000");
 
 if (process.env.NODE_ENV === "production") {
   console.log(`process.env: ${process.env}`);
-  server = process.env.REACT_APP_SERVER || "https://starfight.herokuapp.com/";
+  SERVER = process.env.REACT_APP_SERVER || "https://starfight.herokuapp.com/";
 }
 
 
@@ -17,16 +17,21 @@ class Canvas extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // time left
+      time: "no timestamp yet",
       players: {}
       // races left
       // gameStarted (from StarfighterPVP)
-    }
+    };
     this.openSocket = this.openSocket.bind(this);
   }
 
   openSocket() {
-    this.socket = io(server);
+    this.socket = SERVER;
+    let socket = this.socket;
+    socket.on('timer', (timestamp) => this.setState({
+      time: timestamp
+    }));
+    socket.emit('subscribeToTimer', 1000/60);
   }
 
   componentDidMount() {
@@ -45,6 +50,7 @@ class Canvas extends React.Component {
       ctx.drawImage(pipe, Pipe.width, 200);
     }
     // simulating pulling value from backend to set y-coordinate of pipe
+    this.openSocket();
   }
 
   drawObjects() {
@@ -55,6 +61,7 @@ class Canvas extends React.Component {
     return (
       <div>
         <canvas ref="canvas" width="900" height="300"/>
+        <p>{this.state.time}</p>
       </div>
     )
   }

@@ -10,6 +10,7 @@ import passport from 'passport';
 const path = require("path");
 
 import users from "./routes/api/users";
+import socketManager from './socket_manager/socket_manager';
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
@@ -20,12 +21,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const PORT = process.env.PORT || 5000;
 
-io.on('connection', (socket) => {
-  console.log('a user connected');
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });
-});
+io.on('connection', socketManager);
 
 server.listen(PORT, () => {
   console.log(`listening on localhost ${PORT}`);
