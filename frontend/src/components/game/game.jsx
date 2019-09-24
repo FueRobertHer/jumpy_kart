@@ -9,7 +9,7 @@ class Canvas extends React.Component {
     super(props);
     this.state = {
       // time left
-      // players
+      players: {}
       // races left
       // gameStarted (from StarfighterPVP)
     }

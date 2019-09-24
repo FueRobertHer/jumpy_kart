@@ -2,7 +2,7 @@ import express from 'express';
 const mongoose = require('mongoose');
 const app = express();
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+export const io = require('socket.io')(http);
 
 import { mongoURI as db } from './config/keys';
 import { urlencoded, json } from 'body-parser';
