@@ -1,6 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
+import '../../assets/stylesheets/errors.css'
+
+
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
@@ -16,9 +19,9 @@ class LoginForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.currentUser === true) {
-      this.props.history.push('/game');
-    }
+    // if (nextProps.currentUser === true) {
+    //   this.props.history.push('/game');
+    // }
 
     // Set or clear errors
     this.setState({ errors: nextProps.errors })
@@ -40,7 +43,7 @@ class LoginForm extends React.Component {
       password: this.state.password
     };
 
-    this.props.login(user);
+    this.props.login(user).then(() => this.props.history.push('/game'));
   }
 
   // Render the session errors if there are any
@@ -49,8 +52,8 @@ class LoginForm extends React.Component {
     return (
       <ul>
         {Object.keys(this.state.errors).map((error, i) => (
-          <li key={`error-${i}`}>
-            {error}
+          <li className="errors" key={`error-${i}`}>
+            {this.state.errors[error]}
           </li>
         ))}
       </ul>
