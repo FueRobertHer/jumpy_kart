@@ -1,5 +1,4 @@
-
-const Pipe = {
+export const Pipe = {
   width: '70px',
   height: '200px',
 };

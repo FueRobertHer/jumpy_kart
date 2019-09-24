@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import marioSprite from "../../assets/images/mario_sprite.png";
+import marioSprite from '../../assets/images/mario_sprite.png';
+import pipeSprite from '../../assets/images/pipes_sprite.png';
+import { Pipe } from '../../classes/pipe';
 
 class Canvas extends React.Component {
   constructor(props) {
@@ -23,6 +25,12 @@ class Canvas extends React.Component {
     mario.onload = () => {
       ctx.drawImage(mario, 100, 100);
     }
+    let pipe = new Image();
+    pipe.src = pipeSprite;
+    pipe.onload = () => {
+      ctx.drawImage(pipe, Pipe.width, 200);
+    }
+    // simulating pulling value from backend to set y-coordinate of pipe
   }
 
   drawObjects() {
