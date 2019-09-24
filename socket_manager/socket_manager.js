@@ -23,12 +23,6 @@ export const socketManager = (socket) => {
     }, interval);
   });
 
-  // socket.on("subscribeToTimer", (interval) => {
-  //   setInterval(() => {
-  //     socket.emit('timer', time);
-  //   }, interval);
-  // });
-
   socket.on("disconnect", () => {
     console.log('user disconnected');
   });

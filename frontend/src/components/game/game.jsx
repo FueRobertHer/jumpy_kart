@@ -9,7 +9,7 @@ let SERVER = openSocket("http://localhost:5000");
 
 if (process.env.NODE_ENV === "production") {
   console.log(`process.env: ${process.env}`);
-  SERVER = process.env.REACT_APP_SERVER || "https://starfight.herokuapp.com/";
+  SERVER = process.env.REACT_APP_SERVER || SERVER;
 }
 
 
@@ -23,6 +23,7 @@ class Canvas extends React.Component {
       // gameStarted (from StarfighterPVP)
     };
     this.openSocket = this.openSocket.bind(this);
+    this.socket = null;
   }
 
   openSocket() {
