@@ -19,22 +19,18 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const PORT = process.env.PORT || 5000;
-// app.listen(port, () => console.log(`Server is running on port ${port}`));
-
-server.listen(PORT, () => {
-  console.log(`listening on localhost ${PORT}`)
-});
 
 io.on('connection', (socket) => {
   console.log('a user connected');
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
-
-  socket.on('sample', (example) => {
-    console.log('sample: ' + example);
-  });
 });
+
+server.listen(PORT, () => {
+  console.log(`listening on localhost ${PORT}`);
+});
+
 
 mongoose
   .connect(db, { useNewUrlParser: true })
@@ -46,6 +42,10 @@ require('./config/passport').default(passport);
 
 app.use(urlencoded({ extended: false }));
 app.use(json());
+
+app.get('/', (req, res) => {
+  res.send('this app is working boiiii');
+});
 
 app.use("/api/users", users);
 

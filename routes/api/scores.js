@@ -28,7 +28,6 @@ router.post('/',
     const newScore = new Score({
       username: req.body.username,
       value: req.body.score,
-      date: Date.now()
     })
   }
 ) 
