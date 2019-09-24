@@ -1,5 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { _drawKart } from '../kart/kart';
+import kartSprite from "../../assets/images/mario_sprite.png";
+// this kartSprite is actually being used! ^^
 
 class Canvas extends React.Component {
   constructor(props) {
@@ -17,6 +20,7 @@ class Canvas extends React.Component {
     const ctx = canvas.getContext('2d');
     ctx.fillStyle = "#5C93FC"
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    _drawKart(ctx);
   }
 
   render() {
