@@ -4,6 +4,15 @@ import { Link } from 'react-router-dom';
 // import pipeSprite from '../../assets/images/pipes_sprite.png';
 import { Pipe } from '../../classes/pipe';
 import * as DrawUtil from './drawUtil';
+import io from 'socket.io-client';
+
+const server = "http://localhost:5000";
+
+if (process.env.NODE_ENV === "production") {
+  console.log(`process.env: ${process.env}`);
+  server = process.env.REACT_APP_SERVER || "https://starfight.herokuapp.com/";
+}
+
 
 class Canvas extends React.Component {
   constructor(props) {
@@ -16,6 +25,11 @@ class Canvas extends React.Component {
     }
 
     this.drawObjects = this.drawObjects.bind(this);
+    this.openSocket = this.openSocket.bind(this);
+  }
+
+  openSocket() {
+    this.socket = io(server);
   }
 
   componentDidMount() {
