@@ -13,8 +13,6 @@ class Canvas extends React.Component {
     }
   }
 
-  
-
   componentDidMount() {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
@@ -22,7 +20,13 @@ class Canvas extends React.Component {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     let mario = new Image();
     mario.src = marioSprite;
-    ctx.drawImage(mario, 100, 100);
+    mario.onload = () => {
+      ctx.drawImage(mario, 100, 100);
+    }
+  }
+
+  drawObjects() {
+
   }
 
   render() {
