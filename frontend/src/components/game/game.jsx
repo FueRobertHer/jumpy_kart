@@ -3,6 +3,15 @@ import { Link } from 'react-router-dom';
 import marioSprite from '../../assets/images/mario_sprite.png';
 import pipeSprite from '../../assets/images/pipes_sprite.png';
 import { Pipe } from '../../classes/pipe';
+import io from 'socket.io-client';
+
+const server = "http://localhost:5000";
+
+if (process.env.NODE_ENV === "production") {
+  console.log(`process.env: ${process.env}`);
+  server = process.env.REACT_APP_SERVER || "https://starfight.herokuapp.com/";
+}
+
 
 class Canvas extends React.Component {
   constructor(props) {
@@ -13,6 +22,11 @@ class Canvas extends React.Component {
       // races left
       // gameStarted (from StarfighterPVP)
     }
+    this.openSocket = this.openSocket.bind(this);
+  }
+
+  openSocket() {
+    this.socket = io(server);
   }
 
   componentDidMount() {
