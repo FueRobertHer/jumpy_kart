@@ -10,7 +10,7 @@ let SERVER = openSocket("http://localhost:5000");
 
 if (process.env.NODE_ENV === "production") {
   console.log(`process.env: ${process.env}`);
-  SERVER = process.env.REACT_APP_SERVER || SERVER;
+  SERVER = process.env.REACT_APP_SERVER || 'http://jumpykart.herokuapp.com/#/';
 }
 
 
