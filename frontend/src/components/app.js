@@ -5,6 +5,7 @@ import { Switch } from 'react-router-dom';
 import '../assets/stylesheets/reset.css';
 import '../assets/stylesheets/navbar_footer.css';
 import '../assets/stylesheets/signup_login_form.css';
+import '../assets/stylesheets/app.css';
 
 import NavBarContainer from './nav/navbar_container';
 import MainPage from './main/main_page';
@@ -20,14 +21,17 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div >
         <NavBarContainer />
-        <Switch>
-          <AuthRoute exact path="/" component={MainPage} />
-          <ProtectedRoute exact path="/game" component={Canvas} />
-          <AuthRoute exact path="/login" component={LoginFormContainer} />
-          <AuthRoute exact path="/signup" component={SignupFormContainer} />
-        </Switch>
+
+        <div className="parent">
+          <Switch>
+            <AuthRoute exact path="/" component={MainPage} />
+            <ProtectedRoute exact path="/game" component={Canvas} />
+            <AuthRoute exact path="/login" component={LoginFormContainer} />
+            <AuthRoute exact path="/signup" component={SignupFormContainer} />
+          </Switch>
+        </div>
 
       </div>
     )
