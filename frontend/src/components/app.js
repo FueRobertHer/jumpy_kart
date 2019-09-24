@@ -25,6 +25,7 @@ class App extends React.Component {
         <NavBarContainer />
         <Switch>
           <AuthRoute exact path="/" component={MainPage} />
+          <AuthRoute exact path="/game" component={Canvas} />
           <AuthRoute exact path="/login" component={LoginFormContainer} />
           <AuthRoute exact path="/signup" component={SignupFormContainer} />
         </Switch>
