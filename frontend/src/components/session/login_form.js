@@ -15,10 +15,9 @@ class LoginForm extends React.Component {
     this.renderErrors = this.renderErrors.bind(this);
   }
 
-  // Once the user has been authenticated, redirect to the Tweets page
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentUser === true) {
-      this.props.history.push('/tweets');
+      this.props.history.push('/game');
     }
 
     // Set or clear errors
@@ -50,9 +49,9 @@ class LoginForm extends React.Component {
     return (
       <ul>
         {Object.keys(this.state.errors).map((error, i) => (
-          // <li key={`error-${i}`}>
+          <li key={`error-${i}`}>
             {error}
-          // </li>
+          </li>
         ))}
       </ul>
     );
@@ -60,7 +59,8 @@ class LoginForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="login-form-container">
+        <h2>Log in</h2>
         <form onSubmit={this.handleSubmit}>
           <div>
             <br />

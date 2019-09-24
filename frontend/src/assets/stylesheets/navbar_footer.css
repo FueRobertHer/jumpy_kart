@@ -1,0 +1,16 @@
+.navbar {
+  width: 80vw;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+.signup-login {
+  margin: 0 10px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+}
