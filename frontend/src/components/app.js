@@ -13,6 +13,7 @@ import LoginFormContainer from './session/login_form_container';
 import SignupFormContainer from './session/signup_form_container';
 import 'whatwg-fetch';
 import openSocket from 'socket.io-client';
+
 const socket = openSocket('http://localhost:5000');
 
 
