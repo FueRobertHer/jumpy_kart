@@ -4,6 +4,7 @@ import { Switch } from 'react-router-dom';
 
 import '../assets/stylesheets/reset.css';
 import '../assets/stylesheets/navbar_footer.css';
+import '../assets/stylesheets/signup_login_form.css';
 
 import NavBarContainer from './nav/navbar_container';
 import MainPage from './main/main_page';
