@@ -1,8 +1,8 @@
 import express from 'express';
 const mongoose = require('mongoose');
 const app = express();
-const http = require('http').Server(app);
-export const io = require('socket.io')(http);
+const server = require('http').Server(app);
+export const io = require('socket.io')(server);
 
 import { mongoURI as db } from './config/keys';
 import { urlencoded, json } from 'body-parser';
@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'production') {
 const PORT = process.env.PORT || 5000;
 // app.listen(port, () => console.log(`Server is running on port ${port}`));
 
-http.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`listening on localhost ${PORT}`)
 });
 
