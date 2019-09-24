@@ -1,6 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
+import '../../assets/stylesheets/errors.css'
+
 class SignupForm extends React.Component {
   constructor(props) {
     super(props);
@@ -43,7 +45,7 @@ class SignupForm extends React.Component {
     return (
       <ul>
         {Object.keys(this.state.errors).map((error, i) => (
-          <li key={`error-${i}`}>
+          <li className="errors" key={`error-${i}`}>
             {this.state.errors[error]}
           </li>
         ))}
