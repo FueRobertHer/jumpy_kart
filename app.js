@@ -43,8 +43,6 @@ http.listen(5000, () => {
 });
 
 
-
-
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
   app.get('/', (req, res) => {

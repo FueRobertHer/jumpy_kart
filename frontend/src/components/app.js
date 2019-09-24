@@ -11,6 +11,9 @@ import MainPage from './main/main_page';
 import Canvas from './game/game';
 import LoginFormContainer from './session/login_form_container';
 import SignupFormContainer from './session/signup_form_container';
+import 'whatwg-fetch';
+import openSocket from 'socket.io-client';
+const socket = openSocket('http://localhost:5000');
 
 
 class App extends React.Component {
