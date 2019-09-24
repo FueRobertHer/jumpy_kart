@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { _drawKart } from '../kart/kart';
-import kartSprite from "../../assets/images/mario_sprite.png";
-// this kartSprite is actually being used! ^^
+import marioSprite from "../../assets/images/mario_sprite.png";
 
 class Canvas extends React.Component {
   constructor(props) {
@@ -18,9 +16,11 @@ class Canvas extends React.Component {
   componentDidMount() {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
-    ctx.fillStyle = "#5C93FC"
+    ctx.fillStyle = "#5C93FC";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-    _drawKart(ctx);
+    let mario = new Image();
+    mario.src = marioSprite;
+    ctx.drawImage(mario, 100, 100);
   }
 
   render() {
