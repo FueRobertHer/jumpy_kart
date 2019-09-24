@@ -19,14 +19,22 @@ class Game {
   }
 
   placePipes(){
-    //place a random pipe somewhere on the board
-    //push a pipe object in to pipe array
-    // for ( let i = 0; i < 2; i++){
+    //place a random pipe somewhere on the board: worked
+    //place random pipes but make sure that they are minimum dist from each other
+    //place a pipe per 250px width
+    //
+
+    for ( let i = 0; i < 4; i++){
+      let randomLoc = Math.random() * ( 250*(i+1) - 250*i ) + 250*i;
+      let randomHeight = Math.random() * (500 - 50 ) + 50;
       this.pipes.push(
-        {location: ['250']}
-      )
-    // }
+        { location: randomLoc,
+          width: 70,
+          height: randomHeight });
+    }
   } 
+
+  
 
 }
 

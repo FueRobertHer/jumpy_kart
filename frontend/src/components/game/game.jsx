@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import marioSprite from '../../assets/images/mario_sprite.png';
-import pipeSprite from '../../assets/images/pipes_sprite.png';
+// import marioSprite from '../../assets/images/mario_sprite.png';
+// import pipeSprite from '../../assets/images/pipes_sprite.png';
 import { Pipe } from '../../classes/pipe';
 import openSocket from 'socket.io-client';
+import * as DrawUtil from './drawUtil';
 
 let SERVER = openSocket("http://localhost:5000");
 
@@ -22,6 +23,8 @@ class Canvas extends React.Component {
       // races left
       // gameStarted (from StarfighterPVP)
     };
+
+    this.drawObjects = this.drawObjects.bind(this);
     this.openSocket = this.openSocket.bind(this);
     this.socket = null;
   }
@@ -38,30 +41,30 @@ class Canvas extends React.Component {
   componentDidMount() {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
-    ctx.fillStyle = "#5C93FC";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    let mario = new Image();
-    mario.src = marioSprite;
-    mario.onload = () => {
-      ctx.drawImage(mario, 100, 100);
-    }
-    let pipe = new Image();
-    pipe.src = pipeSprite;
-    pipe.onload = () => {
-      ctx.drawImage(pipe, Pipe.width, 200);
-    }
+    this.drawBackground(ctx);
+    this.drawObjects(ctx);
     // simulating pulling value from backend to set y-coordinate of pipe
     this.openSocket();
   }
 
-  drawObjects() {
+  drawBackground(ctx) {
+    ctx.fillStyle = "#5C93FC";
+    ctx.fillRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
+  }
 
+  drawObjects(ctx) {
+    DrawUtil._drawKart(ctx)
+    DrawUtil._drawPipes(ctx)
   }
 
   render() {
+    if (!this.props) {
+      return null;
+    }
+
     return (
       <div>
-        <canvas ref="canvas" width="900" height="300"/>
+        <canvas ref="canvas" width="900" height="500"/>
         <p>{this.state.time}</p>
       </div>
     )
