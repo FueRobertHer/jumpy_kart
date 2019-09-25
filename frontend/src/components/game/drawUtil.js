@@ -9,25 +9,26 @@ export const _drawKart = (ctx, player) => {
   let mario = new Image();
   mario.src = marioSprite;
   mario.onload = () => {
-    ctx.drawImage(mario, 100, 100);
+    ctx.drawImage(mario, 100, 100); // max y-coord will be
+                                    // height of canvas element
   }
 
   let peach = new Image();
   peach.src = peachSprite;
   peach.onload = () => {
-    ctx.drawImage(peach, 200, 100);
+    ctx.drawImage(peach, 100, 100);
   }
 
   let toad = new Image();
   toad.src = toadSprite;
   toad.onload = () => {
-    ctx.drawImage(toad, 100, 200);
+    ctx.drawImage(toad, 100, 100);
   }
 
   let yoshi = new Image();
   yoshi.src = yoshiSprite;
   yoshi.onload = () => {
-    ctx.drawImage(yoshi, 200, 200);
+    ctx.drawImage(yoshi, 100, 100);
   }
 
 

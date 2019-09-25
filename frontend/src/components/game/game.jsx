@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Pipe } from '../../classes/pipe';
 import openSocket from 'socket.io-client';
-// import Game from '../../classes/game';
+import Game from '../../classes/game';
+import Player from '../../classes/player';
 import * as DrawUtil from './drawUtil';
 
 let SERVER = openSocket("http://localhost:5000");
@@ -57,8 +58,6 @@ class Canvas extends React.Component {
     socket.on('newGameStance', (gameClass) => {
       console.log(gameClass);
     });
-
-
   }
 
   newGame() {
@@ -70,7 +69,7 @@ class Canvas extends React.Component {
   componentDidMount() {
     this.openSocket();
     this.newGame();
-    // const gameClass = new Game();
+    const gameClass = new Game();
     gameClass.loadGame()
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
