@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Pipe } from '../../classes/pipe';
 import io from 'socket.io-client';
-// import Game from '../../classes/game';
 import Player from '../../classes/player';
 import * as DrawUtil from './drawUtil';
 
@@ -50,11 +48,12 @@ class Canvas extends React.Component {
     });
 
     socket.on('updateGameState', data => {
+      this.pipes = data.pipes;
       console.log("updating game state")
       this.setState({
         hostId: data.hostId,
         gameId: data.gameId,
-        pipes: data.pipes
+        // pipes: data.pipes
       });
       setTimeout(() => {
         console.log(this.state);
@@ -64,7 +63,6 @@ class Canvas extends React.Component {
     socket.on('newGameStance', (gameClass) => {
       console.log(gameClass);
     });
-  
   }
 
   loadGame() {
@@ -75,13 +73,13 @@ class Canvas extends React.Component {
 
   componentDidMount() {
     console.log(this.props);
+    console.log(this.state);
     this.openSocket();
     this.loadGame();
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
     this.drawBackground(ctx);
-    this.drawObjects(ctx, this.pipes);
-    // simulating pulling value from backend to set y-coordinate of pipe
+    this.drawObjects(ctx);
   }
 
   componentWillUnmount() {
@@ -92,7 +90,7 @@ class Canvas extends React.Component {
     ctx.fillRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
   }
 
-  drawObjects(ctx, pipes) {
+  drawObjects(ctx) {
     const that = this;
 
     let remainingChars = [];
@@ -111,7 +109,8 @@ class Canvas extends React.Component {
     }
 
     DrawUtil._drawKart(ctx, this.characters[remainingChars[0]]);
-    DrawUtil._drawPipes(ctx, pipes)
+    console.log(this.pipes);
+    // DrawUtil._drawPipes(ctx, this.state.pipes)
   }
 
   render() {
