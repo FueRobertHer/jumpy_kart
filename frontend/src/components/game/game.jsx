@@ -45,13 +45,11 @@ class Canvas extends React.Component {
 
     socket.on('placePipes', data => {
       console.log('placing pipes');
-      console.log(data.pipes)
       this.setState({
         loaded: true,
         pipes: data.pipes
       });
       // this.pipes = data.pipes
-      console.log(this.state.pipes)
     });
 
     socket.on('updateGameState', data => {
