@@ -1,4 +1,6 @@
 import { io } from '../app';
+import Canvas from '../src/classes/game';
+import Game from '../src/classes/game';
 
 
 //Have the server side store the game ‘state’, be able to modify the state, and also receive updates from the players
@@ -16,6 +18,15 @@ export const socketManager = (socket) => {
   // socket.on('addPlayer')
   //need to emit addPlayer from player component
   console.log("a user connected");
+  //test case - on connection, render game
+  socket.on("newGame", () => {
+    const gameClass = new Game();
+
+    socket.emit("newGameStance", gameClass)
+  });
+
+  // const gameClass = new Game();
+
 
   socket.on("subscribeToTimer", (interval) => {
     setInterval(() => {
