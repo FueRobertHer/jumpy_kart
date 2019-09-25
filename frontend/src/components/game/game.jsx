@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 // import pipeSprite from '../../assets/images/pipes_sprite.png';
 import { Pipe } from '../../classes/pipe';
 import openSocket from 'socket.io-client';
-// import Game from '../../../../src/classes/game';
+import Game from '../../classes/game';
 import * as DrawUtil from './drawUtil';
 
 let SERVER = openSocket("http://localhost:5000");
@@ -27,6 +27,7 @@ class Canvas extends React.Component {
 
     this.drawObjects = this.drawObjects.bind(this);
     this.openSocket = this.openSocket.bind(this);
+    this.pipes = [];
     this.socket = null;
   }
 
@@ -40,10 +41,12 @@ class Canvas extends React.Component {
   }
 
   componentDidMount() {
+    const gameClass = new Game();
+    gameClass.loadGame()
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
     this.drawBackground(ctx);
-    this.drawObjects(ctx);
+    this.drawObjects(ctx, gameClass.pipes);
     // simulating pulling value from backend to set y-coordinate of pipe
     this.openSocket();
   }
@@ -56,9 +59,9 @@ class Canvas extends React.Component {
     ctx.fillRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
   }
 
-  drawObjects(ctx) {
+  drawObjects(ctx, pipes) {
     DrawUtil._drawKart(ctx)
-    DrawUtil._drawPipes(ctx)
+    DrawUtil._drawPipes(ctx, pipes)
   }
 
   render() {
@@ -68,7 +71,7 @@ class Canvas extends React.Component {
 
     return (
       <div className='canvas-container'>
-        <canvas ref="canvas" width="2000" height="500"/>
+        <canvas ref="canvas" width="10000" height="500"/>
         <p>{this.state.time}</p>
       </div>
     )

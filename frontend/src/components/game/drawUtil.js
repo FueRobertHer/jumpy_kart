@@ -5,7 +5,7 @@ import yoshiSprite from '../../assets/images/yoshi_sprite.png';
 import pipeSprite from '../../assets/images/pipes_sprite.png';
 
 export const _drawKart = (ctx, player) => {
-  
+
   let mario = new Image();
   mario.src = marioSprite;
   mario.onload = () => {
@@ -49,10 +49,18 @@ export const _drawKart = (ctx, player) => {
   // ctx.restore();
 }
 
-export const _drawPipes = (ctx) => {
-  let pipe = new Image();
-  pipe.src = pipeSprite;
-  pipe.onload = () => {
-    ctx.drawImage(pipe, 300, 150);
-  }
+export const _drawPipes = (ctx, pipes) => {
+  pipes.forEach(pipe => {
+    let randomPipe = new Image();
+    randomPipe.src = pipeSprite;
+    randomPipe.onload = () => {
+      ctx.drawImage(randomPipe, pipe.location, pipe.height);
+    }
+  });
+
+  // let pipe = new Image();
+  // pipe.src = pipeSprite;
+  // pipe.onload = () => {
+  //   ctx.drawImage(pipe, 300, 150);
+  // }
 }
