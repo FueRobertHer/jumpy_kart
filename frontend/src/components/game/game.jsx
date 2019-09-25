@@ -31,8 +31,6 @@ class Canvas extends React.Component {
     this.openSocket = this.openSocket.bind(this);
     this.pipes = [];
     this.socket = null;
-    this.pipes = [];
-
   }
 
   openSocket() {
@@ -57,6 +55,7 @@ class Canvas extends React.Component {
   }
 
   componentDidMount() {
+    this.openSocket();
     const gameClass = new Game();
     gameClass.loadGame()
     const canvas = this.refs.canvas;
@@ -64,7 +63,6 @@ class Canvas extends React.Component {
     this.drawBackground(ctx);
     this.drawObjects(ctx, gameClass.pipes);
     // simulating pulling value from backend to set y-coordinate of pipe
-    this.openSocket();
   }
 
   componentWillUnmount() {

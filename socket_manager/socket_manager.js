@@ -17,7 +17,7 @@ const time = 60;
 export const socketManager = (socket) => {
   // socket.on('addPlayer')
   //need to emit addPlayer from player component
-  console.log("a user connecte");
+  console.log("a user connected");
   //test case - on connection, render game
   const gameClass = new Game();
 
