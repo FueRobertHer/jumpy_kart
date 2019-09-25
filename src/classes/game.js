@@ -40,7 +40,7 @@ class Game {
   emitUpdateGame(socket) {
     socket.emit("placePipes", {
       pipes: this.pipes.map(pipe => ({
-        location: pipe.location,
+        location: pipe.pos,
         width: pipe.width,
         height: pipe.height
       }))
@@ -49,7 +49,6 @@ class Game {
     socket.emit("updateGameState", ({
       hostId: this.hostId,
       gameId: this.gameId,
-      pipes: this.pipes
     }));
     
   }
