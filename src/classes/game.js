@@ -1,9 +1,9 @@
+import Pipe from './pipe';
+import Player from './player';
+
 // import Pipe from './pipe';
-
-
 const BoardSize = ["500", "1500"];
 const FPS = 60;
-
 
 
 class Game {
@@ -11,11 +11,13 @@ class Game {
     this.hostId = hostId;
     this.gameId = gameId;
     this.pipes = [];
+    this.players = [];
   }
 
-  async loadGame(){
-    this.placePipes();
-    this._emitUpdateGame();
+
+  async loadGame(socket){
+    this.placePipes(socket);
+    this._emitUpdateGame(socket);
   }
 
   placePipes(){
@@ -24,18 +26,19 @@ class Game {
     //place a pipe per 250px width
     //
 
-    for ( let i = 0; i < 8; i++){
-      let randomLoc = Math.random() * ( 250*(i+1) - 250*i ) + 250*i;
-      let randomHeight = Math.random() * (300 - 50 ) + 150;
-      this.pipes.push(
-        { location: randomLoc,
-          width: 70,
-          height: randomHeight });
-    }
-
+    for ( let i = 0; i < 4; i++){
+      let randomPos = Math.random() * ( 250*(i+1) - 250*i ) + 250*i;
+      let randomHeight = Math.random() * (500 - 50 ) + 50;
+      this.pipes.push(new Pipe(randomPos, 70, randomHeight));
+    }   
   } 
 
-  _emitUpdateGame() {
+  playerPipeCollide(){
+    
+  }
+  
+
+  _emitUpdateGame(socket) {
     socket.emit("placePipes", {
       pipes: this.pipes.map(pipe => ({
         location: pipe.location,
@@ -49,6 +52,7 @@ class Game {
       gameId: this.gameId,
       pipes: this.pipes
     }));
+    
   }
 
   
