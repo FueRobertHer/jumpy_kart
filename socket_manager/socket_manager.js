@@ -12,29 +12,26 @@ export const gameState = {
   rooms: {}
 };
 
-const time = 60;
-
 export const socketManager = (socket) => {
-  // socket.on('addPlayer')
-  //need to emit addPlayer from player component
-  console.log("a user connected");
+  
+  console.log('a user connected');
   //test case - on connection, render game
-  socket.on("newGame", () => {
-    const gameClass = new Game();
+  const game = new Game();
 
-    socket.emit("newGameStance", gameClass)
+  socket.on('loadGame', () => {
+    console.log('loading game')
+    game.loadGame(socket);
   });
 
-  // const gameClass = new Game();
+  console.log(game);
 
-
-  socket.on("subscribeToTimer", (interval) => {
+  socket.on('subscribeToTimer', (interval) => {
     setInterval(() => {
       socket.emit('timer', new Date());
     }, interval);
   });
 
-  socket.on("disconnect", () => {
+  socket.on('disconnect', () => {
     console.log('user disconnected');
   });
 };

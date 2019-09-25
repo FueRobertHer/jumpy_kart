@@ -1,9 +1,6 @@
 // import Pipe from './pipe';
-
-
 const BoardSize = ["500", "1500"];
 const FPS = 60;
-
 
 
 class Game {
@@ -13,9 +10,10 @@ class Game {
     this.pipes = [];
   }
 
-  async loadGame(){
-    this.placePipes();
-    this._emitUpdateGame();
+
+  async loadGame(socket){
+    this.placePipes(socket);
+    this._emitUpdateGame(socket);
   }
 
   placePipes(){
@@ -35,7 +33,7 @@ class Game {
 
   } 
 
-  _emitUpdateGame() {
+  _emitUpdateGame(socket) {
     socket.emit("placePipes", {
       pipes: this.pipes.map(pipe => ({
         location: pipe.location,
@@ -49,6 +47,7 @@ class Game {
       gameId: this.gameId,
       pipes: this.pipes
     }));
+    
   }
 
   
