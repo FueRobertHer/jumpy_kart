@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Pipe } from '../../classes/pipe';
 import io from 'socket.io-client';
-import Game from '../../classes/game';
+// import Game from '../../classes/game';
 import Player from '../../classes/player';
 import * as DrawUtil from './drawUtil';
 
@@ -32,7 +32,8 @@ class Canvas extends React.Component {
     this.loadGame = this.loadGame.bind(this);
     this.socket = null;
     this.pipes = [];
-
+    this.players = ['5d8b9788267f8251c5872003', '5d8b978xxxxxxxxxxxxxxx03'];
+    this.characters = ['mario', 'peach', 'toad', 'yoshi']
   }
 
   openSocket() {
@@ -73,15 +74,13 @@ class Canvas extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props);
     this.openSocket();
     this.loadGame();
-    // this.openSocket();
-    const gameClass = new Game();
-    gameClass.loadGame()
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
     this.drawBackground(ctx);
-    this.drawObjects(ctx, gameClass.pipes);
+    this.drawObjects(ctx, this.pipes);
     // simulating pulling value from backend to set y-coordinate of pipe
   }
 
@@ -94,7 +93,24 @@ class Canvas extends React.Component {
   }
 
   drawObjects(ctx, pipes) {
-    DrawUtil._drawKart(ctx)
+    const that = this;
+
+    let remainingChars = [];
+
+    for (let i = 0; i < this.players.length; i++) {
+      remainingChars.push(i)
+    }
+
+    for (let i = 0; i < this.players.length; i++) {
+      const playerId = this.players[i];
+
+      if (playerId !== this.props.currentUserId) {
+        DrawUtil._drawKart.apply(that, [ctx, this.characters[i]]);
+        remainingChars.splice(i, 1);
+      }
+    }
+
+    DrawUtil._drawKart(ctx, this.characters[remainingChars[0]]);
     DrawUtil._drawPipes(ctx, pipes)
   }
 
@@ -104,13 +120,8 @@ class Canvas extends React.Component {
     }
     
     return (
-<<<<<<< HEAD
-      <div>
-        <canvas ref="canvas" width="2200" height="500"/>
-=======
       <div className='canvas-container'>
         <canvas ref="canvas" width="10000" height="500"/>
->>>>>>> 9f84b02199997276442b1bf062149576f6f93b8d
         <p>{this.state.time}</p>
       </div>
     )
