@@ -29,20 +29,20 @@ class Player {
     // add velocity to pos every frame
     // this.props.pos[0] + this.horiSpeed;
     // this.props.pos[1] + this.verSpeed;
-
-
   }
 
-  pipeCollide(pipe){
-  
-    //set horizontal verlocity to zero when the radius is less than
-    // the object radius plus some buffer
+  pipeCollide(pipe){  
+    //set horizontal verlocity to zero when the obj corners overlap
     // the game class will call this function for each player and each pipe
     // each pipe instance has corners method.
-
-    this.horiSpeed = 0;
-
-
+    let x = this.pos[0];
+    let y = this.pos[1];
+    let pipeX = pipe.pos[0];
+    let pipeY = pipe.pos[1];
+    
+    if ( x > pipeX && x < pipeX+pipe.width && y > pipeY && y < pipeY+pipe.height){
+      this.horiSpeed = 0;
+    }
     // call the function that will reset the horispeed
   }
 

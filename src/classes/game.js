@@ -11,7 +11,8 @@ class Game {
     this.hostId = hostId;
     this.gameId = gameId;
     this.pipes = [];
-    this.players = [];
+    this.players = {};
+    this.playerSockets = {};
   }
 
 
@@ -19,6 +20,19 @@ class Game {
     this.placePipes(socket);
     this._emitUpdateGame(socket);
   }
+
+  addPlayer(playerId, socket, gameId){
+    let startPos = [100,100];
+    let player = new Player(
+      startPos,
+      playerId
+    )
+    //fill out player info for game
+    this.players[playerId] = player;
+    this.playerSockets[playerId] = socket;
+  }
+
+
 
   placePipes(){
     //place a random pipe somewhere on the board: worked
@@ -29,13 +43,19 @@ class Game {
     for ( let i = 0; i < 4; i++){
       let randomPos = Math.random() * ( 250*(i+1) - 250*i ) + 250*i;
       let randomHeight = Math.random() * (500 - 50 ) + 50;
-      this.pipes.push(Pipe.new(randomPos, 70, randomHeight));
+      this.pipes.push(new Pipe(randomPos, 70, randomHeight));
     }   
 
   } 
 
   playerPipeCollide(){
-    
+    //passes in players and pipes;
+    //let player auto update their own stats.
+    for (let i = 0; i < this.players.length; i++){
+      for (let j = 0; j < this.pipes.length; j++){
+        this.players[i].pipeCollide(this.pipes[j])
+      }
+    }
   }
   
 
@@ -61,3 +81,7 @@ class Game {
 }
 
 export default Game;
+
+//game should loop will call move, collision, fucntion each loop
+//game class will call the loop. 
+// game's move call will run move functions for all the players

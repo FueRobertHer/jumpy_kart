@@ -104,13 +104,8 @@ class Canvas extends React.Component {
     }
     
     return (
-<<<<<<< HEAD
-      <div>
-        <canvas ref="canvas" width="2200" height="500"/>
-=======
       <div className='canvas-container'>
         <canvas ref="canvas" width="10000" height="500"/>
->>>>>>> 9f84b02199997276442b1bf062149576f6f93b8d
         <p>{this.state.time}</p>
       </div>
     )
