@@ -19,7 +19,7 @@ export const socketManager = (socket) => {
   const game = new Game();
 
   socket.on('loadGame', () => {
-    console.log('loading game')
+    console.log('loading game');
     game.loadGame(socket);
   });
 

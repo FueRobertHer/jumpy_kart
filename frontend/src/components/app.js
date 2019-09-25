@@ -10,7 +10,7 @@ import '../assets/stylesheets/game.css';
 
 import NavBarContainer from './nav/navbar_container';
 import MainPage from './main/main_page';
-import Canvas from './game/game';
+import GameContainer from './game/game_container';
 import LoginFormContainer from './session/login_form_container';
 import SignupFormContainer from './session/signup_form_container';
 
@@ -28,7 +28,7 @@ class App extends React.Component {
         <div className="parent">
           <Switch>
             <AuthRoute exact path="/" component={MainPage} />
-            <ProtectedRoute exact path="/game" component={Canvas} />
+            <ProtectedRoute exact path="/game" component={GameContainer} />
             <AuthRoute exact path="/login" component={LoginFormContainer} />
             <AuthRoute exact path="/signup" component={SignupFormContainer} />
           </Switch>

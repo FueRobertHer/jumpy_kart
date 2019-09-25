@@ -18,7 +18,7 @@ class Game {
 
   async loadGame(socket){
     this.placePipes(socket);
-    this._emitUpdateGame(socket);
+    this.emitUpdateGame(socket);
   }
 
   addPlayer(playerId, socket, gameId){
@@ -40,12 +40,11 @@ class Game {
     //place a pipe per 250px width
     //
 
-    for ( let i = 0; i < 4; i++){
-      let randomPos = Math.random() * ( 250*(i+1) - 250*i ) + 250*i;
-      let randomHeight = Math.random() * (500 - 50 ) + 50;
+    for ( let i = 0; i < 16; i++){
+      let randomPos = Math.random() * (250 * (i + 1) - 250 * i) + 700 * i + 1000;
+      let randomHeight = Math.random() * (300 - 50) + 175;
       this.pipes.push(new Pipe(randomPos, 70, randomHeight));
     }   
-
   } 
 
   playerPipeCollide(){
@@ -59,10 +58,10 @@ class Game {
   }
   
 
-  _emitUpdateGame(socket) {
+  emitUpdateGame(socket) {
     socket.emit("placePipes", {
       pipes: this.pipes.map(pipe => ({
-        location: pipe.location,
+        location: pipe.pos,
         width: pipe.width,
         height: pipe.height
       }))
@@ -71,7 +70,6 @@ class Game {
     socket.emit("updateGameState", ({
       hostId: this.hostId,
       gameId: this.gameId,
-      pipes: this.pipes
     }));
     
   }
