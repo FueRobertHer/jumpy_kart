@@ -19,7 +19,10 @@ export const socketManager = (socket) => {
   //need to emit addPlayer from player component
   console.log("a user connected");
   //test case - on connection, render game
-  const gameClass = new Game();
+  socket.on("newGame", () => {
+    const gameClass = new Game();
+  });
+  // const gameClass = new Game();
 
 
   socket.on("subscribeToTimer", (interval) => {

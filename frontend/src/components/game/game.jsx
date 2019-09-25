@@ -29,13 +29,16 @@ class Canvas extends React.Component {
 
     this.drawObjects = this.drawObjects.bind(this);
     this.openSocket = this.openSocket.bind(this);
-    this.pipes = [];
+    this.newGame = this.newGame.bind(this);
     this.socket = null;
+    this.pipes = [];
   }
 
   openSocket() {
     this.socket = SERVER;
     let socket = this.socket;
+    socket.on('connection', () => {});
+    
     socket.on('timer', (timestamp) => this.setState({
       time: timestamp
     }));
@@ -54,8 +57,15 @@ class Canvas extends React.Component {
     });
   }
 
+  newGame() {
+    this.socket = SERVER;
+    let socket = this.socket
+    socket.emit("newGame", () => {});
+  }
+
   componentDidMount() {
     this.openSocket();
+    this.newGame();
     const gameClass = new Game();
     gameClass.loadGame()
     const canvas = this.refs.canvas;
