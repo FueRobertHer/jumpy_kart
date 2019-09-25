@@ -6,54 +6,29 @@ import pipeSprite from '../../assets/images/pipes_sprite.png';
 
 export const _drawKart = (ctx, player) => {
 
-  // if (player.color === "RED") {
-  //   if (player.invuln > 0) {
-  //     img.src = redGod;
-  //   } else {
-  //     img.src = redShip;
-  //   }
-  // } else if (player.color === "BLUE") {
-  //   if (player.invuln > 0) {
-  //     img.src = blueGod;
-  //   } else {
-  //     img.src = blueShip;
-  //   }
-  // } else if (player.color === "GREEN") {
-  //   if (player.invuln > 0) {
-  //     img.src = greenGod;
-  //   } else {
-  //     img.src = greenShip;
-  //   }
-  // } else if (player.color === "YELLOW") {
-  //   if (player.invuln > 0) {
-  //     img.src = yellowGod;
-  //   } else {
-  //     img.src = yellowShip;
-  //   }
-  // }
-
   let mario = new Image();
   mario.src = marioSprite;
   mario.onload = () => {
-    ctx.drawImage(mario, 100, 100);
+    ctx.drawImage(mario, 100, 100); // max y-coord will be
+                                    // height of canvas element
   }
 
   let peach = new Image();
   peach.src = peachSprite;
   peach.onload = () => {
-    ctx.drawImage(peach, 200, 100);
+    ctx.drawImage(peach, 100, 100);
   }
 
   let toad = new Image();
   toad.src = toadSprite;
   toad.onload = () => {
-    ctx.drawImage(toad, 100, 200);
+    ctx.drawImage(toad, 100, 100);
   }
 
   let yoshi = new Image();
   yoshi.src = yoshiSprite;
   yoshi.onload = () => {
-    ctx.drawImage(yoshi, 200, 200);
+    ctx.drawImage(yoshi, 100, 100);
   }
 
 
@@ -75,10 +50,18 @@ export const _drawKart = (ctx, player) => {
   // ctx.restore();
 }
 
-export const _drawPipes = (ctx) => {
-  let pipe = new Image();
-  pipe.src = pipeSprite;
-  pipe.onload = () => {
-    ctx.drawImage(pipe, 300, 150);
-  }
+export const _drawPipes = (ctx, pipes) => {
+  pipes.forEach(pipe => {
+    let randomPipe = new Image();
+    randomPipe.src = pipeSprite;
+    randomPipe.onload = () => {
+      ctx.drawImage(randomPipe, pipe.location, pipe.height);
+    }
+  });
+
+  // let pipe = new Image();
+  // pipe.src = pipeSprite;
+  // pipe.onload = () => {
+  //   ctx.drawImage(pipe, 300, 150);
+  // }
 }

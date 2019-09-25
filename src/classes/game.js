@@ -1,9 +1,9 @@
 import Pipe from './pipe';
 import Player from './player';
 
+// import Pipe from './pipe';
 const BoardSize = ["500", "1500"];
 const FPS = 60;
-
 
 
 class Game {
@@ -14,8 +14,10 @@ class Game {
     this.players = [];
   }
 
-  async loadGame(){
-    this.placePipes();
+
+  async loadGame(socket){
+    this.placePipes(socket);
+    this._emitUpdateGame(socket);
   }
 
   placePipes(){
@@ -36,6 +38,24 @@ class Game {
     
   }
   
+
+  _emitUpdateGame(socket) {
+    socket.emit("placePipes", {
+      pipes: this.pipes.map(pipe => ({
+        location: pipe.location,
+        width: pipe.width,
+        height: pipe.height
+      }))
+    });
+
+    socket.emit("updateGameState", ({
+      hostId: this.hostId,
+      gameId: this.gameId,
+      pipes: this.pipes
+    }));
+    
+  }
+
   
 
 }

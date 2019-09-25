@@ -6,6 +6,7 @@ import '../assets/stylesheets/reset.css';
 import '../assets/stylesheets/navbar_footer.css';
 import '../assets/stylesheets/signup_login_form.css';
 import '../assets/stylesheets/app.css';
+import '../assets/stylesheets/game.css';
 
 import NavBarContainer from './nav/navbar_container';
 import MainPage from './main/main_page';
@@ -33,6 +34,9 @@ class App extends React.Component {
           </Switch>
         </div>
 
+        <footer className="footer">
+          Copyright &copy; 2019 Jumpy Kart
+        </footer>
       </div>
     )
   }
