@@ -11,6 +11,13 @@
 }
 
 .footer {
+  left: 10vw;
   position: absolute;
   bottom: 0;
+  font-size: 8px;
+  margin: 5px 0;
+}
+
+.active {
+  display: hidden;
 }
