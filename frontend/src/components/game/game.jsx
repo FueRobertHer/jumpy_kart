@@ -64,7 +64,7 @@ class Canvas extends React.Component {
 
     return (
       <div>
-        <canvas ref="canvas" width="900" height="500"/>
+        <canvas ref="canvas" width="2200" height="500"/>
         <p>{this.state.time}</p>
       </div>
     )
