@@ -49,10 +49,11 @@ class Canvas extends React.Component {
 
     socket.on('updateGameState', data => {
       console.log("updating game state");
+      this.pipes = data.pipes;
       this.setState({
         hostId: data.hostId,
         gameId: data.gameId,
-        pipes: data.pipes
+        // pipes: data.pipes
       });
     });
 
