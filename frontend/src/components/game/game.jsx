@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Pipe } from '../../classes/pipe';
 import io from 'socket.io-client';
-// import Game from '../../classes/game';
 import Player from '../../classes/player';
 import * as DrawUtil from './drawUtil';
 
@@ -30,7 +28,8 @@ class Canvas extends React.Component {
     this.loadGame = this.loadGame.bind(this);
     this.socket = null;
     this.pipes = [];
-    this.players = [];
+    this.players = ['5d8b9788267f8251c5872003', '5d8b978xxxxxxxxxxxxxxx03'];
+    this.characters = ['mario', 'peach', 'toad', 'yoshi']
   }
 
   openSocket() {
@@ -48,15 +47,14 @@ class Canvas extends React.Component {
     });
 
     socket.on('updateGameState', data => {
-      console.log("updating game state");
       this.pipes = data.pipes;
+      console.log("updating game state")
       this.setState({
         hostId: data.hostId,
         gameId: data.gameId,
         // pipes: data.pipes
       });
     });
-
   }
 
   loadGame() {
@@ -66,14 +64,14 @@ class Canvas extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props);
+    console.log(this.state);
     this.openSocket();
     this.loadGame();
-
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
     this.drawBackground(ctx);
-
-    // simulating pulling value from backend to set y-coordinate of pipe
+    this.drawObjects(ctx);
   }
 
   componentWillUnmount() {
@@ -84,9 +82,27 @@ class Canvas extends React.Component {
     ctx.fillRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
   }
 
-  drawObjects(ctx, pipes) {
-    DrawUtil._drawKart(ctx)
-    DrawUtil._drawPipes(ctx, pipes)
+  drawObjects(ctx) {
+    const that = this;
+
+    let remainingChars = [];
+
+    for (let i = 0; i < this.players.length; i++) {
+      remainingChars.push(i)
+    }
+
+    for (let i = 0; i < this.players.length; i++) {
+      const playerId = this.players[i];
+
+      if (playerId !== this.props.currentUserId) {
+        DrawUtil._drawKart.apply(that, [ctx, this.characters[i]]);
+        remainingChars.splice(i, 1);
+      }
+    }
+
+    DrawUtil._drawKart(ctx, this.characters[remainingChars[0]]);
+    console.log(this.pipes);
+    // DrawUtil._drawPipes(ctx, this.state.pipes)
   }
 
   render() {

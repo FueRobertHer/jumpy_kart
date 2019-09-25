@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import Game from './game';
 
 const mapStateToProps = state => ({
-  loggedIn: state.session.isAuthenticated
+  currentUserId: state.session.user.id
 });
 
-export default connect(mapStateToProps)(NavBar);
+const mapDispatchToProps = dispatch => ({
+
+})
+
+export default connect(mapStateToProps)(Game);

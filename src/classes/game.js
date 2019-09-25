@@ -30,7 +30,6 @@ class Game {
       let randomHeight = Math.random() * (500 - 50 ) + 50;
       this.pipes.push(new Pipe(randomPos, 70, randomHeight));
     }   
-
   } 
 
   playerPipeCollide(){
