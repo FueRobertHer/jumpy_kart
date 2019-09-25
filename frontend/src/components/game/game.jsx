@@ -17,12 +17,12 @@ class Canvas extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      time: "no timestamp yet",
+      // time: "no timestamp yet",
       players: {},
-      // races left
-      // gameStarted (from StarfighterPVP)
       hostId: 0,
-      gameId: 0
+      gameId: 0,
+      loaded: false,
+      pipes: []
     };
 
     this.drawObjects = this.drawObjects.bind(this);
@@ -38,31 +38,31 @@ class Canvas extends React.Component {
     this.socket = SERVER;
     let socket = this.socket;
     
-    socket.on('timer', (timestamp) => this.setState({
-      time: timestamp
-    }));
+    // socket.on('timer', (timestamp) => this.setState({
+    //   time: timestamp
+    // }));
     socket.emit('subscribeToTimer', 1000/60);
 
     socket.on('placePipes', data => {
-      this.pipes = data.pipes
+      console.log('placing pipes');
+      console.log(data.pipes)
+      this.setState({
+        loaded: true,
+        pipes: data.pipes
+      });
+      // this.pipes = data.pipes
+      console.log(this.state.pipes)
     });
 
     socket.on('updateGameState', data => {
-      this.pipes = data.pipes;
       console.log("updating game state")
       this.setState({
         hostId: data.hostId,
         gameId: data.gameId,
-        // pipes: data.pipes
       });
-      setTimeout(() => {
-        console.log(this.state);
-      }, 1000)
     });
-    
-    socket.on('newGameStance', (gameClass) => {
-      console.log(gameClass);
-    });
+
+
   }
 
   loadGame() {
@@ -72,14 +72,21 @@ class Canvas extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
-    console.log(this.state);
     this.openSocket();
     this.loadGame();
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
     this.drawBackground(ctx);
     this.drawObjects(ctx);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.loaded !== this.state.loaded) {
+      const canvas = this.refs.canvas;
+      const ctx = canvas.getContext('2d');
+      this.drawBackground(ctx);
+      this.drawObjects(ctx);
+    }
   }
 
   componentWillUnmount() {
@@ -109,15 +116,14 @@ class Canvas extends React.Component {
     }
 
     DrawUtil._drawKart(ctx, this.characters[remainingChars[0]]);
-    console.log(this.pipes);
-    // DrawUtil._drawPipes(ctx, this.state.pipes)
+    if (this.state.loaded) DrawUtil._drawPipes(ctx, this.state.pipes);
   }
 
   render() {
     if (!this.props) {
       return null;
     }
-    
+
     return (
       <div className='canvas-container'>
         <canvas ref="canvas" width="10000" height="500"/>

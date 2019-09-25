@@ -11,13 +11,12 @@ class Game {
     this.hostId = hostId;
     this.gameId = gameId;
     this.pipes = [];
-    this.players = [];
   }
 
 
   async loadGame(socket){
     this.placePipes(socket);
-    this._emitUpdateGame(socket);
+    this.emitUpdateGame(socket);
   }
 
   placePipes(){
@@ -38,10 +37,10 @@ class Game {
   }
   
 
-  _emitUpdateGame(socket) {
+  emitUpdateGame(socket) {
     socket.emit("placePipes", {
       pipes: this.pipes.map(pipe => ({
-        location: pipe.location,
+        location: pipe.pos,
         width: pipe.width,
         height: pipe.height
       }))
@@ -50,7 +49,6 @@ class Game {
     socket.emit("updateGameState", ({
       hostId: this.hostId,
       gameId: this.gameId,
-      pipes: this.pipes
     }));
     
   }
