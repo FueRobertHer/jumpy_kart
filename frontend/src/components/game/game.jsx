@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Pipe } from '../../classes/pipe';
-import openSocket from 'socket.io-client';
+import io from 'socket.io-client';
 import Game from '../../classes/game';
 import Player from '../../classes/player';
 import * as DrawUtil from './drawUtil';
 
-let SERVER = openSocket("http://localhost:5000");
+let SERVER = io("http://localhost:5000", { transports: ['websocket'] });
+
 
 if (process.env.NODE_ENV === "production") {
   console.log(`process.env: ${process.env}`);
@@ -28,47 +29,53 @@ class Canvas extends React.Component {
 
     this.drawObjects = this.drawObjects.bind(this);
     this.openSocket = this.openSocket.bind(this);
-    this.newGame = this.newGame.bind(this);
+    this.loadGame = this.loadGame.bind(this);
     this.socket = null;
     this.pipes = [];
+
   }
 
   openSocket() {
     this.socket = SERVER;
     let socket = this.socket;
-    // socket.on('connection', () => {});
     
     socket.on('timer', (timestamp) => this.setState({
       time: timestamp
     }));
     socket.emit('subscribeToTimer', 1000/60);
 
-    socket.on("placePipes", data => {
+    socket.on('placePipes', data => {
       this.pipes = data.pipes
     });
 
     socket.on('updateGameState', data => {
+      console.log("updating game state")
       this.setState({
         hostId: data.hostId,
         gameId: data.gameId,
         pipes: data.pipes
       });
+      setTimeout(() => {
+        console.log(this.state);
+      }, 1000)
     });
     
     socket.on('newGameStance', (gameClass) => {
       console.log(gameClass);
     });
+  
   }
 
-  newGame() {
+  loadGame() {
     this.socket = SERVER;
-    let socket = this.socket
-    socket.emit("newGame", () => {});
+    let socket = this.socket;
+    socket.emit('loadGame');
   }
 
   componentDidMount() {
     this.openSocket();
-    this.newGame();
+    this.loadGame();
+    // this.openSocket();
     const gameClass = new Game();
     gameClass.loadGame()
     const canvas = this.refs.canvas;
@@ -95,7 +102,7 @@ class Canvas extends React.Component {
     if (!this.props) {
       return null;
     }
-
+    
     return (
       <div className='canvas-container'>
         <canvas ref="canvas" width="10000" height="500"/>
