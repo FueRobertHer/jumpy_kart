@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 
 class MainPage extends React.Component {
 
@@ -6,13 +7,12 @@ class MainPage extends React.Component {
     return (
       <div>
         <div className="main">
-          <h1>Jumpy Kart</h1>
+          <Link to="/login" ><h1 className="play">PLAY</h1></Link>
+          {/* <h1>JUMPY KART</h1> */}
           
         </div>
 
-        <footer className="footer">
-          Copyright &copy; 2019 Jumpy Kart
-        </footer>
+        
       </div>
     );
   }

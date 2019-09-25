@@ -34,6 +34,9 @@ class App extends React.Component {
           </Switch>
         </div>
 
+        <footer className="footer">
+          Copyright &copy; 2019 Jumpy Kart
+        </footer>
       </div>
     )
   }
