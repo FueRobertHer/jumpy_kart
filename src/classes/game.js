@@ -26,9 +26,9 @@ class Game {
     //place a pipe per 250px width
     //
 
-    for ( let i = 0; i < 4; i++){
-      let randomPos = Math.random() * ( 250*(i+1) - 250*i ) + 250*i;
-      let randomHeight = Math.random() * (500 - 50 ) + 50;
+    for ( let i = 0; i < 16; i++){
+      let randomPos = Math.random() * (250 * (i + 1) - 250 * i) + 700 * i + 1000;
+      let randomHeight = Math.random() * (300 - 50) + 175;
       this.pipes.push(new Pipe(randomPos, 70, randomHeight));
     }   
   } 
