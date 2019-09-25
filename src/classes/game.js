@@ -11,13 +11,12 @@ class Game {
     this.hostId = hostId;
     this.gameId = gameId;
     this.pipes = [];
-    this.players = [];
   }
 
 
   async loadGame(socket){
     this.placePipes(socket);
-    this._emitUpdateGame(socket);
+    this.emitUpdateGame(socket);
   }
 
   placePipes(){
@@ -29,7 +28,7 @@ class Game {
     for ( let i = 0; i < 4; i++){
       let randomPos = Math.random() * ( 250*(i+1) - 250*i ) + 250*i;
       let randomHeight = Math.random() * (500 - 50 ) + 50;
-      this.pipes.push(Pipe.new(randomPos, 70, randomHeight));
+      this.pipes.push(new Pipe(randomPos, 70, randomHeight));
     }   
 
   } 
@@ -39,7 +38,7 @@ class Game {
   }
   
 
-  _emitUpdateGame(socket) {
+  emitUpdateGame(socket) {
     socket.emit("placePipes", {
       pipes: this.pipes.map(pipe => ({
         location: pipe.location,
