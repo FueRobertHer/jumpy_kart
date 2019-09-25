@@ -37,7 +37,7 @@ class Canvas extends React.Component {
   openSocket() {
     this.socket = SERVER;
     let socket = this.socket;
-    socket.on('connection', () => {});
+    // socket.on('connection', () => {});
     
     socket.on('timer', (timestamp) => this.setState({
       time: timestamp
@@ -55,6 +55,12 @@ class Canvas extends React.Component {
         pipes: data.pipes
       });
     });
+    
+    socket.on('newGameStance', (gameClass) => {
+      console.log(gameClass);
+    });
+
+
   }
 
   newGame() {

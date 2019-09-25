@@ -21,7 +21,10 @@ export const socketManager = (socket) => {
   //test case - on connection, render game
   socket.on("newGame", () => {
     const gameClass = new Game();
+
+    socket.emit("newGameStance", gameClass)
   });
+
   // const gameClass = new Game();
 
 
