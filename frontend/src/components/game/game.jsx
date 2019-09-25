@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import marioSprite from '../../assets/images/mario_sprite.png';
-// import pipeSprite from '../../assets/images/pipes_sprite.png';
 import { Pipe } from '../../classes/pipe';
 import openSocket from 'socket.io-client';
 import Game from '../../classes/game';
