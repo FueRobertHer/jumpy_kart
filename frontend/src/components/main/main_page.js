@@ -12,7 +12,12 @@ class MainPage extends React.Component {
           
         </div>
 
-        
+        <div>
+          <marquee>
+            hi
+            <div className="main-kart"></div>
+          </marquee>
+        </div>
       </div>
     );
   }

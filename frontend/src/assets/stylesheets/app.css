@@ -3,24 +3,26 @@ html {
 }
 
 .parent {
+  height: 70vh;
   width: 80vw;
   margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .main {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 70vw;
+  height: 30vw;
   width: 70vw;
   background: url('../images/main_screen.png');
   background-repeat: no-repeat;
   background-size: auto;
-  background-size: 200% 100%;
-  margin-top: 50px;
+  background-size: 130% 100%;
+  /* margin-top: 50px; */
 }
 
 @keyframes growBorder {
@@ -47,4 +49,14 @@ html {
 
 .play:hover {
   border: 20px solid yellow;
+}
+
+.main-kart {
+  background-color: white;
+  background-image: url('../images/mario_sprite.png');
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  bottom: 20px;
+  z-index: 1;
 }
