@@ -75,7 +75,7 @@ class Canvas extends React.Component {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
     this.drawBackground(ctx);
-    this.drawObjects(ctx);
+    // this.drawObjects(ctx);
   }
 
   componentDidUpdate(prevProps, prevState) {
