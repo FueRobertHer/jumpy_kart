@@ -1,7 +1,50 @@
+html {
+  background-color: black;
+}
+
 .parent {
   width: 80vw;
   margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vw;
+  width: 70vw;
+  background: url('../images/main_screen.png');
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-size: 200% 100%;
+  margin-top: 50px;
+}
+
+@keyframes growBorder {
+  0% {border: 20px solid yellow;}
+  50% {border: 20px solid red;}
+  100% {border: 20px solid yellow}
+}
+
+.play {
+  cursor: pointer;
+  font-size: 80px;
+  padding: 20px;
+  text-decoration: underline;
+  padding-bottom: 30px;
+  border: 0px solid yellow;
+  /* -webkit-transition : border 500ms ease-out; */
+  /* -moz-transition : border 500ms ease-out;
+  -o-transition : border 000ms ease-out; */
+  /* transition : border 500ms ease-out; */
+  animation-name: growBorder;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+.play:hover {
+  border: 20px solid yellow;
 }

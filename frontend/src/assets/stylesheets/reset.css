@@ -22,6 +22,13 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	font-family: 'Press Start 2P', cursive;
+	color: #FFFF00;
+	text-shadow: #FA0000 0px 0px 10px;;
+}
+
+* {
+	font-family: 'Press Start 2P', cursive;
 }
 
 a {
