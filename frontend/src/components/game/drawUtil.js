@@ -33,10 +33,15 @@ export const _drawKart = (ctx, character) => {
 }
 
 export const _drawPipes = (ctx, pipes) => {
+  console.log(ctx);
+  console.log('entering pipes')
   pipes.forEach(pipe => {
     let randomPipe = new Image();
     randomPipe.src = pipeSprite;
     randomPipe.onload = () => {
+      console.log(ctx);
+      console.log(pipe.location);
+      console.log(pipe.height);
       ctx.drawImage(randomPipe, pipe.location, pipe.height);
     }
   });
