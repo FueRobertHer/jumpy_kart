@@ -15,6 +15,7 @@ class Game {
 
   async loadGame(){
     this.placePipes();
+    this._emitUpdateGame();
   }
 
   placePipes(){
@@ -31,7 +32,24 @@ class Game {
           width: 70,
           height: randomHeight });
     }
+
   } 
+
+  _emitUpdateGame() {
+    socket.emit("placePipes", {
+      pipes: this.pipes.map(pipe => ({
+        location: pipe.location,
+        width: pipe.width,
+        height: pipe.height
+      }))
+    });
+
+    socket.emit("updateGameState", ({
+      hostId: this.hostId,
+      gameId: this.gameId,
+      pipes: this.pipes
+    }));
+  }
 
   
 

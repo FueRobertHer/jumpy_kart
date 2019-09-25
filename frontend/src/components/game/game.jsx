@@ -20,15 +20,19 @@ class Canvas extends React.Component {
     super(props);
     this.state = {
       time: "no timestamp yet",
-      players: {}
+      players: {},
       // races left
       // gameStarted (from StarfighterPVP)
+      hostId: 0,
+      gameId: 0
     };
 
     this.drawObjects = this.drawObjects.bind(this);
     this.openSocket = this.openSocket.bind(this);
     this.pipes = [];
     this.socket = null;
+    this.pipes = [];
+
   }
 
   openSocket() {
@@ -38,6 +42,18 @@ class Canvas extends React.Component {
       time: timestamp
     }));
     socket.emit('subscribeToTimer', 1000/60);
+
+    socket.on("placePipes", data => {
+      this.pipes = data.pipes
+    });
+
+    socket.on('updateGameState', data => {
+      this.setState({
+        hostId: data.hostId,
+        gameId: data.gameId,
+        pipes: data.pipes
+      });
+    });
   }
 
   componentDidMount() {
