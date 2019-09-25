@@ -19,5 +19,17 @@
 }
 
 .active {
-  display: hidden;
+  filter: brightness(40%)
+}
+
+.logout-btn {
+  cursor: pointer;
+  color: #FA0000;
+  background-color: #FFFF00;
+	box-shadow: #FA0000 0px 0px 10px;
+  border: outset #FA0000;
+}
+
+.logout-btn:hover {
+  filter: grayscale(70%)
 }

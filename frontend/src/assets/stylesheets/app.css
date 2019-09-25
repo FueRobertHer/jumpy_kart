@@ -3,6 +3,7 @@ html {
 }
 
 .parent {
+  height: 70vh;
   width: 80vw;
   margin: auto;
   display: flex;
@@ -10,23 +11,28 @@ html {
   align-items: center;
 }
 
+.main-container {
+  position: relative;
+}
+
 .main {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 70vw;
+  height: 30vw;
   width: 70vw;
   background: url('../images/main_screen.png');
   background-repeat: no-repeat;
   background-size: auto;
-  background-size: 200% 100%;
-  margin-top: 50px;
+  background-size: 100% 100%;
+  /* margin-top: 50px; */
+
 }
 
 @keyframes growBorder {
-  0% {border: 20px solid yellow;}
-  50% {border: 20px solid red;}
-  100% {border: 20px solid yellow}
+  0% {border: 20px dashed yellow;}
+  50% {border: 20px dashed red;}
+  100% {border: 20px dashed yellow}
 }
 
 .play {
@@ -35,16 +41,34 @@ html {
   padding: 20px;
   text-decoration: underline;
   padding-bottom: 30px;
-  border: 0px solid yellow;
-  /* -webkit-transition : border 500ms ease-out; */
-  /* -moz-transition : border 500ms ease-out;
-  -o-transition : border 000ms ease-out; */
-  /* transition : border 500ms ease-out; */
+  border-style: double;
   animation-name: growBorder;
   animation-duration: 1s;
   animation-iteration-count: infinite;
 }
 
-.play:hover {
-  border: 20px solid yellow;
+@keyframes jump {
+  0% {bottom: 56px;}
+  25% {bottom: 56px;}
+  50% {bottom: 150px;}
+
+  75% {bottom: 56px;}
+  100% {bottom: 56px;}
+}
+
+.marquee {
+  position: absolute;
+  bottom: 56px;
+  animation-name: jump;
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.25,0.1,0.25,1);
+  animation-iteration-count: infinite;
+}
+
+.main-kart {
+  background-image: url('../images/mario_sprite.png');
+  width: 56px;
+  height: 56px;
+  top: 30;
+  z-index: 1;
 }
