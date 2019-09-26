@@ -24,7 +24,7 @@ class CreateRoom extends React.Component{
           pathname: `/game/${roomId}`,
           type: "createRoom",
           userId: this.state.userId,
-          roomId,
+          roomId: roomId,
           isHost: true
         });
       });
@@ -33,13 +33,15 @@ class CreateRoom extends React.Component{
 
   render() {
     return (
-    <div>
-      <form onSubmit={this.handleSubmit()}>
-        <button className="join-button"></button>
-      </form>
-    </div>
+      <div>
+        <form onSubmit={this.handleSubmit()}>
+          <button className="join-button" onClick={() => this.props.openModal("joinRoom")}>
+            Join Room
+          </button>
+        </form>
+      </div>
     )
   }
 }
 
-export default withRouter(CreateRoom);
+export default withRouter(CreateRoom)

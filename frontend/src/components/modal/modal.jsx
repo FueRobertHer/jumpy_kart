@@ -1,7 +1,11 @@
 import React from 'react';
 import { openModal, closeModal } from '../../actions/modal';
 import { connect } from 'react-redux';
+<<<<<<< HEAD
 import joinGameContainer from '../game/lobby_container';
+=======
+import CreateRoomContainer from '../rooms/create_room_container';
+>>>>>>> 3e84e23f49a3968756dea18480e7b331c342adcd
 
 const Modal = ({ modal, closeModal }) => {
   if (!modal) {
@@ -10,9 +14,9 @@ const Modal = ({ modal, closeModal }) => {
 
   let component;
   switch (modal) {
-    case 'joinGame':
-      component = <joinGameContainer />; // make new form components, won't
-      break;                             // this joinGame isn't correct
+    case 'createRoom':
+      component = <CreateRoomContainer />;
+      break;                             
   
     default:
       return null;
@@ -24,7 +28,7 @@ const Modal = ({ modal, closeModal }) => {
         {component}
       </div>
     </div>
-  )
+  );
 }
 
 const mapStateToProps = state => {
