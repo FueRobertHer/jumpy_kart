@@ -1,7 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
+
 
 class JoinGame extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      roomId: props.match.params.gameId || "",
+      userTag: ""
+    };
+
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(e){
+    e.preventDefault();
+    
+
+  }
 
   render() {
     return (
@@ -26,4 +42,4 @@ class JoinGame extends React.Component {
   }
 }
 
-export default JoinGame;
+export default withRouter(JoinGame);

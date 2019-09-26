@@ -80,7 +80,6 @@ class Canvas extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    
     if (prevState.loaded !== this.state.loaded) {
       const canvas = this.refs.canvas;
       const ctx = canvas.getContext('2d');
