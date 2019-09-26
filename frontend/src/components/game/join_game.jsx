@@ -15,10 +15,15 @@ class JoinGame extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    
+
+  }
+
+  componentDidMount(){
+    this.props.fetchCurrentUser(this.props.currentUserId)
   }
 
   render() {
+    if (!this.props) return null;
 
     return (
       <div>

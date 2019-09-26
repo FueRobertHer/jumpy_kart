@@ -1,5 +1,5 @@
 import React from 'react';
-import { openModal, closeModal } from '../../reducers/modal_reducer';
+import { openModal, closeModal } from '../../actions/modal';
 import { connect } from 'react-redux';
 import joinGameContainer from '../game/join_game_container';
 
@@ -11,9 +11,9 @@ const Modal = ({ modal, closeModal }) => {
   let component;
   switch (modal) {
     case 'joinGame':
-      component = <joinGameContainer />;
-      break;
-
+      component = <joinGameContainer />; // make new form components, won't
+      break;                             // this joinGame isn't correct
+  
     default:
       return null;
   }
