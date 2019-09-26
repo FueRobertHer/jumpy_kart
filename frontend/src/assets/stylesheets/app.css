@@ -35,6 +35,15 @@ html {
   100% {border: 20px dashed yellow}
 }
 
+.play-link-container {
+  height: fit-content;
+  width: fit-content;
+}
+
+.play-container, .play-link, .play-link-container {
+  cursor: pointer;
+}
+
 .play {
   cursor: pointer;
   font-size: 80px;
@@ -63,6 +72,7 @@ html {
   animation-duration: 1s;
   animation-timing-function: cubic-bezier(0.25,0.1,0.25,1);
   animation-iteration-count: infinite;
+  pointer-events: none;
 }
 
 .main-kart {

@@ -7,9 +7,13 @@ class MainPage extends React.Component {
     return (
       <div className="main-container">
         <div className="main">
-          <Link to="/login" ><h1 className="play">PLAY</h1></Link>
-          {/* <h1>JUMPY KART</h1> */}
-          
+          <div className='play-link-container'>
+            <Link className='play-link' to="/login" >
+              <div className='play-container'>
+                <h1 className="play">PLAY</h1>
+              </div>
+            </Link>
+          </div>
         </div>
 
         <div>
