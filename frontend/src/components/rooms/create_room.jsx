@@ -17,14 +17,14 @@ class CreateRoom extends React.Component{
   handleSubmit(e) {
     e.preventDefault();
     let roomId;
-    if (this.state.username)
+    if (this.state.username) {
       createRoom().then(res => {
         roomId = res.data.roomId
         this.props.history.push({
           pathname: `/game/${roomId}`,
           type: "createRoom",
           userId: this.state.userId,
-          roomId,
+          roomId: roomId,
           isHost: true
         });
       });
@@ -33,22 +33,16 @@ class CreateRoom extends React.Component{
 
 
   render() {
-    <div>
-      <form onSubmit={this.handleSubmit()}>
-        <button className="join-button">
-
-        </button>
-      </form>
-    </div>
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit()}>
+          <button className="join-button" onClick={() => this.props.openModal("joinRoom")}>
+            Join Room
+          </button>
+        </form>
+      </div>
+    )
   }
-
-
-
-
-
-
-
-
-
-
 }
+
+export default withRouter(CreateRoom)

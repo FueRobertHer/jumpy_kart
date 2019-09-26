@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import Modal from '../modal/modal';
 
 
-class JoinGame extends React.Component {
+class Lobby extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,4 +48,4 @@ class JoinGame extends React.Component {
   }
 }
 
-export default withRouter(JoinGame);
+export default withRouter(Lobby);
