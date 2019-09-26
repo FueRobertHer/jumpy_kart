@@ -1,5 +1,4 @@
 import { io } from '../app';
-import Canvas from '../src/classes/game';
 import Game from '../src/classes/game';
 
 

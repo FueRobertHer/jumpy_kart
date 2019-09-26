@@ -31,7 +31,8 @@ class Canvas extends React.Component {
     this.socket = null;
     this.pipes = [];
     this.players = ['5d8b9788267f8251c5872003', '5d8b978xxxxxxxxxxxxxxx03'];
-    this.characters = ['mario', 'peach', 'toad', 'yoshi']
+    this.characters = ['mario', 'peach', 'toad', 'yoshi'];
+    this.roomId = props.match.params.testRoom;
   }
 
   openSocket() {
@@ -75,7 +76,7 @@ class Canvas extends React.Component {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
     this.drawBackground(ctx);
-    this.drawObjects(ctx);
+    // this.drawObjects(ctx);
   }
 
   componentDidUpdate(prevProps, prevState) {
