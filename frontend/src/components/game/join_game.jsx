@@ -18,13 +18,8 @@ class JoinGame extends React.Component {
 
   }
 
-  componentDidMount(){
-    this.props.fetchCurrentUser(this.props.currentUserId)
-  }
-
   render() {
     if (!this.props) return null;
-
     return (
       <div>
         {this.props.modal ? (

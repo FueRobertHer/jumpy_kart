@@ -10,31 +10,33 @@ class CreateRoom extends React.Component{
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.updateUsername = this.updateUsername.bind(this);
+    // this.updateUsername = this.updateUsername.bind(this);
   }
 
   handleSubmit(e) {
-    e.preventDefault();
-    let roomId;
+    // e.preventDefault();
+    // let roomId;
+    // if (this.state.username) {
 
+    // }
   }
 
-  updateUsername(e) {
-    this.setState({
-      username: e.currentTarget.value
-    });
-  }
+  // updateUsername(e) {
+  //   this.setState({
+  //     username: e.currentTarget.value
+  //   });
+  // }
 
 
   render() {
     <div>
       <form onSubmit={this.handleSubmit()}>
-        <input
+        {/* <input
           type="text"
           value={this.state.username}
           placeholder="Please enter your username"
           onChange={this.updateUsername()}
-        />
+        /> */}
         <button className="join-button">
 
         </button>
