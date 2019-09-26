@@ -8,7 +8,7 @@ import JoinGame from './join_game';
 
 const mapStateToProps = state => ({
   currentUserId: state.session.user.id,
-  currentUsername: state.session.user.username,
+  currentUsername: state.user.username,
   modal: state.ui.modal
 });
 
