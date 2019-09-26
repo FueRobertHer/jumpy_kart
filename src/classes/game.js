@@ -8,11 +8,18 @@ const FPS = 60;
 
 class Game {
   constructor(gameId, hostId){
+
+    //socket and player info related
     this.hostId = hostId;
     this.gameId = gameId;
-    this.pipes = [];
     this.players = {};
     this.playerSockets = {};
+
+    //in game objects related
+    this.pipes = [];
+    this.coins = [];
+    this.bananas = [];
+    this.muchrooms = [];
 
     //to send down info on players and pipes and etc.
     this.update = this.update.bind(this);
@@ -54,6 +61,33 @@ class Game {
     }   
   } 
 
+  placeCoins(){
+    // check if random position isnt next to pipes
+
+    for (let i = 0; i < 3; i++) {
+      
+      //generate and check that random pos does not overlap with pipe
+      let objOverlap = true;
+      while (objOverlap === true){
+        let randomPos = [
+          Math.random() * (2500 * (i + 1) - 2500 * i) + 2500 * i + 1000,
+          Math.random() * (300 - 50) + 175
+        ];
+        if ( pipeObjcollide === false ){
+          objOverlap = false;
+        }
+
+      }
+      
+    }   
+  }
+
+  placeBananas(){
+
+  }
+
+  
+
 /////////////////Game Loop///////////////////////////////////////
 
   gameloop(){
@@ -76,9 +110,9 @@ class Game {
     let gameClock = 60;
     while (gameClock > 0){
       //subtract from gameClock
-      gameClock -= .02;
+      gameClock -= (1000/60);
       this.update();
-      await sleep(1000/50);
+      await sleep(1000/60);
     }
     
   }
@@ -100,7 +134,7 @@ class Game {
   }
 
   raceEnd(){
-    
+
   }
 
 
@@ -118,6 +152,9 @@ class Game {
 /////////////////////Emit Stuff/////////////////////////////////
 
   emitUpdateGame(socket) {
+    
+    //emit game setup
+    // change out placePipes with game set up
     socket.emit("placePipes", {
       pipes: this.pipes.map(pipe => ({
         location: pipe.pos,
@@ -126,14 +163,17 @@ class Game {
       }))
     });
 
+
+    // this will emit the game state
+    // such as player locations
     socket.emit("updateGameState", ({
       hostId: this.hostId,
       gameId: this.gameId,
     }));
+
+    //emit end game state
     
   }
-
-
   
 
 }
