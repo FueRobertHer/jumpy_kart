@@ -6,7 +6,8 @@ class CreateRoom extends React.Component{
     super(props)
     this.state = {
       roomId: "",
-      username: props.currentUsername
+      username: props.currentUsername,
+      userId: props.currentUserId
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -14,29 +15,26 @@ class CreateRoom extends React.Component{
   }
 
   handleSubmit(e) {
-    // e.preventDefault();
-    // let roomId;
-    // if (this.state.username) {
-
-    // }
+    e.preventDefault();
+    let roomId;
+    if (this.state.username)
+      createRoom().then(res => {
+        roomId = res.data.roomId
+        this.props.history.push({
+          pathname: `/game/${roomId}`,
+          type: "createRoom",
+          userId: this.state.userId,
+          roomId,
+          isHost: true
+        });
+      });
+    }
   }
-
-  // updateUsername(e) {
-  //   this.setState({
-  //     username: e.currentTarget.value
-  //   });
-  // }
 
 
   render() {
     <div>
       <form onSubmit={this.handleSubmit()}>
-        {/* <input
-          type="text"
-          value={this.state.username}
-          placeholder="Please enter your username"
-          onChange={this.updateUsername()}
-        /> */}
         <button className="join-button">
 
         </button>
