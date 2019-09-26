@@ -17,18 +17,19 @@ class CreateRoom extends React.Component{
   handleSubmit(e) {
     e.preventDefault();
     let roomId;
-    if (this.state.username) {
-      createRoom().then(res => {
-        roomId = res.data.roomId
-        this.props.history.push({
-          pathname: `/game/${roomId}`,
-          type: "createRoom",
-          userId: this.state.userId,
-          roomId: roomId,
-          isHost: true
-        });
-      });
-    }
+    // if (this.state.username) {
+    //   createRoom().then(res => {
+    //     roomId = res.data.roomId
+    //     this.props.history.push({
+    //       pathname: `/game/${roomId}`,
+    //       type: "createRoom",
+    //       userId: this.state.userId,
+    //       roomId: roomId,
+    //       isHost: true
+    //     });
+    //   });
+    //   this.props.closeModal();
+    // }
   }
 
 
