@@ -12,8 +12,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   openModal: modal => dispatch(openModal(modal)),
-  closeModal: () => dispatch(closeModal()),
-  fetchCurrentUser: (id) => dispatch(fetchCurrentUser(id))
+  closeModal: () => dispatch(closeModal())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Lobby);

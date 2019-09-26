@@ -1,6 +1,5 @@
 import { openModal, closeModal } from '../../actions/modal';
 import { connect } from 'react-redux';
-import { fetchCurrentUser } from '../../actions/user_actions'
 import CreateRoom from './create_room';
 
 const mapStateToProps = state => ({
@@ -11,8 +10,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   openModal: modal => dispatch(openModal(modal)),
-  closeModal: () => dispatch(closeModal()),
-  fetchCurrentUser: (id) => dispatch(fetchCurrentUser(id))
+  closeModal: () => dispatch(closeModal())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateRoom);
