@@ -27,20 +27,20 @@ class Lobby extends React.Component {
         ) : (
           <div className="join-buttons-container">
             <div className='button-container'>
-              <button className='join-button'>
+              <button onClick={() => this.props.openModal('createRoom')} className='join-button'>
                 <p className='button-text'>Create Game!</p>
               </button>
             </div>
             <div className='button-container'>
-              <button className='join-button'>
+              <button onClick={() => this.props.openModal('joinRoom')} className='join-button'>
                 <p className='button-text'>Join Game!</p>
               </button>
             </div>
-            <div className='button-container'>
-              <button className='join-button'>
+            {/* <div className='button-container'>
+              <button onClick={() => this.props.openModal('demoRoom')} className='join-button'>
                 <p className='button-text'>Demo Game!</p>
               </button>
-            </div>
+            </div> */}
           </div>
         )}
       </div>  

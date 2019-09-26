@@ -1,8 +1,6 @@
 import { connect } from 'react-redux';
 // import { logout } from '../../actions/session_actions';
 import { closeModal, openModal } from '../../actions/modal';
-import { fetchCurrentUser } from '../../actions/user_actions';
-
 
 import Lobby from './lobby';
 
@@ -14,8 +12,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   openModal: modal => dispatch(openModal(modal)),
-  closeModal: () => dispatch(closeModal()),
-  fetchCurrentUser: (id) => dispatch(fetchCurrentUser(id))
+  closeModal: () => dispatch(closeModal())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Lobby);
