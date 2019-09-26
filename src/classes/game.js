@@ -13,6 +13,12 @@ class Game {
     this.pipes = [];
     this.players = {};
     this.playerSockets = {};
+
+    //to send down info on players and pipes and etc.
+    this.update = this.update.bind(this);
+
+    //to set game timer
+    this.timer = 60;
   }
 
 
@@ -20,6 +26,9 @@ class Game {
     this.placePipes(socket);
     this.emitUpdateGame(socket);
   }
+
+
+////////////The Game Set up///////////////////////////////////
 
   addPlayer(playerId, socket, gameId){
     let startPos = [100,100];
@@ -31,8 +40,6 @@ class Game {
     this.players[playerId] = player;
     this.playerSockets[playerId] = socket;
   }
-
-
 
   placePipes(){
     //place a random pipe somewhere on the board: worked
@@ -47,6 +54,56 @@ class Game {
     }   
   } 
 
+/////////////////Game Loop///////////////////////////////////////
+
+  gameloop(){
+    // call the game setup function
+    // the players should already be registered
+
+
+    // start the race
+    this.raceStart();
+    
+    
+    // the race finish logic
+    // this should take the coins players earned and deposit them in backend
+
+  }
+
+
+  async raceStart(){
+    //should call the update function
+    let gameClock = 60;
+    while (gameClock > 0){
+      //subtract from gameClock
+      gameClock -= .02;
+      this.update();
+      await sleep(1000/50);
+    }
+    
+  }
+
+  update(){
+    
+
+    //first check for any collisions
+    //bind this for update to this for game class
+    this.playerPipeCollide();
+
+    //updates the game state by moving each of the players 
+    
+    Object.values(this.players).map(player => {
+      player.move();
+    })
+
+
+  }
+
+  raceEnd(){
+    
+  }
+
+
   playerPipeCollide(){
     //passes in players and pipes;
     //let player auto update their own stats.
@@ -57,6 +114,8 @@ class Game {
     }
   }
   
+
+/////////////////////Emit Stuff/////////////////////////////////
 
   emitUpdateGame(socket) {
     socket.emit("placePipes", {
@@ -73,6 +132,7 @@ class Game {
     }));
     
   }
+
 
   
 

@@ -7,7 +7,7 @@ class Player {
   constructor(pos, id){
 
     //speed
-    this.horiSpeed = 25;
+    this.horiSpeed = 2;
     this.vertSpeed = 0;
 
     //hitbox
@@ -39,8 +39,12 @@ class Player {
     let y = this.pos[1];
     let pipeX = pipe.pos[0];
     let pipeY = pipe.pos[1];
-    
-    if ( x > pipeX && x < pipeX+pipe.width && y > pipeY && y < pipeY+pipe.height){
+    this.horiSpeed = 2;
+    if( 
+        x < pipeX+pipe.width && 
+        x + 56 > pipeX && 
+        y + 56 > pipeY && 
+        y < pipeY+pipe.height){
       this.horiSpeed = 0;
     }
     // call the function that will reset the horispeed
