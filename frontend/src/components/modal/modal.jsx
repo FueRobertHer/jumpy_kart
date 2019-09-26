@@ -1,7 +1,7 @@
 import React from 'react';
 import { openModal, closeModal } from '../../actions/modal';
 import { connect } from 'react-redux';
-import joinGameContainer from '../game/join_game_container';
+import joinGameContainer from '../game/lobby_container';
 
 const Modal = ({ modal, closeModal }) => {
   if (!modal) {

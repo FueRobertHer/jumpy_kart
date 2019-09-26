@@ -4,7 +4,7 @@ import { closeModal, openModal } from '../../actions/modal';
 import { fetchCurrentUser } from '../../actions/user_actions';
 
 
-import JoinGame from './join_game';
+import lobby from './lobby';
 
 const mapStateToProps = state => ({
   currentUserId: state.session.user.id,
@@ -18,4 +18,4 @@ const mapDispatchToProps = dispatch => ({
   fetchCurrentUser: (id) => dispatch(fetchCurrentUser(id))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(JoinGame);
+export default connect(mapStateToProps, mapDispatchToProps)(lobby);
