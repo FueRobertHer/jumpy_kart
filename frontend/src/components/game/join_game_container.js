@@ -5,7 +5,9 @@ import { closeModal, openModal } from '../../actions/modal';
 import JoinGame from './join_game';
 
 const mapStateToProps = state => ({
-  currentUserId: state.session.user.id
+  currentUserId: state.session.user.id,
+  currentUsername: state.session.user.username,
+  modal: state.ui.modal
 });
 
 const mapDispatchToProps = dispatch => ({
