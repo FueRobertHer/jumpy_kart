@@ -1,0 +1,17 @@
+.join-buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button-container {
+  margin-bottom: 10px;
+}
+
+.join-button {
+  width: 500px;
+}
+
+.button-text {
+  font-size: 40px;
+}
