@@ -11,6 +11,10 @@ import validateLoginInput from '../../validation/login';
 
 router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
 
+// router.get("/:id", (req, res) => {
+//   User.findOne({ id: req.body.id })
+// })
+
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.json({
     id: req.user.id,
@@ -90,7 +94,7 @@ router.post('/login', (req, res) => {
       compare(password, user.password)
         .then(isMatch => {
           if (isMatch) {
-            const payload = { id: user.id, name: user.name };
+            const payload = { id: user.id, username: user.username };
 
             sign(
               payload,
@@ -100,7 +104,8 @@ router.post('/login', (req, res) => {
               (err, token) => {
                 res.json({
                   success: true,
-                  token: 'Bearer ' + token
+                  token: 'Bearer ' + token,
+                  payload
                 });
               });
           } else {
