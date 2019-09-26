@@ -17,7 +17,7 @@ class CreateRoom extends React.Component{
   handleSubmit(e) {
     e.preventDefault();
     let roomId;
-    if (this.state.username)
+    if (this.state.username) {
       createRoom().then(res => {
         roomId = res.data.roomId
         this.props.history.push({
@@ -28,27 +28,18 @@ class CreateRoom extends React.Component{
           isHost: true
         });
       });
-    }
+    }  
   }
-
 
   render() {
+    return (
     <div>
       <form onSubmit={this.handleSubmit()}>
-        <button className="join-button">
-
-        </button>
+        <button className="join-button"></button>
       </form>
     </div>
+    )
   }
-
-
-
-
-
-
-
-
-
-
 }
+
+export default withRouter(CreateRoom);

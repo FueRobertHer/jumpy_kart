@@ -1,10 +1,8 @@
 import { connect } from 'react-redux';
 // import { logout } from '../../actions/session_actions';
 import { closeModal, openModal } from '../../actions/modal';
-import { fetchCurrentUser } from '../../actions/user_actions';
 
-
-import lobby from './lobby';
+import Lobby from './lobby';
 
 const mapStateToProps = state => ({
   currentUserId: state.session.user.id,
@@ -18,4 +16,4 @@ const mapDispatchToProps = dispatch => ({
   fetchCurrentUser: (id) => dispatch(fetchCurrentUser(id))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(lobby);
+export default connect(mapStateToProps, mapDispatchToProps)(Lobby);
