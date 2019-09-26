@@ -11,9 +11,9 @@ const Modal = ({ modal, closeModal }) => {
   let component;
   switch (modal) {
     case 'joinGame':
-      component = <joinGameContainer />;
-      break;
-
+      component = <joinGameContainer />; // make new form components, won't
+      break;                             // this joinGame isn't correct
+  
     default:
       return null;
   }

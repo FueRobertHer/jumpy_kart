@@ -38,6 +38,7 @@ class JoinGame extends React.Component {
           </button>
         </div>
       </div>
+      <Modal />
     );
   }
 }
