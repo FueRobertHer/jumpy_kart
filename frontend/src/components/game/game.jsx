@@ -114,7 +114,7 @@ class Canvas extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
-    if (this.state.players[0] !== undefined) {
+    if (Object.keys(this.state.players).length !== 0) {
       this.drawBackground(ctx);
       this.drawObjects(ctx);
     }
@@ -130,12 +130,12 @@ class Canvas extends React.Component {
 
     let remainingChars = [];
 
-    for (let i = 0; i < this.state.players.length; i++) {
+    for (let i = 0; i < Object.keys(this.state.players).length; i++) {
       remainingChars.push(i)
     }
 
-    for (let i = 0; i < this.state.players.length; i++) {
-      const playerId = this.state.players[i].id;
+    for (let i = 0; i < Object.keys(this.state.players).length; i++) {
+      const playerId = Object.keys(this.state.players)[i];
 
       if (playerId !== this.props.currentUserId) {
         DrawUtil._drawKart.apply(that, [ctx, this.characters[i]]);
@@ -151,6 +151,7 @@ class Canvas extends React.Component {
     if (!this.props) {
       return null;
     }
+    console.log('inside render() function');
     console.log(this.state);
     return (
       <div className='canvas-container'>
