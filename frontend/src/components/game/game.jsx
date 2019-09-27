@@ -30,33 +30,41 @@ class Canvas extends React.Component {
     this.userId = props.location.userId;
     this.isHost = props.location.isHost;
   }
+
   openSocket() {
+    console.log('running openSocket')
     return new Promise((resolve, reject) => {
       this.socket = SERVER;
       let socket = this.socket;
+      console.log('openSocket socket');
+      console.log(socket);
+
       socket.on('placePipes', data => {
+        console.log('IN PLACEPIPES');
+        console.log(data);
         this.setState({
           loaded: true,
           pipes: data.pipes
         });
       });
+
       socket.on('updateGameState', data => {
         this.setState({
           hostId: data.hostId,
           gameId: data.gameId,
         });
       });
+
       socket.on('playerJoined', data => {
         this.setState({
           players: data.players
         });
-        // this.players = data.players.map(player => (
-        //   player.id
-        //   ));
       });
+
       resolve();
     });
   }
+
   loadGame() {
     return new Promise((resolve, reject) => {
       this.socket = SERVER;
@@ -65,6 +73,7 @@ class Canvas extends React.Component {
       resolve();
     });
   }
+
   joinRoom() {
     return new Promise((resolve, reject) => {
       this.socket = SERVER;
@@ -79,12 +88,13 @@ class Canvas extends React.Component {
       resolve();
     });
   }
+
   componentDidMount() {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
     this.openSocket()
-      .then(() => this.loadGame()
-        .then(() => this.joinRoom()
+      .then(() => this.joinRoom()
+        .then(() => this.loadGame()
           .then(() => {
             this.drawBackground(ctx);
           })
@@ -96,6 +106,7 @@ class Canvas extends React.Component {
       }
     }
   }
+
   componentDidUpdate(prevProps, prevState) {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
@@ -104,10 +115,12 @@ class Canvas extends React.Component {
       this.drawObjects(ctx);
     }
   }
+
   drawBackground(ctx) {
     ctx.fillStyle = "#5C93FC";
     ctx.fillRect(0, 0, this.refs.canvas.width, this.refs.canvas.height);
   }
+
   drawObjects(ctx) {
     const that = this;
     let remainingChars = [];
@@ -124,6 +137,7 @@ class Canvas extends React.Component {
     DrawUtil._drawKart(ctx, this.characters[remainingChars[0]]);
     if (this.state.loaded) DrawUtil._drawPipes(ctx, this.state.pipes);
   }
+
   render() {
     if (!this.props) {
       return null;
