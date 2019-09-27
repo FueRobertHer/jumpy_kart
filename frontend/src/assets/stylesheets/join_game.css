@@ -10,6 +10,7 @@
 
 .join-button {
   width: 100%;
+  border: none;
 }
 
 .button-text {
@@ -27,7 +28,6 @@
 }
 
 .join-room-form {
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -39,4 +39,5 @@
 .join-room-input {
   width: 100%;
   padding: 20px 0px;
+  border: none;
 }

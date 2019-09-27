@@ -21,13 +21,21 @@ class JoinRoom extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    
+    if (this.state.roomId !== "") {
+      this.props.history.push({
+        pathname: `/game/${this.state.roomId}`,
+        type: 'joinRoom',
+        username: this.state.username,
+        userId: this.state.userId,
+        roomId: this.state.roomId
+      })
+    }
   }
 
   render() {
     return (
       <div className='join-room-container'>
-        <form className='join-room-form' onSubmit={() => this.props.openModal("joinRoom")}>
+        <form className='join-room-form' onSubmit={this.handleSubmit}>
           <input
             className='input join-room-input'
             type="text"
