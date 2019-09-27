@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Modal from '../modal/modal';
 
-
 class Lobby extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +14,13 @@ class Lobby extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-
+    let roomId = Math.random().toString(36).slice(3, 11);
+    this.props.history.push({
+        pathname: `/game/${roomId}`,
+        userId: this.props.currentUserId,
+        roomId: roomId,
+        isHost: true
+      })
   }
 
   render() {
@@ -27,7 +32,7 @@ class Lobby extends React.Component {
         ) : (
           <div className="join-buttons-container">
             <div className='button-container'>
-              <button onClick={() => this.props.openModal('createRoom')} className='join-button'>
+              <button onClick={this.handleSubmit} className='join-button'>
                 <p className='button-text'>Create Game!</p>
               </button>
             </div>
