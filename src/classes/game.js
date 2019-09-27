@@ -23,6 +23,7 @@ class Game {
 
     //to send down info on players and pipes and etc.
     this.update = this.update.bind(this);
+    this.pipeObjcollide = this.pipeObjcollide.bind(this);
 
     //to set game timer
     this.timer = 60;
@@ -71,9 +72,9 @@ class Game {
       while (objOverlap === true){
         let randomPos = [
           Math.random() * (2500 * (i + 1) - 2500 * i) + 2500 * i + 1000,
-          Math.random() * (300 - 50) + 175
+          Math.random() * (300 - 50) + 100
         ];
-        if ( pipeObjcollide === false ){
+        if ( this.pipeObjcollide(this.pipes, randomPos) === false ){
           objOverlap = false;
         }
 
@@ -84,6 +85,20 @@ class Game {
 
   placeBananas(){
 
+  }
+
+  pipeObjcollide(pipes, randomPos){
+    let collide = false;
+    //get the coordinates covered by pipes
+    pipes.forEach(pipe => {
+      if (randomPos[0] < pipe.pos[0] + pipe.width &&
+          randomPos[0] + 28 > pipe.pos[0] &&
+          randomPos[1] < pipe.pos[1] &&
+          randomPos[1] + 28 > pipe.pos[1]){
+        collide = true;
+      }
+    });
+    return collide;
   }
 
   
