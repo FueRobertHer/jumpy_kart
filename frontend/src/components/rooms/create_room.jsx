@@ -28,7 +28,8 @@ class CreateRoom extends React.Component{
     //       isHost: true
     //     });
     //   });
-    // }  
+    //   this.props.closeModal();
+    // }
   }
 
   render() {
