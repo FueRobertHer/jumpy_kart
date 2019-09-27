@@ -19,9 +19,9 @@ class LoginForm extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // if (nextProps.currentUser === true) {
-    //   this.props.history.push('/game');
-    // }
+    if (nextProps.currentUser === true) {
+      this.props.history.push('/lobby');
+    }
 
     // Set or clear errors
     this.setState({ errors: nextProps.errors })
@@ -43,7 +43,7 @@ class LoginForm extends React.Component {
       password: this.state.password
     };
 
-    this.props.login(user).then(() => this.props.history.push('/game'));
+    this.props.login(user) //.then(() => this.props.history.push('/lobby'));
   }
 
   // Render the session errors if there are any

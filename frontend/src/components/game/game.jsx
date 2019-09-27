@@ -108,9 +108,6 @@ class Canvas extends React.Component {
     console.log('only drawing background');
     this.drawBackground(ctx);
     // this.drawObjects(ctx);
-    console.log('didmount')
-    console.log(this.state.players)
-    console.log(this.players);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -121,9 +118,6 @@ class Canvas extends React.Component {
       this.drawBackground(ctx);
       this.drawObjects(ctx);
       this.joinRoom();
-      console.log('didupdate')
-      console.log(this.players);
-      console.log(this.state.players);
     }
   }
 
