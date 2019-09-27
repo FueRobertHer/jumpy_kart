@@ -9,44 +9,53 @@ import Game from '../src/classes/game';
 export const gameState = {
   users: {},
   rooms: {}
+  //gameState.rooms[roomInfo.roomId]
 };
+
 
 export const socketManager = (socket) => {
   
   console.log('a user connected');
   //test case - on connection, render game
-  let game = new Game();
-  socket.on('loadGame', () => {
-    console.log('loading game');
-    game.loadGame(socket);
-  });
+  let game;
+  let player;
 
   socket.on('roomInfo', roomInfo => {
-    socket.id = roomInfo.userId;
-    console.log(roomInfo.type)
 
-    game = new Game(roomInfo.roomId, socket.id)
-    let player;
-    if (game) {
-      player = game.addPlayer(roomInfo.userId, socket);
-      gameState.users[player] = player;
-      console.log(game);
-    }
-    // console.log("roomid", roomInfo.roomId, "userId", roomInfo.userId );
+    if (roomInfo.type === "createRoom") {
+      socket.id = roomInfo.userId;
+      gameState.rooms[roomInfo.roomId] = new Game(roomInfo.roomId, socket.id);
+      game = gameState.rooms[roomInfo.roomId];
+      socket.on('loadGame', () => {
+        console.log('loading game');
+        game.loadGame(socket);
+      });
+      gameState.users[socket.id] = game.addPlayer(roomInfo.userId, socket);
+      player = gameState.users[roomInfo.userId];
+    } 
 
-    // if (roomInfo.type === "createRoom") {
-    //   console.log("in create room")
-    //   game = gameState.rooms[roomInfo.roomId] = new Game(roomInfo.roomId, socket.id);
-   
-    // } else {
-    //   game = gameState.rooms[roomInfo.roomId];
+    // if (roomInfo.type === "joinRoom") {
+    //   if (gameState.rooms[roomInfo.roomId].gameId === roomInfo.roomId) {
+    //     socket.id = gameState.rooms[roomInfo.roomId].gameId;
+    //     game = gameState.rooms[roomInfo.roomId];
+    //     socket.on('loadGame', () => {
+    //       console.log('loading game');
+    //       game.loadGame(socket);
+    //     });
+    //     gameState.users[roomInfo.userId] = game.addPlayer(roomInfo.userId, socket);
+    //     player = gameState.users[roomInfo.userId];
+    //   } else {
+    //     return null;
+    //   }
     // }
 
   });
 
+
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
+  
 };
 
 export default socketManager;

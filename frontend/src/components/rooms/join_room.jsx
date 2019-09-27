@@ -5,7 +5,7 @@ class JoinRoom extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      roomId: this.props.match.params.gameId || "",
+      roomId: "",
       username: props.currentUsername,
       userId: props.currentUserId
     };
@@ -38,6 +38,7 @@ class JoinRoom extends React.Component {
     let roomId = Math.random().toString(36).slice(3, 11);
     this.props.history.push({
       pathname: `/game/${roomId}`,
+      type: 'createRoom',
       userId: this.props.currentUserId,
       roomId: roomId,
       isHost: true
