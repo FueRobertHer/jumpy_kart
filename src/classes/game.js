@@ -1,7 +1,13 @@
 import Pipe from './pipe';
 import Player from './player';
 
-// import Pipe from './pipe';
+//item imports
+import Coin from './coin';
+import Mushroom from './mushroom';
+import Banana from './banana';
+
+
+
 const BoardSize = ["500", "1500"];
 const FPS = 60;
 
@@ -20,10 +26,12 @@ class Game {
     this.coins = [];
     this.bananas = [];
     this.muchrooms = [];
+    this.allItems = [];
 
     //to send down info on players and pipes and etc.
     this.update = this.update.bind(this);
     this.pipeObjcollide = this.pipeObjcollide.bind(this);
+    this.playerPipeCollide = this.playerPipeCollide.bind(this);
 
     //to set game timer
     this.timer = 60;
@@ -64,45 +72,50 @@ class Game {
     }   
   } 
 
-  placeCoins(){
+  placeItems(){
+    // this function places coins, mushrooms, and bananas on the map
     // check if random position isnt next to pipes
+    // then place the item
+    let itemTypes = ['coin', 'mushroom', 'banana'];
 
-    for (let i = 0; i < 3; i++) {
-      
-      //generate and check that random pos does not overlap with pipe
-      let objOverlap = true;
-      while (objOverlap === true){
-        let randomPos = [
-          Math.random() * (2500 * (i + 1) - 2500 * i) + 2500 * i + 1000,
-          Math.random() * (300 - 50) + 100
-        ];
-        if ( this.pipeObjcollide(this.pipes, randomPos) === false ){
-          objOverlap = false;
-        }
-
-      }
-      
-    }   
+    for(let j =0; j< 3; j++){
+      for (let i = 0; i < 3; i++) {      
+        let objOverlap = true;
+        
+        while (objOverlap === true){
+          let randomPos = [
+            Math.random() * (2500 * (i + 1) - 2500 * i) + 2500 * i + 1000,
+            Math.random() * (300 - 50) + 100
+          ];
+          if ( this.pipeObjcollide(this.pipes, randomPos) === false ){
+            objOverlap = false;
+            // the item should be placed on map
+            if(itemTypes[j] === 'coin'){
+              this.coins.push(new Coin(randomPos));
+            } else if (itemTypes[j] === 'mushroom'){
+              this.mushrooms.push(new Mushroom(randomPos));
+            } else{
+              this.bananas.push(new Banana(randomPos));
+            }
+          }
+        }       
+      }  
+    } 
   }
 
-  placeBananas(){
-
-  }
-
-  pipeObjcollide(pipes, randomPos){
+  pipeObjcollide(pipes, randomPos) {
     let collide = false;
     //get the coordinates covered by pipes
     pipes.forEach(pipe => {
       if (randomPos[0] < pipe.pos[0] + pipe.width &&
-          randomPos[0] + 28 > pipe.pos[0] &&
-          randomPos[1] < pipe.pos[1] &&
-          randomPos[1] + 28 > pipe.pos[1]){
+        randomPos[0] + 28 > pipe.pos[0] &&
+        randomPos[1] < pipe.pos[1] &&
+        randomPos[1] + 28 > pipe.pos[1]) {
         collide = true;
       }
     });
     return collide;
   }
-
   
 
 /////////////////Game Loop///////////////////////////////////////
@@ -136,10 +149,14 @@ class Game {
 
   update(){
     
+    //update the items currently on the map
+    this.allPresentItems();
+    
 
     //first check for any collisions
     //bind this for update to this for game class
     this.playerPipeCollide();
+    this.playerItemCollide();
 
     //updates the game state by moving each of the players 
     
@@ -154,6 +171,11 @@ class Game {
 
   }
 
+////////////////////////Collision Helper methods//////////////////
+
+  allPresentItems(){
+    return [].concat(this.coins, this.bananas, this.mushrooms);
+  }
 
   playerPipeCollide(){
     //passes in players and pipes;
@@ -161,6 +183,17 @@ class Game {
     for (let i = 0; i < this.players.length; i++){
       for (let j = 0; j < this.pipes.length; j++){
         this.players[i].pipeCollide(this.pipes[j])
+      }
+    }
+  }
+
+  playerItemCollide(){
+    //loops over players and allItems
+    for (let i = 0; i < this.players.length; i++) {
+      for (let j = this.allItems.length; j >= 0; --j) {
+        this.players[i].itemCollide(this.allItems[j])
+        //delete the item after collision
+        this.allItems.splice(j,1);
       }
     }
   }
