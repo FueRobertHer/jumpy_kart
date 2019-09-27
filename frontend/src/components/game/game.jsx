@@ -27,13 +27,16 @@ class Canvas extends React.Component {
     this.drawObjects = this.drawObjects.bind(this);
     this.openSocket = this.openSocket.bind(this);
     this.loadGame = this.loadGame.bind(this);
+    this.joinRoom = this.joinRoom.bind(this);
     this.socket = null;
     this.pipes = [];
-    this.players = ['5d8b9788267f8251c5872003', '5d8b978xxxxxxxxxxxxxxx03'];
+    // this.players = ['5d8b9788267f8251c5872003', '5d8b978xxxxxxxxxxxxxxx03'];
+    this.players = [];
     this.characters = ['mario', 'peach', 'toad', 'yoshi'];
     this.roomId = props.match.params.roomId;
     this.username = props.location.username;
     this.userId = props.location.userId;
+    this.isHost = props.location.isHost;
   }
 
   openSocket() {
@@ -62,12 +65,21 @@ class Canvas extends React.Component {
       });
     });
 
+    socket.on('playerJoined', data => {
+      this.setState({
+        players: data.players //data.players = {players: [{pos:[1,1], id: sometid}] }
+      });
+      this.players = data.players.map(player => (
+        player.id
+      ));
+      console.log(data);
+      console.log(this.state);
+      console.log(this.players);
+    });
+
 
   }
 
-  joinRoom() {
-    // if ()
-  }
 
   loadGame() {
     this.socket = SERVER;
@@ -75,25 +87,44 @@ class Canvas extends React.Component {
     socket.emit('loadGame');
   }
 
+  joinRoom() {
+    this.socket = SERVER;
+    let socket = this.socket;
+    const roomInfo = {
+      type: this.props.location.type,
+      roomId: this.roomId,
+      userId: this.userId,
+      username: this.username
+    };
+    socket.emit('roomInfo', roomInfo);
+  }
+
   componentDidMount() {
     this.openSocket();
     this.loadGame();
+    this.joinRoom();
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
+    console.log('only drawing background');
     this.drawBackground(ctx);
     // this.drawObjects(ctx);
+    console.log('didmount')
+    console.log(this.state.players)
+    console.log(this.players);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.loaded !== this.state.loaded) {
+      console.log('drawing background and objects')
       const canvas = this.refs.canvas;
       const ctx = canvas.getContext('2d');
       this.drawBackground(ctx);
       this.drawObjects(ctx);
+      this.joinRoom();
+      console.log('didupdate')
+      console.log(this.players);
+      console.log(this.state.players);
     }
-  }
-
-  componentWillUnmount() {
   }
 
   drawBackground(ctx) {
@@ -118,7 +149,7 @@ class Canvas extends React.Component {
         remainingChars.splice(i, 1);
       }
     }
-
+    console.log(remainingChars[0])
     DrawUtil._drawKart(ctx, this.characters[remainingChars[0]]);
     if (this.state.loaded) DrawUtil._drawPipes(ctx, this.state.pipes);
   }
