@@ -46,6 +46,9 @@ class JoinRoom extends React.Component {
           <button className="join-button input submit" type='submit'>
             Join Room
           </button>
+          <button className="join-button" onClick={() => this.props.openModal("createRoom")}>
+            createRoom
+        </button>
         </form>
       </div>
     )

@@ -15,14 +15,35 @@ export const socketManager = (socket) => {
   
   console.log('a user connected');
   //test case - on connection, render game
-  const game = new Game();
-
+  let game = new Game();
   socket.on('loadGame', () => {
     console.log('loading game');
     game.loadGame(socket);
   });
 
-  console.log(game);
+  socket.on('roomInfo', roomInfo => {
+    socket.id = roomInfo.userId;
+    console.log(roomInfo.type)
+
+    game = new Game(roomInfo.roomId, socket.id)
+    let player;
+    if (game) {
+      player = game.addPlayer(roomInfo.userId, socket);
+      gameState.users[player] = player;
+      console.log(game);
+    }
+    // console.log("roomid", roomInfo.roomId, "userId", roomInfo.userId );
+
+    // if (roomInfo.type === "createRoom") {
+    //   console.log("in create room")
+    //   game = gameState.rooms[roomInfo.roomId] = new Game(roomInfo.roomId, socket.id);
+   
+    // } else {
+    //   game = gameState.rooms[roomInfo.roomId];
+    // }
+
+  });
+
 
   socket.on('subscribeToTimer', (interval) => {
     setInterval(() => {
