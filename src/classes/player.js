@@ -7,8 +7,10 @@ class Player {
   constructor(pos, id){
 
     //speed
-    this.horiSpeed = 25;
-    this.vertSpeed = 0;
+    
+    this.HoriSpeed = 2;
+    this.Gravity = 2;
+    
 
     //hitbox
     //the player is 56 by 56 px
@@ -35,15 +37,30 @@ class Player {
     //set horizontal verlocity to zero when the obj corners overlap
     // the game class will call this function for each player and each pipe
     // each pipe instance has corners method.
-    let x = this.pos[0];
-    let y = this.pos[1];
+
+
+    //player and pipe positions
+    let playerX = this.pos[0];
+    let playerY = this.pos[1];
     let pipeX = pipe.pos[0];
     let pipeY = pipe.pos[1];
-    
-    if ( x > pipeX && x < pipeX+pipe.width && y > pipeY && y < pipeY+pipe.height){
-      this.horiSpeed = 0;
+
+
+    //player and pipe side collision
+    this.horiSpeed = 2;
+    this.gravity = 2; 
+    if( 
+        playerX + 55 - pipeX < 1 &&
+        playerY + 55 - pipeY < 2
+      ){
+      this.horiSpeed -= 2;
+    } else if(
+      (playerX + 55 - pipeX < 1) &&
+      (playerY + 55 - pipeY > -1) &&
+      (playerY + 55 - pipeY < 3)
+    ){
+      this.Gravity -= 2;
     }
-    // call the function that will reset the horispeed
   }
 
 }
