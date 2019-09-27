@@ -48,7 +48,6 @@ class LoginForm extends React.Component {
 
   // Render the session errors if there are any
   renderErrors() {
-    
     return (
       <ul>
         {Object.keys(this.state.errors).map((error, i) => (

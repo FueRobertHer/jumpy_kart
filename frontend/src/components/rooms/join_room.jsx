@@ -11,6 +11,7 @@ class JoinRoom extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCreateRoom = this.handleCreateRoom.bind(this);
   }
 
   update(field) {
@@ -31,6 +32,17 @@ class JoinRoom extends React.Component {
       })
     }
   }
+
+  handleCreateRoom(e) {
+    e.preventDefault();
+    let roomId = Math.random().toString(36).slice(3, 11);
+    this.props.history.push({
+      pathname: `/game/${roomId}`,
+      userId: this.props.currentUserId,
+      roomId: roomId,
+      isHost: true
+    })
+  }
   
   render() {
     return (
@@ -46,7 +58,9 @@ class JoinRoom extends React.Component {
           <button className="join-button input submit" type='submit'>
             Join Room
           </button>
-
+          <button className="join-button input submit" onClick={this.handleCreateRoom}>
+            Create New Room
+        </button>
         </form>
       </div>
     )
