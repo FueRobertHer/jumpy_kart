@@ -26,12 +26,10 @@ class Canvas extends React.Component {
 
     this.drawObjects = this.drawObjects.bind(this);
     this.openSocket = this.openSocket.bind(this);
-    this.loadGame = this.loadGame.bind(this);
+    // this.loadGame = this.loadGame.bind(this);
     this.joinRoom = this.joinRoom.bind(this);
     this.socket = null;
     this.pipes = [];
-    // this.players = ['5d8b9788267f8251c5872003', '5d8b978xxxxxxxxxxxxxxx03'];
-    this.players = [];
     this.characters = ['mario', 'peach', 'toad', 'yoshi'];
     this.roomId = props.match.params.roomId;
     this.username = props.location.username;
@@ -42,11 +40,6 @@ class Canvas extends React.Component {
   openSocket() {
     this.socket = SERVER;
     let socket = this.socket;
-    
-    // socket.on('timer', (timestamp) => this.setState({
-    //   time: timestamp
-    // }));
-    socket.emit('subscribeToTimer', 1000/60);
 
     socket.on('placePipes', data => {
       console.log('placing pipes');
@@ -72,11 +65,7 @@ class Canvas extends React.Component {
       this.players = data.players.map(player => (
         player.id
       ));
-      console.log(data);
-      console.log(this.state);
-      console.log(this.players);
     });
-
 
   }
 
@@ -97,6 +86,7 @@ class Canvas extends React.Component {
       username: this.username
     };
     socket.emit('roomInfo', roomInfo);
+    socket.emit('loadGame');
   }
 
   componentDidMount() {
@@ -115,9 +105,9 @@ class Canvas extends React.Component {
       console.log('drawing background and objects')
       const canvas = this.refs.canvas;
       const ctx = canvas.getContext('2d');
+      // this.joinRoom()
       this.drawBackground(ctx);
       this.drawObjects(ctx);
-      this.joinRoom();
     }
   }
 
@@ -143,7 +133,6 @@ class Canvas extends React.Component {
         remainingChars.splice(i, 1);
       }
     }
-    console.log(remainingChars[0])
     DrawUtil._drawKart(ctx, this.characters[remainingChars[0]]);
     if (this.state.loaded) DrawUtil._drawPipes(ctx, this.state.pipes);
   }

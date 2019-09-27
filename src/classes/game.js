@@ -52,8 +52,6 @@ class Game {
           id: player.id
         }))
       });
-      // console.log('player was added')
-      // console.log(this.players)
     });
   }
 
@@ -67,7 +65,6 @@ class Game {
       let randomXCoord = Math.random() * (250 * (i + 1) - 250 * i) + 700 * i + 1000;
       let randomHeight = Math.random() * (300 - 50) + 175;
       let newPipe = new Pipe(randomXCoord, 70, randomHeight);
-      console.log(newPipe.pos[0]);
       this.pipes.push(new Pipe(randomXCoord, 70, randomHeight));
     }   
   } 
