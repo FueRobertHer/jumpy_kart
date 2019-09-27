@@ -55,10 +55,12 @@ class Game {
     //place a pipe per 250px width
     //
 
-    for ( let i = 0; i < 16; i++){
-      let randomPos = Math.random() * (250 * (i + 1) - 250 * i) + 700 * i + 1000;
+    for ( let i = 0; i < 13; i++){
+      let randomXCoord = Math.random() * (250 * (i + 1) - 250 * i) + 700 * i + 1000;
       let randomHeight = Math.random() * (300 - 50) + 175;
-      this.pipes.push(new Pipe(randomPos, 70, randomHeight));
+      let newPipe = new Pipe(randomXCoord, 70, randomHeight);
+      console.log(newPipe.pos[0]);
+      this.pipes.push(new Pipe(randomXCoord, 70, randomHeight));
     }   
   } 
 
@@ -172,7 +174,7 @@ class Game {
     // change out placePipes with game set up
     socket.emit("placePipes", {
       pipes: this.pipes.map(pipe => ({
-        location: pipe.pos,
+        pos: pipe.pos,
         width: pipe.width,
         height: pipe.height
       }))

@@ -121,7 +121,6 @@ class Canvas extends React.Component {
     if (!this.props) {
       return null;
     }
-
     return (
       <div className='canvas-container'>
         <canvas ref="canvas" width="10000" height="500"/>
