@@ -31,7 +31,7 @@ class App extends React.Component {
           <Switch>
             <AuthRoute exact path="/" component={MainPage} />
             <ProtectedRoute exact path="/game" component={GameContainer} />
-            <ProtectedRoute exact path="/game/:testRoom" component={GameContainer} />
+            <ProtectedRoute exact path="/game/:roomId" component={GameContainer} />
             <ProtectedRoute exact path="/lobby" component={LobbyContainer} />
             <AuthRoute exact path="/login" component={LoginFormContainer} />
             <AuthRoute exact path="/signup" component={SignupFormContainer} />
