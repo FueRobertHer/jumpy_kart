@@ -14,7 +14,7 @@ import MainPage from './main/main_page';
 import GameContainer from './game/game_container';
 import LoginFormContainer from './session/login_form_container';
 import SignupFormContainer from './session/signup_form_container';
-import JoinGameContainer from './game/join_game_container';
+import LobbyContainer from './game/lobby_container';
 
 class App extends React.Component {
 
@@ -32,7 +32,7 @@ class App extends React.Component {
             <AuthRoute exact path="/" component={MainPage} />
             <ProtectedRoute exact path="/game" component={GameContainer} />
             <ProtectedRoute exact path="/game/:testRoom" component={GameContainer} />
-            <ProtectedRoute exact path="/join/:gameId" component={JoinGameContainer} />
+            <ProtectedRoute exact path="/lobby" component={LobbyContainer} />
             <AuthRoute exact path="/login" component={LoginFormContainer} />
             <AuthRoute exact path="/signup" component={SignupFormContainer} />
           </Switch>
