@@ -73,6 +73,8 @@ class Player {
     this.horiSpeed = 2;
     this.gravity = 2; 
 
+    let didCollide = true;
+
     if(
       (playerX < itemX + 28) &&
       (playerX + 56 > itemX) &&
@@ -87,9 +89,13 @@ class Player {
         case 'banana':
           this.HoriSpeed = 1;
         default:
-          this.HoriSpeed = 2;
+          this.HoriSpeed = 2;        
       }
+    } else {
+      didCollide = false;
     }
+
+    return didCollide;
   }
 
 

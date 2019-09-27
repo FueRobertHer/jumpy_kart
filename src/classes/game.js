@@ -201,24 +201,25 @@ class Game {
   }
 
   playerPipeCollide(){
-    //passes in players and pipes;
-    //let player auto update their own stats.
-    for (let i = 0; i < this.players.length; i++){
-      for (let j = 0; j < this.pipes.length; j++){
-        this.players[i].pipeCollide(this.pipes[j])
-      }
-    }
+    Object.keys(this.players).forEach(playerId => {
+      this.pipes.forEach(pipe => {
+        this.players[playerId].pipeColide(pipe);
+      });
+    });
   }
 
   playerItemCollide(){
     //loops over players and allItems
-    for (let i = 0; i < this.players.length; i++) {
+    Object.keys(this.players).forEach(playerId => {
       for (let j = this.allItems.length; j >= 0; --j) {
-        this.players[i].itemCollide(this.allItems[j])
+        
+        let didCollide = this.players[playerId].itemCollide(this.allItems[j]);
         //delete the item after collision
-        this.allItems.splice(j,1);
+        if (didCollide === true){
+          this.allItems.splice(j,1);
+        }
       }
-    }
+    });
   }
 
 
