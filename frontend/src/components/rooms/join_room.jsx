@@ -31,7 +31,7 @@ class JoinRoom extends React.Component {
       })
     }
   }
-
+  
   render() {
     return (
       <div className='join-room-container'>
@@ -43,8 +43,6 @@ class JoinRoom extends React.Component {
             placeholder='Room ID'
             onChange={this.update('roomId')}
           />
-
-
           <button className="join-button input submit" type='submit'>
             Join Room
           </button>

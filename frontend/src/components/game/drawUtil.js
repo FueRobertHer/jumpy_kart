@@ -37,7 +37,8 @@ export const _drawPipes = (ctx, pipes) => {
     let randomPipe = new Image();
     randomPipe.src = pipeSprite;
     randomPipe.onload = () => {
-      ctx.drawImage(randomPipe, pipe.location, pipe.height);
+      console.log(pipe);
+      ctx.drawImage(randomPipe, pipe.pos[0], pipe.height);
     }
   });
 }

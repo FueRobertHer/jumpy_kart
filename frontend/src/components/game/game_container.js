@@ -8,8 +8,5 @@ const mapStateToProps = state => ({
   currentUsername: state.session.user.username
 });
 
-const mapDispatchToProps = dispatch => ({
-
-})
 
 export default connect(mapStateToProps)(Game);

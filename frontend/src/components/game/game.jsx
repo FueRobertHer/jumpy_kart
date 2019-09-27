@@ -31,7 +31,9 @@ class Canvas extends React.Component {
     this.pipes = [];
     this.players = ['5d8b9788267f8251c5872003', '5d8b978xxxxxxxxxxxxxxx03'];
     this.characters = ['mario', 'peach', 'toad', 'yoshi'];
-    this.roomId = props.match.params.testRoom;
+    this.roomId = props.match.params.roomId;
+    this.username = props.location.username;
+    this.userId = props.location.userId;
   }
 
   openSocket() {
@@ -61,6 +63,10 @@ class Canvas extends React.Component {
     });
 
 
+  }
+
+  joinRoom() {
+    // if ()
   }
 
   loadGame() {
@@ -121,7 +127,6 @@ class Canvas extends React.Component {
     if (!this.props) {
       return null;
     }
-
     return (
       <div className='canvas-container'>
         <canvas ref="canvas" width="10000" height="500"/>
