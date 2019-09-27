@@ -34,7 +34,9 @@ class Game {
     this.playerPipeCollide = this.playerPipeCollide.bind(this);
 
     //to set game timer
-    this.timer = 60;
+    this.gameClock = 60;
+
+    /
   }
 
 
@@ -145,10 +147,9 @@ class Game {
 
   async raceStart(){
     //should call the update function
-    let gameClock = 60;
-    while (gameClock > 0){
+    while (this.gameClock > 0){
       //subtract from gameClock
-      gameClock -= (1000/60);
+      this.gameClock -= (1000/50);
       this.update();
       await sleep(1000/60);
     }
@@ -171,12 +172,12 @@ class Game {
     Object.values(this.players).map(player => {
       player.move();
     })
-
-
+    
   }
 
   raceEnd(){
-
+    //run when all 4 player finish or timer runs out
+    
   }
 
 ////////////////////////Collision Helper methods//////////////////
@@ -205,6 +206,16 @@ class Game {
       }
     }
   }
+
+
+/////////////////////////Race End helper////////////////////////////
+
+  gameTimeUp(){
+    //see the positions of each player and assign rankings
+
+  }
+
+
   
 
 /////////////////////Emit Stuff/////////////////////////////////

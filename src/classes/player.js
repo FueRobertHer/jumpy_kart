@@ -9,7 +9,7 @@ class Player {
     //position on map
     this.pos = pos;
     this.id = id;
-    
+
     //speed    
     this.HoriSpeed = 2;
     this.Gravity = 2;
@@ -17,42 +17,19 @@ class Player {
     //number of coins collected
     this.numCoin = 0;
 
-    //binding of functions
-    // this.itemCollide = this.itemCollide.bind(this);
-
-    
-    //hitbox
-    //the player is 56 by 56 px
-    // this.corners = [
-    //   pos,
-    //   [pos[0] + 55, pos[1]],
-    //   [pos[0] + 55, pos[1] + 55],
-    //   [pos[0], pos[1] + 55]
-    // ]
-        
+    // finishing place
+    this.finishPlace = 0;        
   }
 
   jump(){
-    this.vertSpeed = 200;
+    this.vertSpeed = -200;
   }
 
   move() {
-    //number of coins collected
-    this.numCoin = 0;
+    //add velocity to pos every frame
 
-    //binding of functions
-    // this.itemCollide = this.itemCollide.bind(this);
-
-    //hitbox
-    //the player is 56 by 56 px
-    // this.corners = [
-    //   pos,
-    //   [pos[0] + 55, pos[1]],
-    //   [pos[0] + 55, pos[1] + 55],
-    //   [pos[0], pos[1] + 55]
-    // add velocity to pos every frame
-    // this.props.pos[0] + this.horiSpeed;
-    // this.props.pos[1] + this.verSpeed;
+    this.props.pos[0] + this.horiSpeed;
+    this.props.pos[1] + this.verSpeed;
   }
 
   pipeCollide(pipe){  
@@ -113,9 +90,9 @@ class Player {
           this.HoriSpeed = 2;
       }
     }
-    
-
   }
+
+
 
 }
 
