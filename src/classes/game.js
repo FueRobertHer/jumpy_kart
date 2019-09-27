@@ -39,14 +39,22 @@ class Game {
 ////////////The Game Set up///////////////////////////////////
 
   addPlayer(playerId, socket, gameId){
-    let startPos = [100,100];
-    let player = new Player(
-      startPos,
-      playerId
-    )
+    let startPos = [200,200];
+    let player = new Player(startPos, playerId);
+
     //fill out player info for game
     this.players[playerId] = player;
     this.playerSockets[playerId] = socket;
+    Object.values(this.playerSockets).forEach(socket => {
+      socket.emit("playerJoined", {
+        players: Object.values(this.players).map(player => ({
+          pos: player.pos,
+          id: player.id
+        }))
+      });
+      // console.log('player was added')
+      // console.log(this.players)
+    });
   }
 
   placePipes(){

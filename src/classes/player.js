@@ -11,7 +11,8 @@ class Player {
     this.HoriSpeed = 2;
     this.Gravity = 2;
     
-
+    this.pos = pos;
+    this.id = id;
     //hitbox
     //the player is 56 by 56 px
     this.corners = [
