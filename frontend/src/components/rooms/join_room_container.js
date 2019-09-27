@@ -1,6 +1,6 @@
 import { openModal, closeModal } from '../../actions/modal';
 import { connect } from 'react-redux';
-import CreateRoom from './create_room';
+import JoinRoom from './join_room';
 
 const mapStateToProps = state => ({
   currentUserId: state.session.user.id,
@@ -13,4 +13,4 @@ const mapDispatchToProps = dispatch => ({
   closeModal: () => dispatch(closeModal())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateRoom);
+export default connect(mapStateToProps, mapDispatchToProps)(JoinRoom);

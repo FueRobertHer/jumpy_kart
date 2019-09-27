@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
-import Player from '../../classes/player';
 import * as DrawUtil from './drawUtil';
 
 let SERVER = io("http://localhost:5000", { transports: ['websocket'] });

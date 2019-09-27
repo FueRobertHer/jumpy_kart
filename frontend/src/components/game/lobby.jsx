@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import Modal from '../modal/modal';
 
 
-class JoinGame extends React.Component {
+class Lobby extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,20 +27,20 @@ class JoinGame extends React.Component {
         ) : (
           <div className="join-buttons-container">
             <div className='button-container'>
-              <button className='join-button'>
+              <button onClick={() => this.props.openModal('createRoom')} className='join-button'>
                 <p className='button-text'>Create Game!</p>
               </button>
             </div>
             <div className='button-container'>
-              <button className='join-button'>
+              <button onClick={() => this.props.openModal('joinRoom')} className='join-button'>
                 <p className='button-text'>Join Game!</p>
               </button>
             </div>
-            <div className='button-container'>
-              <button className='join-button'>
+            {/* <div className='button-container'>
+              <button onClick={() => this.props.openModal('demoRoom')} className='join-button'>
                 <p className='button-text'>Demo Game!</p>
               </button>
-            </div>
+            </div> */}
           </div>
         )}
       </div>  
@@ -48,4 +48,4 @@ class JoinGame extends React.Component {
   }
 }
 
-export default withRouter(JoinGame);
+export default withRouter(Lobby);
