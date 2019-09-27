@@ -58,9 +58,9 @@ class JoinRoom extends React.Component {
           <button className="join-button input submit" type='submit'>
             Join Room
           </button>
-          <button className="join-button input submit" onClick={this.handleCreateRoom}>
-            Create New Room
-        </button>
+          <button className="join-button input submit" onClick={this.props.closeModal}>
+            Go Back
+          </button>
         </form>
       </div>
     )
@@ -68,3 +68,5 @@ class JoinRoom extends React.Component {
 }
 
 export default withRouter(JoinRoom);
+
+// change players state slice to an object

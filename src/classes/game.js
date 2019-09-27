@@ -20,6 +20,7 @@ class Game {
     this.gameId = gameId;
     this.players = {};
     this.playerSockets = {};
+    this.playerInfoObject = {};
 
     //in game objects related
     this.pipes = [];
@@ -55,12 +56,18 @@ class Game {
     //fill out player info for game
     this.players[playerId] = player;
     this.playerSockets[playerId] = socket;
+
+    for (let i = 0; i < Object.values(this.players).length; i++) {
+      const player = Object.values(this.players)[i];
+      this.playerInfoObject[player.id] = {
+        id: player.id,
+        pos: player.pos,
+      }
+    }
+
     Object.values(this.playerSockets).forEach(socket => {
       socket.emit("playerJoined", {
-        players: Object.values(this.players).map(player => ({
-          pos: player.pos,
-          id: player.id
-        }))
+        players: this.playerInfoObject
       });
       // console.log('player was added')
       // console.log(this.players)
