@@ -70,11 +70,11 @@ class Canvas extends React.Component {
   }
 
 
-  loadGame() {
-    this.socket = SERVER;
-    let socket = this.socket;
-    socket.emit('loadGame');
-  }
+  // loadGame() {
+  //   this.socket = SERVER;
+  //   let socket = this.socket;
+  //   socket.emit('loadGame');
+  // }
 
   joinRoom() {
     this.socket = SERVER;
@@ -91,7 +91,7 @@ class Canvas extends React.Component {
 
   componentDidMount() {
     this.openSocket();
-    this.loadGame();
+    // this.loadGame();
     this.joinRoom();
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
@@ -105,7 +105,7 @@ class Canvas extends React.Component {
       console.log('drawing background and objects')
       const canvas = this.refs.canvas;
       const ctx = canvas.getContext('2d');
-      // this.joinRoom()
+      this.joinRoom()
       this.drawBackground(ctx);
       this.drawObjects(ctx);
     }

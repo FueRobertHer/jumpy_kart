@@ -12,6 +12,7 @@ export const gameState = {
   //gameState.rooms[roomInfo.roomId]
 };
 
+
 export const socketManager = (socket) => {
   
   console.log('a user connected');
@@ -33,45 +34,23 @@ export const socketManager = (socket) => {
       player = gameState.users[roomInfo.userId];
     } 
 
-    if (roomInfo.type === "joinRoom") {
-      if (gameState.rooms[roomInfo.roomId].gameId === roomInfo.roomId) {
-        socket.id = gameState.rooms[roomInfo.roomId].gameId;
-        game = gameState.rooms[roomInfo.roomId];
-        socket.on('loadGame', () => {
-          console.log('loading game');
-          game.loadGame(socket);
-        });
-        gameState.users[roomInfo.userId] = game.addPlayer(roomInfo.userId, socket);
-        player = gameState.users[roomInfo.userId];
-      } else {
-        return null;
-      }
-    }
-    
+    // if (roomInfo.type === "joinRoom") {
+    //   if (gameState.rooms[roomInfo.roomId].gameId === roomInfo.roomId) {
+    //     socket.id = gameState.rooms[roomInfo.roomId].gameId;
+    //     game = gameState.rooms[roomInfo.roomId];
+    //     socket.on('loadGame', () => {
+    //       console.log('loading game');
+    //       game.loadGame(socket);
+    //     });
+    //     gameState.users[roomInfo.userId] = game.addPlayer(roomInfo.userId, socket);
+    //     player = gameState.users[roomInfo.userId];
+    //   } else {
+    //     return null;
+    //   }
+    // }
 
   });
 
-  // let player;
-  // if (game) {
-  //   player = game.addPlayer(roomInfo.userId, socket);
-  //   gameState.users[player] = player;
-  //   console.log(game);
-  // }
-
-
-  // let game = new Game();
-  // socket.on('loadGame', () => {
-  //   console.log('loading game');
-  //   game.loadGame(socket);
-  // });
-
-
-
-  // socket.on('subscribeToTimer', (interval) => {
-  //   setInterval(() => {
-  //     socket.emit('timer', new Date());
-  //   }, interval);
-  // });
 
   socket.on('disconnect', () => {
     console.log('user disconnected');
