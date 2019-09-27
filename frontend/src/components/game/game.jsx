@@ -149,7 +149,7 @@ class Canvas extends React.Component {
         remainingChars.splice(i, 1);
       }
     }
-
+    console.log(remainingChars[0])
     DrawUtil._drawKart(ctx, this.characters[remainingChars[0]]);
     if (this.state.loaded) DrawUtil._drawPipes(ctx, this.state.pipes);
   }
