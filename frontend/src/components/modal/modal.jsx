@@ -2,6 +2,7 @@ import React from 'react';
 import { openModal, closeModal } from '../../actions/modal';
 import { connect } from 'react-redux';
 import CreateRoomContainer from '../rooms/create_room_container';
+import JoinRoomContainer from '../rooms/join_room_container';
 
 const Modal = ({ modal, closeModal }) => {
   if (!modal) {
@@ -12,6 +13,10 @@ const Modal = ({ modal, closeModal }) => {
   switch (modal) {
     case 'createRoom':
       component = <CreateRoomContainer />;
+      break;           
+                                 
+    case 'joinRoom':
+      component = <JoinRoomContainer />;
       break;                             
   
     default:
