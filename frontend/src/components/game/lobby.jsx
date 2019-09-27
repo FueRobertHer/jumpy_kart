@@ -17,6 +17,7 @@ class Lobby extends React.Component {
     let roomId = Math.random().toString(36).slice(3, 11);
     this.props.history.push({
         pathname: `/game/${roomId}`,
+        type: 'createRoom',
         userId: this.props.currentUserId,
         roomId: roomId,
         isHost: true
