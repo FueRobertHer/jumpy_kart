@@ -30,8 +30,6 @@ class Canvas extends React.Component {
     this.joinRoom = this.joinRoom.bind(this);
     this.socket = null;
     this.pipes = [];
-    // this.players = ['5d8b9788267f8251c5872003', '5d8b978xxxxxxxxxxxxxxx03'];
-    this.players = [];
     this.characters = ['mario', 'peach', 'toad', 'yoshi'];
     this.roomId = props.match.params.roomId;
     this.username = props.location.username;
@@ -40,90 +38,85 @@ class Canvas extends React.Component {
   }
 
   openSocket() {
-    this.socket = SERVER;
-    let socket = this.socket;
-    
-    // socket.on('timer', (timestamp) => this.setState({
-    //   time: timestamp
-    // }));
-    socket.emit('subscribeToTimer', 1000/60);
+    return new Promise((resolve, reject) => {
+      this.socket = SERVER;
+      let socket = this.socket;
 
-    socket.on('placePipes', data => {
-      console.log('placing pipes');
-      this.setState({
-        loaded: true,
-        pipes: data.pipes
+      socket.on('placePipes', data => {
+        this.setState({
+          loaded: true,
+          pipes: data.pipes
+        });
       });
-      // this.pipes = data.pipes
-    });
 
-    socket.on('updateGameState', data => {
-      console.log("updating game state")
-      this.setState({
-        hostId: data.hostId,
-        gameId: data.gameId,
+      socket.on('updateGameState', data => {
+        this.setState({
+          hostId: data.hostId,
+          gameId: data.gameId,
+        });
       });
-    });
 
-    socket.on('playerJoined', data => {
-      this.setState({
-        players: data.players //data.players = {players: [{pos:[1,1], id: sometid}] }
+      socket.on('playerJoined', data => {
+        this.setState({
+          players: data.players
+        });
+
+        // this.players = data.players.map(player => (
+        //   player.id
+        //   ));
       });
-      this.players = data.players.map(player => (
-        player.id
-      ));
-      console.log(data);
-      console.log(this.state);
-      console.log(this.players);
+      resolve();
     });
-
-
   }
 
-
   loadGame() {
-    this.socket = SERVER;
-    let socket = this.socket;
-    socket.emit('loadGame');
+    return new Promise((resolve, reject) => {
+      this.socket = SERVER;
+      let socket = this.socket;
+      socket.emit('loadGame');
+      resolve();
+    });
   }
 
   joinRoom() {
-    this.socket = SERVER;
-    let socket = this.socket;
-    const roomInfo = {
-      type: this.props.location.type,
-      roomId: this.roomId,
-      userId: this.userId,
-      username: this.username
-    };
-    socket.emit('roomInfo', roomInfo);
-  }
+    return new Promise((resolve, reject) => {
+      this.socket = SERVER;
+      let socket = this.socket;
+      const roomInfo = {
+        type: this.props.location.type,
+        roomId: this.roomId,
+        userId: this.userId,
+        username: this.username
+      };
+      socket.emit('roomInfo', roomInfo);
+      resolve();
+    });
+}
 
   componentDidMount() {
-    this.openSocket();
-    this.loadGame();
-    this.joinRoom();
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
-    console.log('only drawing background');
-    this.drawBackground(ctx);
-    // this.drawObjects(ctx);
-    console.log('didmount')
-    console.log(this.state.players)
-    console.log(this.players);
+    this.openSocket()
+      .then(() => this.loadGame()
+        .then(() => this.joinRoom()
+          .then(() => {
+            this.drawBackground(ctx);
+          })
+        )
+      )
+    document.body.onkeydown = function (e) {
+      if (e.keyCode == 32) {
+        console.log('pressed space!'); // replace with function here;
+      }
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.loaded !== this.state.loaded) {
-      console.log('drawing background and objects')
-      const canvas = this.refs.canvas;
-      const ctx = canvas.getContext('2d');
+    const canvas = this.refs.canvas;
+    const ctx = canvas.getContext('2d');
+    if (this.state.players[0] !== undefined) {
       this.drawBackground(ctx);
       this.drawObjects(ctx);
-      this.joinRoom();
-      console.log('didupdate')
-      console.log(this.players);
-      console.log(this.state.players);
     }
   }
 
@@ -137,19 +130,19 @@ class Canvas extends React.Component {
 
     let remainingChars = [];
 
-    for (let i = 0; i < this.players.length; i++) {
+    for (let i = 0; i < this.state.players.length; i++) {
       remainingChars.push(i)
     }
 
-    for (let i = 0; i < this.players.length; i++) {
-      const playerId = this.players[i];
+    for (let i = 0; i < this.state.players.length; i++) {
+      const playerId = this.state.players[i].id;
 
       if (playerId !== this.props.currentUserId) {
         DrawUtil._drawKart.apply(that, [ctx, this.characters[i]]);
         remainingChars.splice(i, 1);
       }
     }
-    console.log(remainingChars[0])
+
     DrawUtil._drawKart(ctx, this.characters[remainingChars[0]]);
     if (this.state.loaded) DrawUtil._drawPipes(ctx, this.state.pipes);
   }
@@ -158,6 +151,7 @@ class Canvas extends React.Component {
     if (!this.props) {
       return null;
     }
+    console.log(this.state);
     return (
       <div className='canvas-container'>
         <canvas ref="canvas" width="10000" height="500"/>

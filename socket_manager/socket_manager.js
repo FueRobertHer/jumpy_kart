@@ -44,13 +44,6 @@ export const socketManager = (socket) => {
 
   });
 
-
-  socket.on('subscribeToTimer', (interval) => {
-    setInterval(() => {
-      socket.emit('timer', new Date());
-    }, interval);
-  });
-
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
