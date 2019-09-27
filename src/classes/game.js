@@ -37,7 +37,7 @@ class Game {
     //to set game timer
     this.gameClock = 60;
 
-    /
+    
   }
 
 
@@ -164,7 +164,10 @@ class Game {
   }
 
   update(){
-    
+
+    //check if any player has finished the race
+    this.checkFinish();
+
     //update the items currently on the map
     this.allPresentItems();
     
@@ -176,7 +179,7 @@ class Game {
 
     //updates the game state by moving each of the players 
     
-    Object.values(this.players).map(player => {
+    Object.values(this.players).forEach(player => {
       player.move();
     })
     
@@ -184,7 +187,14 @@ class Game {
 
   raceEnd(){
     //run when all 4 player finish or timer runs out
-    
+
+
+
+  }
+
+  checkFinish(){
+    //loop through players and see if their pos has crossed line
+
   }
 
 ////////////////////////Collision Helper methods//////////////////
