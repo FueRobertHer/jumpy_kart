@@ -55,6 +55,7 @@ export const socketManager = (socket) => {
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
+  
 };
 
 export default socketManager;
