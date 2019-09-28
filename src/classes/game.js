@@ -34,7 +34,8 @@ class Game {
     //to set game timer
     this.gameClock = 60;
 
-    
+    // to record the order of players
+    this.podium = [];
   }
 
 
@@ -177,20 +178,22 @@ class Game {
       player.move();
     })
     
+  }  
+
+  checkFinish(){
+    //loop through players and see if their pos has crossed line
+    Object.values(this.players).forEach(player => {
+      if (player.pos[0] > 9900){
+        this.podium.push([player.id, 60 - this.gameClock]);
+      } else if( (this.podium.length > 4) || this.gameClock < 0.2) {
+        // run game ending logic raceEnd();
+      } 
+    })
   }
 
   raceEnd(){
     //run when all 4 player finish or timer runs out
-
-
-
   }
-
-  checkFinish(){
-    //loop through players and see if their pos has crossed line
-
-  }
-
 ////////////////////////Collision Helper methods//////////////////
 
   allPresentItems(){
