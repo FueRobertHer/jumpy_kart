@@ -28,10 +28,14 @@ class Player {
   jump(input){
     // changes the vertSpeed
     // the position of the character will be changed by move
+
+    this.vertSpeed = 5;
     console.log('jmping fuckers')
     if (input) {
       this.vertSpeed = -200;
     } 
+
+    this.move();
   }
 
   move() {
@@ -58,21 +62,26 @@ class Player {
     let pipeY = pipe.pos[1];
 
 
-    //player and pipe side collision
     this.horiSpeed = 2;
-    this.vertSpeed = 5; 
+    this.vertSpeed = 5;
     if( 
+      //pipe left side collision
         playerX + 55 - pipeX < 1 &&
         playerY + 55 - pipeY < 2
       ){
-      this.horiSpeed -= 2;
+      this.horiSpeed = 0;
     } else if(
+      //pipe top collision
       (playerX + 55 - pipeX < 1) &&
       (playerY + 55 - pipeY > -1) &&
       (playerY + 55 - pipeY < 3)
     ){
-      this.vertSpeed -= 5;
+      this.vertSpeed = 0;
     }
+
+    //move the player
+    this.move();
+
   }
 
   itemCollide(item){
@@ -106,6 +115,8 @@ class Player {
     } else {
       didCollide = false;
     }
+
+    this.move();
 
     return didCollide;
   }
