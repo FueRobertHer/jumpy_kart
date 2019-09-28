@@ -48,11 +48,12 @@ class Game {
 ////////////The Game Set up///////////////////////////////////
 
   addPlayer(playerId, socket, gameId){
-    let startPos = [100,419];
+    let startPos = [100, 419];
     let player = new Player(startPos, playerId, gameId);
 
     //fill out player info for game
     this.players[playerId] = player;
+    console.log(this.players[playerId]);
     this.playerSockets[playerId] = socket;
 
     for (let i = 0; i < Object.values(this.players).length; i++) {
@@ -140,20 +141,19 @@ class Game {
     // call the game setup function
     // the players should already be registered
 
-
     // start the race
     this.raceStart();
     
-    
     // the race finish logic
     // this should take the coins players earned and deposit them in backend
-
   }
 
 
   async raceStart(){
     //should call the update function
-    while (this.gameClock > 0){
+    while (this.gameClock > 0.5){
+      //check finish of race
+      this.checkFinish();
       //subtract from gameClock
       this.gameClock -= (1000/50);
       this.update();
@@ -164,24 +164,15 @@ class Game {
 
   update(){
 
-    //check if any player has finished the race
-    this.checkFinish();
-
     //update the items currently on the map
     this.allPresentItems();
     
 
-    //first check for any collisions
-    //bind this for update to this for game class
+    //collision logic will take care of moving the player
+    //bind this for update to this for game class??
     this.playerPipeCollide();
-    this.playerItemCollide();
+    this.playerItemCollide();   
 
-    //updates the game state by moving each of the players 
-    
-    Object.values(this.players).forEach(player => {
-      player.move();
-    })
-    
   }  
 
   checkFinish(){

@@ -136,7 +136,7 @@ class Canvas extends React.Component {
     console.log(this.state.players)
     const that = this;
     let remainingChars = [];
-    
+
     for (let i = 0; i < Object.keys(this.state.players).length; i++) {
       remainingChars.push(i)
     }
