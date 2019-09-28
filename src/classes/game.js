@@ -191,7 +191,7 @@ class Game {
 ////////////////////////Collision Helper methods//////////////////
 
   allPresentItems(){
-    return [].concat(this.coins, this.bananas, this.mushrooms);
+    this.allItems = [].concat(this.coins, this.bananas, this.mushrooms);
   }
 
   playerPipeCollide(){
