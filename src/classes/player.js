@@ -44,7 +44,7 @@ class Player {
 
     // make sure the player doesnt fall off the map
     // make sure the jump func is run first so that vertSpeed is changed
-    if (this.pos[1] < 470){
+    if (this.pos[1] < 415){
       pos[1] + this.vertSpeed;
     }
   }
