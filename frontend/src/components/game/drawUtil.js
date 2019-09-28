@@ -4,14 +4,23 @@ import toadSprite from '../../assets/images/toad_sprite.png';
 import yoshiSprite from '../../assets/images/yoshi_sprite.png';
 import pipeSprite from '../../assets/images/pipes_sprite.png';
 import io from 'socket.io-client';
+
 let SERVER = io("http://localhost:5000", { transports: ['websocket'] });
 
-
-let playerInfoObj;
-
+if (process.env.NODE_ENV === "production") {
+  console.log(`process.env: ${process.env}`);
+  SERVER = process.env.REACT_APP_SERVER || 'http://jumpykart.herokuapp.com/#/';
+}
 
 
 export const _drawKart = (ctx, character) => {
+  let socket = SERVER;
+  let playerInfoObj;
+  socket.on('playerJoined', data => {
+    playerInfoObj = data.players;
+  });
+
+
   if (character === 'mario') {
     let char = new Image(); // preset as player 1
     char.src = marioSprite;
