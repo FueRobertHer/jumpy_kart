@@ -3,6 +3,13 @@ import peachSprite from '../../assets/images/peach_sprite.png';
 import toadSprite from '../../assets/images/toad_sprite.png';
 import yoshiSprite from '../../assets/images/yoshi_sprite.png';
 import pipeSprite from '../../assets/images/pipes_sprite.png';
+import io from 'socket.io-client';
+let SERVER = io("http://localhost:5000", { transports: ['websocket'] });
+
+
+let playerInfoObj;
+
+
 
 export const _drawKart = (ctx, character) => {
   if (character === 'mario') {
