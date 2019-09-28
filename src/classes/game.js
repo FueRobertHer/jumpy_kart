@@ -151,7 +151,9 @@ class Game {
 
   async raceStart(){
     //should call the update function
-    while (this.gameClock > 0){
+    while (this.gameClock > 0.5){
+      //check finish of race
+      this.checkFinish();
       //subtract from gameClock
       this.gameClock -= (1000/50);
       this.update();
@@ -162,24 +164,15 @@ class Game {
 
   update(){
 
-    //check if any player has finished the race
-    this.checkFinish();
-
     //update the items currently on the map
     this.allPresentItems();
     
 
-    //first check for any collisions
-    //bind this for update to this for game class
+    //collision logic will take care of moving the player
+    //bind this for update to this for game class??
     this.playerPipeCollide();
-    this.playerItemCollide();
+    this.playerItemCollide();   
 
-    //updates the game state by moving each of the players 
-    
-    Object.values(this.players).forEach(player => {
-      player.move();
-    })
-    
   }  
 
   checkFinish(){

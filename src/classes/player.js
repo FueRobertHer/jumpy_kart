@@ -29,7 +29,11 @@ class Player {
     // changes the vertSpeed
     // the position of the character will be changed by move
     console.log('jmping fuckers')
-    this.vertSpeed = -200;
+    if (this.pos[1] > 30){
+      this.vertSpeed = -120;
+    }
+    this.move();
+    this.vertSpeed = 5;
   }
 
   move() {
@@ -38,7 +42,7 @@ class Player {
 
     // make sure the player doesnt fall off the map
     // make sure the jump func is run first so that vertSpeed is changed
-    if (this.pos[1] < 470){
+    if (this.pos[1] < 415){
       pos[1] + this.vertSpeed;
     }
   }
@@ -56,21 +60,26 @@ class Player {
     let pipeY = pipe.pos[1];
 
 
-    //player and pipe side collision
     this.horiSpeed = 2;
-    this.vertSpeed = 5; 
+    this.vertSpeed = 5;
     if( 
+      //pipe left side collision
         playerX + 55 - pipeX < 1 &&
         playerY + 55 - pipeY < 2
       ){
-      this.horiSpeed -= 2;
+      this.horiSpeed = 0;
     } else if(
+      //pipe top collision
       (playerX + 55 - pipeX < 1) &&
       (playerY + 55 - pipeY > -1) &&
       (playerY + 55 - pipeY < 3)
     ){
-      this.vertSpeed -= 5;
+      this.vertSpeed = 0;
     }
+
+    //move the player
+    this.move();
+
   }
 
   itemCollide(item){
@@ -104,6 +113,8 @@ class Player {
     } else {
       didCollide = false;
     }
+
+    this.move();
 
     return didCollide;
   }
