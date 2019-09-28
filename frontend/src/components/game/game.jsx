@@ -20,12 +20,17 @@ class Canvas extends React.Component {
       hostId: 0,
       gameId: 0,
       loaded: false,
-      pipes: []
+      pipes: [],
+      coins: [],
+      bananas: [],
+      mushrooms: [],
+      items: []
     };
     this.drawObjects = this.drawObjects.bind(this);
     this.openSocket = this.openSocket.bind(this);
     this.loadGame = this.loadGame.bind(this);
     this.joinRoom = this.joinRoom.bind(this);
+    this.emitStartGame = this.emitStartGame.bind(this);
     this.socket = null;
     this.pipes = [];
     this.characters = ['mario', 'peach', 'toad', 'yoshi'];
@@ -41,15 +46,14 @@ class Canvas extends React.Component {
     return new Promise((resolve, reject) => {
       this.socket = SERVER;
       let socket = this.socket;
-      console.log('openSocket socket');
-      console.log(socket);
 
-      socket.on('placePipes', data => {
-        console.log('IN PLACEPIPES');
+      socket.on('placeItems', data => {
+        console.log('IN PLACEITEMS');
         console.log(data);
         this.setState({
           loaded: true,
-          pipes: data.pipes
+          pipes: data.pipes,
+          items: data.items
         });
       });
 
@@ -69,6 +73,12 @@ class Canvas extends React.Component {
 
       resolve();
     });
+  }
+
+  emitStartGame() {
+    this.socket = SERVER;
+    let socket = this.socket;
+    socket.emit('startGame');
   }
 
   loadGame() {
@@ -111,9 +121,6 @@ class Canvas extends React.Component {
       )
     document.body.onkeydown = function (e) {
       if (e.keyCode === 32) {
-        console.log('pressed space!');
-        // keyDown = e.keyCode;
-        // socket.emit('btnDown', keyDown);
         socket.emit('btnDown');
       }
     }
@@ -140,7 +147,7 @@ class Canvas extends React.Component {
   }
 
   drawObjects(ctx) {
-    console.log(this.state.players)
+    console.log('this.state.players', this.state.players)
     const that = this;
     let remainingChars = [];
 
@@ -157,7 +164,7 @@ class Canvas extends React.Component {
     }
 
     DrawUtil._drawKart(ctx, this.characters[remainingChars[0]], Object.values(this.state.players)[remainingChars[0]].pos);
-    if (this.state.loaded) DrawUtil._drawPipes(ctx, this.state.pipes)
+    if (this.state.loaded) DrawUtil._drawPipes(ctx, this.state.pipes, this.state.items)
       .then(() => {
         let road = new Image();
         road.src = roadSprite;
@@ -172,16 +179,18 @@ class Canvas extends React.Component {
     if (!this.props) {
       return null;
     }
-    console.log('inside render() function');
-    console.log(this.state);
+    console.log('inside render() function, state:', this.state);
     return (
       <div className='canvas-container'>
         <canvas ref="canvas" width="10000" height="500" />
-        <p>{this.state.time}</p>
+        {/* <p>{this.state.time}</p> */}
+        {(this.state.hostId === this.props.currentUserId) ? 
+         (<button className='start-game-button input submit'
+                  onClick={this.emitStartGame}
+          >Start Game</button>) : 
+         (<div/>)}        
       </div>
     )
   }
 }
 export default Canvas;
-
-// 476

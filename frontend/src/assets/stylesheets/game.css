@@ -1,3 +1,7 @@
 .canvas-container {
   overflow: scroll;
 }
+
+.start-game-button {
+  margin-top: 14px;
+}
