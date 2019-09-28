@@ -30,8 +30,8 @@ export const socketManager = (socket) => {
         console.log('loading game');
         game.loadGame(socket);
       });
-      gameState.users[socket.id] = game.addPlayer(roomInfo.userId, socket);
-      player = gameState.users[roomInfo.userId];
+      gameState.users[socket.id] = game.addPlayer(roomInfo.userId, socket, roomInfo.roomId);
+      player = gameState.users[socket.id];
 
       socket.on('btnDown', data => {
         if (player) {
