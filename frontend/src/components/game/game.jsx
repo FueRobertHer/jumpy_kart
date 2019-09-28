@@ -158,6 +158,7 @@ class Canvas extends React.Component {
           ctx.drawImage(road, 0, 476);
         }
       })
+      // make new png of background
   }
 
   render() {
