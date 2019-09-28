@@ -42,13 +42,10 @@ class Player {
 
     // make sure the player doesnt fall off the map
     // make sure the jump func is run first so that vertSpeed is changed
-    console.log('this.pos[1]', this.pos[1])
+    console.log(this.pos)
     if (this.pos[1] < 420){
-      console.log('inside move conditional this.pos')
-      console.log(this.pos)
       this.pos[1] += this.vertSpeed;
     }
-    console.log('player.move', this.pos)
   }
 
   pipeCollide(pipe) {  
