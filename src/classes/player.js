@@ -12,7 +12,12 @@ class Player {
 
     //speed    
     this.HoriSpeed = 2;
-    this.Gravity = 5;
+    if (pos[1] > 490){
+      this.Gravity = 0;
+    }else {
+      this.Gravity = 5;
+    }
+   
     
     //number of coins collected
     this.numCoin = 0;
