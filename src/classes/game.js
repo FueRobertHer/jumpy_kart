@@ -23,7 +23,7 @@ class Game {
     this.pipes = [];
     this.coins = [];
     this.bananas = [];
-    this.muchrooms = [];
+    this.mushrooms = [];
     this.allItems = [];
 
     //to send down info on players and pipes and etc.
@@ -164,7 +164,6 @@ class Game {
   }
 
   update(){
-
     //update the items currently on the map
     this.allPresentItems();
     
@@ -173,8 +172,7 @@ class Game {
     //bind this for update to this for game class??
     this.playerPipeCollide();
     this.playerItemCollide();   
-
-  }  
+  }
 
   checkFinish(){
     //loop through players and see if their pos has crossed line
@@ -249,6 +247,7 @@ class Game {
     socket.emit("updateGameState", ({
       hostId: this.hostId,
       gameId: this.gameId,
+      players: this.playerInfoObject
     }));
 
     //emit end game state

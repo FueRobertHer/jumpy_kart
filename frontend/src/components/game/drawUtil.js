@@ -4,30 +4,30 @@ import toadSprite from '../../assets/images/toad_sprite.png';
 import yoshiSprite from '../../assets/images/yoshi_sprite.png';
 import pipeSprite from '../../assets/images/pipes_sprite.png';
 
-export const _drawKart = (ctx, character) => {
+export const _drawKart = (ctx, character, pos) => {
   if (character === 'mario') {
     let char = new Image(); // preset as player 1
     char.src = marioSprite;
     char.onload = () => {
-      ctx.drawImage(char, 100, 419);
+      ctx.drawImage(char, pos[0], pos[1]);
     }
   } else if (character === 'peach') {
     let char = new Image(); // preset as player 2
     char.src = peachSprite;
     char.onload = () => {
-      ctx.drawImage(char, 100, 419);
+      ctx.drawImage(char, pos[0], pos[1]);
     }
   } else if (character === 'toad') {
     let char = new Image(); // preset as player 2
     char.src = toadSprite;
     char.onload = () => {
-      ctx.drawImage(char, 100, 419);
+      ctx.drawImage(char, pos[0], pos[1]);
     }
   } else {
     let char = new Image(); // preset as player 2
     char.src = yoshiSprite;
     char.onload = () => {
-      ctx.drawImage(char, 100, 419);
+      ctx.drawImage(char, pos[0], pos[1]);
     }
   } 
 }
