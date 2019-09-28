@@ -11,8 +11,12 @@ class Player {
     this.id = id;
 
     //speed    
-    this.HoriSpeed = 2;
-    this.Gravity = 5;
+    this.horiSpeed = 2;
+
+    //gravity
+    this.vertSpeed = 5;
+    
+   
     
     //number of coins collected
     this.numCoin = 0;
@@ -22,19 +26,21 @@ class Player {
   }
 
   jump() {
+    // changes the vertSpeed
+    // the position of the character will be changed by move
     console.log('jmping fuckers')
-    // if (input) {
-    //   this.vertSpeed = -200;
-    // } else {
-    //   this.speed = 0;
-    // }
+    this.vertSpeed = -200;
   }
 
   move() {
     //add velocity to pos every frame
+    pos[0] + this.horiSpeed;
 
-    this.props.pos[0] + this.horiSpeed;
-    this.props.pos[1] + this.verSpeed;
+    // make sure the player doesnt fall off the map
+    // make sure the jump func is run first so that vertSpeed is changed
+    if (this.pos[1] < 470){
+      pos[1] + this.vertSpeed;
+    }
   }
 
   pipeCollide(pipe) {  
@@ -52,7 +58,7 @@ class Player {
 
     //player and pipe side collision
     this.horiSpeed = 2;
-    this.gravity = 2; 
+    this.vertSpeed = 5; 
     if( 
         playerX + 55 - pipeX < 1 &&
         playerY + 55 - pipeY < 2
@@ -63,7 +69,7 @@ class Player {
       (playerY + 55 - pipeY > -1) &&
       (playerY + 55 - pipeY < 3)
     ){
-      this.Gravity -= 2;
+      this.vertSpeed -= 5;
     }
   }
 
@@ -76,7 +82,6 @@ class Player {
     let itemY = item.pos[1];
 
     this.horiSpeed = 2;
-    this.gravity = 2; 
 
     let didCollide = true;
 
@@ -90,11 +95,11 @@ class Player {
         case 'coin': 
           this.numCoin++;
         case 'mushroom':
-          this.HoriSpeed = 3;
+          this.horiSpeed = 3;
         case 'banana':
-          this.HoriSpeed = 1;
+          this.horiSpeed = 1;
         default:
-          this.HoriSpeed = 2;        
+          this.horiSpeed = 2;        
       }
     } else {
       didCollide = false;

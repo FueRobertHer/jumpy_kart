@@ -48,7 +48,7 @@ class Game {
 ////////////The Game Set up///////////////////////////////////
 
   addPlayer(playerId, socket, gameId){
-    let startPos = [200,200];
+    let startPos = [100, 419];
     let player = new Player(startPos, playerId, gameId);
 
     //fill out player info for game
@@ -141,14 +141,11 @@ class Game {
     // call the game setup function
     // the players should already be registered
 
-
     // start the race
     this.raceStart();
     
-    
     // the race finish logic
     // this should take the coins players earned and deposit them in backend
-
   }
 
 
