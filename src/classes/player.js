@@ -12,7 +12,7 @@ class Player {
 
     //speed    
     this.HoriSpeed = 2;
-    this.Gravity = 2;
+    this.Gravity = 5;
     
     //number of coins collected
     this.numCoin = 0;
