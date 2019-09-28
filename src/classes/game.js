@@ -75,13 +75,15 @@ class Game {
     //place random pipes but make sure that they are minimum dist from each other
     //place a pipe per 250px width
     //
+    if (this.pipes.length === 0) {
+      for ( let i = 0; i < 13; i++){
+        let randomXCoord = Math.random() * (250 * (i + 1) - 250 * i) + 700 * i + 1000;
+        let randomHeight = Math.random() * (300 - 50) + 175;
+        // let newPipe = new Pipe(randomXCoord, 70, randomHeight);
+        this.pipes.push(new Pipe(randomXCoord, 70, randomHeight));
+      }
+    }
 
-    for ( let i = 0; i < 13; i++){
-      let randomXCoord = Math.random() * (250 * (i + 1) - 250 * i) + 700 * i + 1000;
-      let randomHeight = Math.random() * (300 - 50) + 175;
-      let newPipe = new Pipe(randomXCoord, 70, randomHeight);
-      this.pipes.push(new Pipe(randomXCoord, 70, randomHeight));
-    }   
   } 
 
   placeItems(){
