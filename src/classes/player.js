@@ -25,13 +25,11 @@ class Player {
     this.finishPlace = 0;        
   }
 
-  jump(input){
+  jump(){
     // changes the vertSpeed
     // the position of the character will be changed by move
     console.log('jmping fuckers')
-    if (input) {
-      this.vertSpeed = -200;
-    } 
+    this.vertSpeed = -200;
   }
 
   move() {

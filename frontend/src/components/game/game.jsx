@@ -111,8 +111,9 @@ class Canvas extends React.Component {
     document.body.onkeydown = function (e) {
       if (e.keyCode === 32) {
         console.log('pressed space!');
-        keyDown = e.keyCode;
-        socket.emit('btnDown', keyDown);
+        // keyDown = e.keyCode;
+        // socket.emit('btnDown', keyDown);
+        socket.emit('btnDown');
       }
     }
   }
@@ -132,6 +133,7 @@ class Canvas extends React.Component {
   }
 
   drawObjects(ctx) {
+    console.log(this.state.players)
     const that = this;
     let remainingChars = [];
     

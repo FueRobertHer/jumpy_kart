@@ -33,9 +33,9 @@ export const socketManager = (socket) => {
       gameState.users[socket.id] = game.addPlayer(roomInfo.userId, socket, roomInfo.roomId);
       player = gameState.users[socket.id];
 
-      socket.on('btnDown', data => {
+      socket.on('btnDown', () => {
         if (player) {
-          player.jump(data);
+          player.jump();
         }
       });
     } 
