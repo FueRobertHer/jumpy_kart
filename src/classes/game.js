@@ -32,7 +32,7 @@ class Game {
     this.playerPipeCollide = this.playerPipeCollide.bind(this);
 
     //to set game timer
-    this.gameClock = 60;
+    this.gameClock = 60000;
 
     // to record the order of players
     this.podium = [];
@@ -150,16 +150,22 @@ class Game {
     // this should take the coins players earned and deposit them in backend
   }
 
+  sleep(ms) {
+    return new Promise(resolve => {
+      setTimeout(resolve, ms)
+    });
+  }
 
   async raceStart(){
     //should call the update function
     while (this.gameClock > 0.5){
+      console.log(this.gameClock);
       //check finish of race
       this.checkFinish();
       //subtract from gameClock
       this.gameClock -= (1000/50);
       this.update();
-      await sleep(1000/60);
+      await this.sleep(1000/60);
     }
     
   }
@@ -204,11 +210,9 @@ class Game {
   }
 
   playerItemCollide(){
-    debugger
     //loops over players and allItems
     Object.keys(this.players).forEach(playerId => {
-      for (let j = this.allItems.length; j >= 0; --j) {
-        debugger
+      for (let j = this.allItems.length - 1; j >= 0; --j) {
         let didCollide = this.players[playerId].itemCollide(this.allItems[j]);
         //delete the item after collision
         if (didCollide === true){
