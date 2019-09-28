@@ -32,6 +32,12 @@ export const socketManager = (socket) => {
       });
       gameState.users[socket.id] = game.addPlayer(roomInfo.userId, socket);
       player = gameState.users[roomInfo.userId];
+
+      socket.on('btnDown', data => {
+        if (player) {
+          player.jump(data);
+        }
+      });
     } 
 
     if (roomInfo.type === "joinRoom") {
@@ -44,10 +50,19 @@ export const socketManager = (socket) => {
         });
         gameState.users[roomInfo.userId] = game.addPlayer(roomInfo.userId, socket);
         player = gameState.users[roomInfo.userId];
+
+        socket.on('btbDown', data => {
+          if (player) {
+            player.jump(data);
+          }
+        });
+        
       } else {
         return null;
       }
     }
+
+    
 
   });
 
