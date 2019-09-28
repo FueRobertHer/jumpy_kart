@@ -70,6 +70,7 @@ class Game {
       });
     });
     
+    console.log(this.playerInfoObject);
     return player;
   }
 
