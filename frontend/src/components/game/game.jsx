@@ -2,11 +2,14 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import * as DrawUtil from './drawUtil';
+
 let SERVER = io("http://localhost:5000", { transports: ['websocket'] });
+
 if (process.env.NODE_ENV === "production") {
   console.log(`process.env: ${process.env}`);
   SERVER = process.env.REACT_APP_SERVER || 'http://jumpykart.herokuapp.com/#/';
 }
+
 class Canvas extends React.Component {
   constructor(props) {
     super(props);
@@ -102,7 +105,7 @@ class Canvas extends React.Component {
       )
     document.body.onkeydown = function (e) {
       if (e.keyCode == 32) {
-        console.log('pressed space!'); // replace with function here;
+        console.log('pressed space!'); 
       }
     }
   }
