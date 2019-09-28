@@ -9,35 +9,38 @@ export const _drawKart = (ctx, character) => {
     let char = new Image(); // preset as player 1
     char.src = marioSprite;
     char.onload = () => {
-      ctx.drawImage(char, 100, 100);
+      ctx.drawImage(char, 100, 419);
     }
   } else if (character === 'peach') {
     let char = new Image(); // preset as player 2
     char.src = peachSprite;
     char.onload = () => {
-      ctx.drawImage(char, 100, 100);
+      ctx.drawImage(char, 100, 419);
     }
   } else if (character === 'toad') {
     let char = new Image(); // preset as player 2
     char.src = toadSprite;
     char.onload = () => {
-      ctx.drawImage(char, 100, 100);
+      ctx.drawImage(char, 100, 419);
     }
   } else {
     let char = new Image(); // preset as player 2
     char.src = yoshiSprite;
     char.onload = () => {
-      ctx.drawImage(char, 100, 100);
+      ctx.drawImage(char, 100, 419);
     }
   } 
 }
 
 export const _drawPipes = (ctx, pipes) => {
-  pipes.forEach(pipe => {
-    let randomPipe = new Image();
-    randomPipe.src = pipeSprite;
-    randomPipe.onload = () => {
-      ctx.drawImage(randomPipe, pipe.pos[0], pipe.height);
-    }
-  });
+  return new Promise((resolve, reject) => {
+    pipes.forEach(pipe => {
+      let randomPipe = new Image();
+      randomPipe.src = pipeSprite;
+      randomPipe.onload = () => {
+        ctx.drawImage(randomPipe, pipe.pos[0], pipe.height);
+      }
+    });
+    resolve();
+  })
 }
