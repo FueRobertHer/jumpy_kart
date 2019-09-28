@@ -12,11 +12,10 @@ class Player {
 
     //speed    
     this.HoriSpeed = 2;
-    if (pos[1] > 490){
-      this.Gravity = 0;
-    }else {
-      this.Gravity = 5;
-    }
+
+    //
+    this.vertSpeed = 5;
+    
    
     
     //number of coins collected
@@ -37,9 +36,13 @@ class Player {
 
   move() {
     //add velocity to pos every frame
+    pos[0] + this.horiSpeed;
 
-    this.props.pos[0] + this.horiSpeed;
-    this.props.pos[1] + this.verSpeed;
+    // make sure the player doesnt fall off the map
+    // make sure the jump func is run first so that vertSpeed is changed
+    if (this.pos[1] < 470){
+      pos[1] + this.vertSpeed;
+    }
   }
 
   pipeCollide(pipe){  
