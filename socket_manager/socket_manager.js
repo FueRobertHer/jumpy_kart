@@ -12,6 +12,8 @@ export const gameState = {
   //gameState.rooms[roomInfo.roomId]
 };
 
+// this happens when socket emmission is heard
+// we will be calling game.gameloop()
 
 export const socketManager = (socket) => {
 
@@ -20,8 +22,12 @@ export const socketManager = (socket) => {
   let game;
   let player;
 
-  socket.on('roomInfo', roomInfo => {
+  socket.on('startGame', () => {
+    console.log('inside gameloop.on')
+    game.gameloop()
+  })
 
+  socket.on('roomInfo', roomInfo => {
     if (roomInfo.type === "createRoom") {
       socket.id = roomInfo.userId;
       console.log('roomInfo.userId')

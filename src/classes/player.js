@@ -47,7 +47,7 @@ class Player {
       console.log(this.pos)
       this.pos[1] += this.vertSpeed;
     }
-    console.log(this.pos)
+    console.log('player.move', this.pos)
   }
 
   pipeCollide(pipe) {  

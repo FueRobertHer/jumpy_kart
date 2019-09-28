@@ -41,6 +41,8 @@ class Game {
 
   async loadGame(socket){
     this.placePipes(socket);
+    this.placeItems(socket);
+    this.allPresentItems(socket);
     this.emitUpdateGame(socket);
   }
 
@@ -83,7 +85,6 @@ class Game {
       for ( let i = 0; i < 13; i++){
         let randomXCoord = Math.random() * (250 * (i + 1) - 250 * i) + 700 * i + 1000;
         let randomHeight = Math.random() * (300 - 50) + 175;
-        // let newPipe = new Pipe(randomXCoord, 70, randomHeight);
         this.pipes.push(new Pipe(randomXCoord, 70, randomHeight));
       }
     }
@@ -191,22 +192,23 @@ class Game {
 ////////////////////////Collision Helper methods//////////////////
 
   allPresentItems(){
-    return [].concat(this.coins, this.bananas, this.mushrooms);
+    this.allItems = [].concat(this.coins, this.bananas, this.mushrooms);
   }
 
   playerPipeCollide(){
     Object.keys(this.players).forEach(playerId => {
       this.pipes.forEach(pipe => {
-        this.players[playerId].pipeColide(pipe);
+        this.players[playerId].pipeCollide(pipe);
       });
     });
   }
 
   playerItemCollide(){
+    debugger
     //loops over players and allItems
     Object.keys(this.players).forEach(playerId => {
       for (let j = this.allItems.length; j >= 0; --j) {
-        
+        debugger
         let didCollide = this.players[playerId].itemCollide(this.allItems[j]);
         //delete the item after collision
         if (didCollide === true){
@@ -233,11 +235,15 @@ class Game {
     
     //emit game setup
     // change out placePipes with game set up
-    socket.emit("placePipes", {
+    socket.emit("placeItems", {
       pipes: this.pipes.map(pipe => ({
         pos: pipe.pos,
         width: pipe.width,
         height: pipe.height
+      })),
+      items: this.allItems.map(item => ({
+        pos: item.pos,
+        type: item.type
       }))
     });
 
