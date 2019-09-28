@@ -32,7 +32,7 @@ export const socketManager = (socket) => {
       });
       gameState.users[socket.id] = game.addPlayer(roomInfo.userId, socket);
       player = gameState.users[roomInfo.userId];
-    }
+    } 
 
     if (roomInfo.type === "joinRoom") {
       if (gameState.rooms[roomInfo.roomId].gameId === roomInfo.roomId) {
