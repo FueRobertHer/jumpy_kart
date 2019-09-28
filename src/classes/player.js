@@ -34,6 +34,7 @@ class Player {
     }
     this.move();
     this.vertSpeed = 5;
+    console.log("does player move?", this.pos);
   }
 
   move() {
