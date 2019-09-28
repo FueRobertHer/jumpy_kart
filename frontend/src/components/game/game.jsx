@@ -32,6 +32,7 @@ class Canvas extends React.Component {
     this.username = props.location.username;
     this.userId = props.location.userId;
     this.isHost = props.location.isHost;
+    this.keyDown = false;
   }
 
   openSocket() {
@@ -93,6 +94,9 @@ class Canvas extends React.Component {
   }
 
   componentDidMount() {
+    this.socket = SERVER;
+    let socket = this.socket;
+    let keyDown = this.keyDown; 
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
     this.openSocket()
@@ -104,8 +108,10 @@ class Canvas extends React.Component {
         )
       )
     document.body.onkeydown = function (e) {
-      if (e.keyCode == 32) {
-        console.log('pressed space!'); 
+      if (e.keyCode === 32) {
+        console.log('pressed space!');
+        keyDown = e.keyCode;
+        socket.emit('btnDown', keyDown);
       }
     }
   }

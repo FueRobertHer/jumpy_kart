@@ -21,8 +21,13 @@ class Player {
     this.finishPlace = 0;        
   }
 
-  jump(){
-    this.vertSpeed = -200;
+  jump(input){
+    console.log('jmping fuckers')
+    if (input) {
+      this.vertSpeed = -200;
+    } else {
+      this.speed = 0;
+    }
   }
 
   move() {

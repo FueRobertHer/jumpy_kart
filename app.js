@@ -27,7 +27,6 @@ server.listen(PORT, () => {
   console.log(`listening on localhost ${PORT}`);
 });
 
-
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log("Connected to MongoDB successfully"))
