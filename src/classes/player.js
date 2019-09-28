@@ -28,7 +28,6 @@ class Player {
   jump() {
     // changes the vertSpeed
     // the position of the character will be changed by move
-    console.log('jmping fuckers')
     if (this.pos[1] > 30){
       this.vertSpeed = -120;
     }
@@ -38,13 +37,17 @@ class Player {
 
   move() {
     //add velocity to pos every frame
-    pos[0] + this.horiSpeed;
+    this.pos[0] + this.horiSpeed;
 
     // make sure the player doesnt fall off the map
     // make sure the jump func is run first so that vertSpeed is changed
-    if (this.pos[1] < 415){
-      pos[1] + this.vertSpeed;
+    console.log('this.pos[1]', this.pos[1])
+    if (this.pos[1] < 420){
+      console.log('inside move conditional this.pos')
+      console.log(this.pos)
+      this.pos[1] += this.vertSpeed;
     }
+    console.log(this.pos)
   }
 
   pipeCollide(pipe) {  
@@ -81,6 +84,8 @@ class Player {
     this.move();
 
   }
+///////////////////////////// trying to update game state
+///////////////////////////// with updated player pos
 
   itemCollide(item){
     //check what the item.type

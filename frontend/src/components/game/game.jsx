@@ -57,6 +57,7 @@ class Canvas extends React.Component {
         this.setState({
           hostId: data.hostId,
           gameId: data.gameId,
+          players: data.players
         });
       });
 
@@ -118,7 +119,13 @@ class Canvas extends React.Component {
     }
   }
 
+  // this.state.players is in correct order
+  // maybe have a new object that contains each 
+  // player but also with the character sprite name
+  // 
+
   componentDidUpdate(prevProps, prevState) {
+    console.log('updating')
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
     if (Object.keys(this.state.players).length !== 0) {
@@ -144,12 +151,12 @@ class Canvas extends React.Component {
     for (let i = 0; i < Object.keys(this.state.players).length; i++) {
       const playerId = Object.keys(this.state.players)[i];
       if (playerId !== this.props.currentUserId) {
-        DrawUtil._drawKart.apply(that, [ctx, this.characters[i]]);
+        DrawUtil._drawKart.apply(that, [ctx, this.characters[i], Object.values(this.state.players)[i].pos]);
         remainingChars.splice(i, 1);
       }
     }
 
-    DrawUtil._drawKart(ctx, this.characters[remainingChars[0]]);
+    DrawUtil._drawKart(ctx, this.characters[remainingChars[0]], Object.values(this.state.players)[remainingChars[0]].pos);
     if (this.state.loaded) DrawUtil._drawPipes(ctx, this.state.pipes)
       .then(() => {
         let road = new Image();
