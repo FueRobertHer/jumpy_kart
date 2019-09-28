@@ -32,7 +32,10 @@ class Game {
     this.playerPipeCollide = this.playerPipeCollide.bind(this);
 
     //to set game timer
-    this.timer = 60;
+    this.gameClock = 60;
+
+    // to record the order of players
+    this.podium = [];
   }
 
 
@@ -148,10 +151,9 @@ class Game {
 
   async raceStart(){
     //should call the update function
-    let gameClock = 60;
-    while (gameClock > 0){
+    while (this.gameClock > 0){
       //subtract from gameClock
-      gameClock -= (1000/60);
+      this.gameClock -= (1000/50);
       this.update();
       await sleep(1000/60);
     }
@@ -159,7 +161,10 @@ class Game {
   }
 
   update(){
-    
+
+    //check if any player has finished the race
+    this.checkFinish();
+
     //update the items currently on the map
     this.allPresentItems();
     
@@ -171,17 +176,26 @@ class Game {
 
     //updates the game state by moving each of the players 
     
-    Object.values(this.players).map(player => {
+    Object.values(this.players).forEach(player => {
       player.move();
     })
+    
+  }  
 
-
+  checkFinish(){
+    //loop through players and see if their pos has crossed line
+    Object.values(this.players).forEach(player => {
+      if (player.pos[0] > 9900){
+        this.podium.push([player.id, 60 - this.gameClock]);
+      } else if( (this.podium.length > 4) || this.gameClock < 0.2) {
+        // run game ending logic raceEnd();
+      } 
+    })
   }
 
   raceEnd(){
-
+    //run when all 4 player finish or timer runs out
   }
-
 ////////////////////////Collision Helper methods//////////////////
 
   allPresentItems(){
@@ -189,25 +203,36 @@ class Game {
   }
 
   playerPipeCollide(){
-    //passes in players and pipes;
-    //let player auto update their own stats.
-    for (let i = 0; i < this.players.length; i++){
-      for (let j = 0; j < this.pipes.length; j++){
-        this.players[i].pipeCollide(this.pipes[j])
-      }
-    }
+    Object.keys(this.players).forEach(playerId => {
+      this.pipes.forEach(pipe => {
+        this.players[playerId].pipeColide(pipe);
+      });
+    });
   }
 
   playerItemCollide(){
     //loops over players and allItems
-    for (let i = 0; i < this.players.length; i++) {
+    Object.keys(this.players).forEach(playerId => {
       for (let j = this.allItems.length; j >= 0; --j) {
-        this.players[i].itemCollide(this.allItems[j])
+        
+        let didCollide = this.players[playerId].itemCollide(this.allItems[j]);
         //delete the item after collision
-        this.allItems.splice(j,1);
+        if (didCollide === true){
+          this.allItems.splice(j,1);
+        }
       }
-    }
+    });
   }
+
+
+/////////////////////////Race End helper////////////////////////////
+
+  gameTimeUp(){
+    //see the positions of each player and assign rankings
+
+  }
+
+
   
 
 /////////////////////Emit Stuff/////////////////////////////////
