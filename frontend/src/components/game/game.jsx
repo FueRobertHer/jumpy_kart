@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import * as DrawUtil from './drawUtil';
+import roadSprite from '../../assets/images/road.png';
 
 let SERVER = io("http://localhost:5000", { transports: ['websocket'] });
 
@@ -133,9 +134,11 @@ class Canvas extends React.Component {
   drawObjects(ctx) {
     const that = this;
     let remainingChars = [];
+    
     for (let i = 0; i < Object.keys(this.state.players).length; i++) {
       remainingChars.push(i)
     }
+
     for (let i = 0; i < Object.keys(this.state.players).length; i++) {
       const playerId = Object.keys(this.state.players)[i];
       if (playerId !== this.props.currentUserId) {
@@ -143,8 +146,16 @@ class Canvas extends React.Component {
         remainingChars.splice(i, 1);
       }
     }
+
     DrawUtil._drawKart(ctx, this.characters[remainingChars[0]]);
-    if (this.state.loaded) DrawUtil._drawPipes(ctx, this.state.pipes);
+    if (this.state.loaded) DrawUtil._drawPipes(ctx, this.state.pipes)
+      .then(() => {
+        let road = new Image();
+        road.src = roadSprite;
+        road.onload = () => {
+          ctx.drawImage(road, 0, 476);
+        }
+      })
   }
 
   render() {
@@ -162,3 +173,5 @@ class Canvas extends React.Component {
   }
 }
 export default Canvas;
+
+// 476
