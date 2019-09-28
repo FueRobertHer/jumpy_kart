@@ -6,11 +6,8 @@ import Coin from './coin';
 import Mushroom from './mushroom';
 import Banana from './banana';
 
-
-
 const BoardSize = ["500", "1500"];
 const FPS = 60;
-
 
 class Game {
   constructor(gameId, hostId){
