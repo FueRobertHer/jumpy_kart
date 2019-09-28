@@ -4,7 +4,7 @@ import Pipe from './pipe';
 
 
 class Player {
-  constructor(pos, id){
+  constructor(pos, id) {
 
     //position on map
     this.pos = pos;
@@ -21,13 +21,13 @@ class Player {
     this.finishPlace = 0;        
   }
 
-  jump(input){
+  jump() {
     console.log('jmping fuckers')
-    if (input) {
-      this.vertSpeed = -200;
-    } else {
-      this.speed = 0;
-    }
+    // if (input) {
+    //   this.vertSpeed = -200;
+    // } else {
+    //   this.speed = 0;
+    // }
   }
 
   move() {
@@ -37,7 +37,7 @@ class Player {
     this.props.pos[1] + this.verSpeed;
   }
 
-  pipeCollide(pipe){  
+  pipeCollide(pipe) {  
     //set horizontal verlocity to zero when the obj corners overlap
     // the game class will call this function for each player and each pipe
     // each pipe instance has corners method.

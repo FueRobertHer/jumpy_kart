@@ -50,9 +50,11 @@ class Game {
   addPlayer(playerId, socket, gameId){
     let startPos = [200,200];
     let player = new Player(startPos, playerId);
-
+    console.log('player');
+    console.log(player);
     //fill out player info for game
     this.players[playerId] = player;
+    console.log(this.players[playerId]);
     this.playerSockets[playerId] = socket;
 
     for (let i = 0; i < Object.values(this.players).length; i++) {
@@ -68,6 +70,8 @@ class Game {
         players: this.playerInfoObject
       });
     });
+
+    
   }
 
   placePipes(){

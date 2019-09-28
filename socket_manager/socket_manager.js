@@ -24,16 +24,22 @@ export const socketManager = (socket) => {
 
     if (roomInfo.type === "createRoom") {
       socket.id = roomInfo.userId;
+      console.log('roomInfo.userId')
+      console.log(roomInfo.userId)
       gameState.rooms[roomInfo.roomId] = new Game(roomInfo.roomId, socket.id);
       game = gameState.rooms[roomInfo.roomId];
+      console.log('game');
+      console.log(game);
       socket.on('loadGame', () => {
         console.log('loading game');
         game.loadGame(socket);
       });
       gameState.users[socket.id] = game.addPlayer(roomInfo.userId, socket);
       player = gameState.users[roomInfo.userId];
-
+      
       socket.on('btnDown', data => {
+        console.log('player')
+        console.log(gameState.users)
         if (player) {
           player.jump(data);
         }
@@ -51,7 +57,7 @@ export const socketManager = (socket) => {
         gameState.users[roomInfo.userId] = game.addPlayer(roomInfo.userId, socket);
         player = gameState.users[roomInfo.userId];
 
-        socket.on('btbDown', data => {
+        socket.on('btnDown', data => {
           if (player) {
             player.jump(data);
           }
