@@ -185,7 +185,7 @@ class Game {
     //loop through players and see if their pos has crossed line
     Object.values(this.players).forEach(player => {
       if (player.pos[0] > 9900){
-        this.podium.push([player.id, 60 - this.gameClock]);
+        this.podium.push([player.id, (60000 - this.gameClock)/1000 ]);
       } else if( (this.podium.length > 4) || this.gameClock < 0.2) {
         // run game ending logic raceEnd();
       } 
