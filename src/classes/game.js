@@ -58,21 +58,24 @@ class Game {
     console.log(this.players[playerId]);
     this.playerSockets[playerId] = socket;
 
+    const sprites = ['mario', 'peach', 'toad', 'yoshi'];
+
     for (let i = 0; i < Object.values(this.players).length; i++) {
       const player = Object.values(this.players)[i];
       this.playerInfoObject[player.id] = {
         id: player.id,
         pos: player.pos,
+        sprite: sprites[i]
       };
     }
 
     Object.values(this.playerSockets).forEach(socket => {
+      console.log('this.playerInfoObject', this.playerInfoObject)
       socket.emit("playerJoined", {
         players: this.playerInfoObject
       });
     });
     
-    console.log(this.playerInfoObject);
     return player;
   }
 
@@ -163,9 +166,9 @@ class Game {
       //check finish of race
       this.checkFinish();
       //subtract from gameClock
-      this.gameClock -= (1000/50);
+      this.gameClock -= (1000/24);
       this.update(socket);
-      await this.sleep(1000/60);
+      await this.sleep(1000/24);
     }
     
   }
@@ -208,7 +211,8 @@ class Game {
         this.players[playerId].pipeCollide(pipe);
         this.playerInfoObject[playerId] = {
           id: playerId,
-          pos: this.players[playerId].pos
+          pos: this.players[playerId].pos,
+          sprite: this.playerInfoObject[playerId].sprite
         }
         console.log(this.playerInfoObject[playerId]);
       });
@@ -242,9 +246,7 @@ class Game {
 /////////////////////Emit Stuff/////////////////////////////////
 
   emitUpdateGame(socket) {
-    
-    //emit game setup
-    // change out placePipes with game set up
+
     socket.emit("placeItems", {
       pipes: this.pipes.map(pipe => ({
         pos: pipe.pos,
@@ -257,9 +259,6 @@ class Game {
       }))
     });
 
-
-    // this will emit the game state
-    // such as player locations
     socket.emit("updateGameState", ({
       hostId: this.hostId,
       gameId: this.gameId,
