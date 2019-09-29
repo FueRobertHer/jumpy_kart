@@ -50,7 +50,7 @@ class Game {
 ////////////The Game Set up///////////////////////////////////
 
   addPlayer(playerId, socket, gameId){
-    let startPos = [100, 419];
+    let startPos = [100, 200];
     let player = new Player(startPos, playerId, gameId);
 
     //fill out player info for game
@@ -139,12 +139,12 @@ class Game {
 
 /////////////////Game Loop///////////////////////////////////////
 
-  gameloop(){
+  gameloop(socket){
     // call the game setup function
     // the players should already be registered
 
     // start the race
-    this.raceStart();
+    this.raceStart(socket);
     
     // the race finish logic
     // this should take the coins players earned and deposit them in backend
@@ -156,7 +156,7 @@ class Game {
     });
   }
 
-  async raceStart(){
+  async raceStart(socket){
     //should call the update function
     while (this.gameClock > 0.5){
       console.log(this.gameClock);
@@ -164,13 +164,13 @@ class Game {
       this.checkFinish();
       //subtract from gameClock
       this.gameClock -= (1000/50);
-      this.update();
+      this.update(socket);
       await this.sleep(1000/60);
     }
     
   }
 
-  update(){
+  update(socket){
     //update the items currently on the map
     this.allPresentItems();
     
@@ -178,7 +178,8 @@ class Game {
     //collision logic will take care of moving the player
     //bind this for update to this for game class??
     this.playerPipeCollide();
-    this.playerItemCollide();   
+    this.playerItemCollide();
+    this.emitUpdateGame(socket);
   }
 
   checkFinish(){
@@ -205,6 +206,11 @@ class Game {
     Object.keys(this.players).forEach(playerId => {
       this.pipes.forEach(pipe => {
         this.players[playerId].pipeCollide(pipe);
+        this.playerInfoObject[playerId] = {
+          id: playerId,
+          pos: this.players[playerId].pos
+        }
+        console.log(this.playerInfoObject[playerId]);
       });
     });
   }
