@@ -61,8 +61,8 @@ class Player {
     let pipeY = pipe.pos[1];
 
 
-    this.horiSpeed = 2;
-    this.vertSpeed = 5;
+    this.horiSpeed = .1;
+    this.vertSpeed = .1;
     if( 
       //pipe left side collision
         playerX + 55 - pipeX < 1 &&
@@ -93,7 +93,7 @@ class Player {
     let itemX = item.pos[0];
     let itemY = item.pos[1];
 
-    this.horiSpeed = 2;
+    this.horiSpeed = .1;
 
     let didCollide = true;
 

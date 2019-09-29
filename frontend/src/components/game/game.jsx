@@ -108,7 +108,6 @@ class Canvas extends React.Component {
   componentDidMount() {
     this.socket = SERVER;
     let socket = this.socket;
-    let keyDown = this.keyDown; 
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
     this.openSocket()
@@ -121,7 +120,7 @@ class Canvas extends React.Component {
       )
     document.body.onkeydown = function (e) {
       if (e.keyCode === 32) {
-        socket.emit('btnDown');
+        socket.emit('pressSpace');
       }
     }
   }
@@ -147,6 +146,7 @@ class Canvas extends React.Component {
   }
 
   drawObjects(ctx) {
+    console.log('DRAWING OBJECTS')
     console.log('this.state.players', this.state.players)
     const that = this;
     let remainingChars = [];
@@ -165,13 +165,13 @@ class Canvas extends React.Component {
 
     DrawUtil._drawKart(ctx, this.characters[remainingChars[0]], Object.values(this.state.players)[remainingChars[0]].pos);
     if (this.state.loaded) DrawUtil._drawPipes(ctx, this.state.pipes, this.state.items)
-      .then(() => {
-        let road = new Image();
-        road.src = roadSprite;
-        road.onload = () => {
-          ctx.drawImage(road, 0, 476);
-        }
-      })
+      // .then(() => {
+      //   let road = new Image();
+      //   road.src = roadSprite;
+      //   road.onload = () => {
+      //     ctx.drawImage(road, 0, 476);
+      //   }
+      // })
       // make new png of background
   }
 

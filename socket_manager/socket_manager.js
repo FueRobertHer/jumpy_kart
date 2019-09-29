@@ -24,7 +24,7 @@ export const socketManager = (socket) => {
 
   socket.on('startGame', () => {
     console.log('inside gameloop.on')
-    game.gameloop()
+    game.gameloop(socket)
   })
 
   socket.on('roomInfo', roomInfo => {
@@ -43,7 +43,7 @@ export const socketManager = (socket) => {
       gameState.users[socket.id] = game.addPlayer(roomInfo.userId, socket, roomInfo.roomId);
       player = gameState.users[socket.id];
 
-      socket.on('btnDown', () => {
+      socket.on('pressSpace', () => {
         if (player) {
           player.jump();
         }
@@ -61,7 +61,7 @@ export const socketManager = (socket) => {
         gameState.users[roomInfo.userId] = game.addPlayer(roomInfo.userId, socket);
         player = gameState.users[roomInfo.userId];
 
-        socket.on('btnDown', () => {
+        socket.on('pressSpace', () => {
           if (player) {
             player.jump();
           }
