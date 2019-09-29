@@ -173,12 +173,28 @@ class Game {
   update(socket){
     //update the items currently on the map
     this.allPresentItems();
+
+    Object.values(this.players).forEach(player => {
+      let playerMoveArr = [];
+
+      // for each player, calculate how much they should move by
+      // move them by that much, while updating Player inst and
+      // player info object
+
+      // player and item collision
+      // what is the benefit of 
+      let didCollide = player.itemCollide(this.allItems[j]);
+      if (didCollide === true) {
+        this.allItems.splice(j, 1);
+      }
+
+    });
     
 
     //collision logic will take care of moving the player
     //bind this for update to this for game class??
-    this.playerPipeCollide();
     this.playerItemCollide();
+    this.playerPipeCollide();
     this.emitUpdateGame(socket);
   }
 

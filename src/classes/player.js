@@ -33,7 +33,6 @@ class Player {
     }
     this.move();
     this.vertSpeed = 5;
-    console.log("does player move?", this.pos);
   }
 
   move() {
@@ -42,9 +41,10 @@ class Player {
 
     // make sure the player doesnt fall off the map
     // make sure the jump func is run first so that vertSpeed is changed
-    console.log(this.pos)
     if (this.pos[1] < 420){
       this.pos[1] += this.vertSpeed;
+    } else {
+
     }
   }
 
@@ -116,8 +116,6 @@ class Player {
     } else {
       didCollide = false;
     }
-
-    this.move();
 
     return didCollide;
   }
