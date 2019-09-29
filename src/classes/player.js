@@ -26,13 +26,12 @@ class Player {
   }
 
   jump() {
-    // changes the vertSpeed
-    // the position of the character will be changed by move
+    // changes the player position
+    // does not rely move function
+
     if (this.pos[1] > 30){
-      this.vertSpeed = -120;
+      this.pos[1] += 120;
     }
-    this.move();
-    this.vertSpeed = 5;
   }
 
   move() {
@@ -61,8 +60,6 @@ class Player {
     let pipeY = pipe.pos[1];
 
 
-    this.horiSpeed = .1;
-    this.vertSpeed = .1;
     if( 
       //pipe left side collision
         playerX + 55 - pipeX < 1 &&
@@ -78,9 +75,6 @@ class Player {
       this.vertSpeed = 0;
     }
 
-    //move the player
-    this.move();
-
   }
 ///////////////////////////// trying to update game state
 ///////////////////////////// with updated player pos
@@ -93,7 +87,6 @@ class Player {
     let itemX = item.pos[0];
     let itemY = item.pos[1];
 
-    this.horiSpeed = .1;
 
     let didCollide = true;
 
@@ -107,11 +100,11 @@ class Player {
         case 'coin': 
           this.numCoin++;
         case 'mushroom':
-          this.horiSpeed = 3;
+          this.horiSpeed = 2;
         case 'banana':
-          this.horiSpeed = 1;
+          this.horiSpeed = 0.5;
         default:
-          this.horiSpeed = 2;        
+          this.horiSpeed = 1;        
       }
     } else {
       didCollide = false;
