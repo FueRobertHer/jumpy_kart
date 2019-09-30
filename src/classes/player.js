@@ -26,24 +26,24 @@ class Player {
   }
 
   jump() {
-    // changes the vertSpeed
-    // the position of the character will be changed by move
+    // changes the player position
+    // does not rely move function
+
     if (this.pos[1] > 30){
-      this.vertSpeed = -120;
+      this.pos[1] -= 120;
     }
-    this.move();
-    this.vertSpeed = 5;
   }
 
   move() {
     //add velocity to pos every frame
-    this.pos[0] + this.horiSpeed;
+    this.pos[0] += this.horiSpeed;
 
     // make sure the player doesnt fall off the map
     // make sure the jump func is run first so that vertSpeed is changed
-    console.log(this.pos)
     if (this.pos[1] < 420){
       this.pos[1] += this.vertSpeed;
+    } else {
+
     }
   }
 
@@ -58,29 +58,29 @@ class Player {
     let playerY = this.pos[1];
     let pipeX = pipe.pos[0];
     let pipeY = pipe.pos[1];
-
-
-    this.horiSpeed = .1;
-    this.vertSpeed = .1;
-    if( 
-      //pipe left side collision
-        playerX + 55 - pipeX < 1 &&
-        playerY + 55 - pipeY < 2
-      ){
+    console.log("pipe pos", pipe.pos[0]);
+    console.log("player pos", playerX);
+    // check if player's x position is within range
+    // then check if player's y pos
+    if( (playerX + 55 - pipeX < 100) && 
+        (playerX      - pipeX > -100) &&
+        (playerY + 55 - pipeY > -1) &&
+        (playerY + 55 - pipeY < 5) 
+    ){
+      console.log("hit pipe?" )
       this.horiSpeed = 0;
-    } else if(
-      //pipe top collision
-      (playerX + 55 - pipeX < 1) &&
-      (playerY + 55 - pipeY > -1) &&
-      (playerY + 55 - pipeY < 3)
+      }  
+    
+    if( (playerX + 55 - pipeX < -1) &&
+        (playerY      - pipeX > -3) &&
+        (playerY + 55 - pipeY < 1) &&
+        (playerY + 55 - pipeY > -2)
     ){
       this.vertSpeed = 0;
     }
 
-    //move the player
-    this.move();
-
   }
+
 ///////////////////////////// trying to update game state
 ///////////////////////////// with updated player pos
 
@@ -92,7 +92,6 @@ class Player {
     let itemX = item.pos[0];
     let itemY = item.pos[1];
 
-    this.horiSpeed = .1;
 
     let didCollide = true;
 
@@ -106,17 +105,15 @@ class Player {
         case 'coin': 
           this.numCoin++;
         case 'mushroom':
-          this.horiSpeed = 3;
+          this.horiSpeed = 2;
         case 'banana':
-          this.horiSpeed = 1;
+          this.horiSpeed = 0.5;
         default:
-          this.horiSpeed = 2;        
+          this.horiSpeed = 1;        
       }
     } else {
       didCollide = false;
     }
-
-    this.move();
 
     return didCollide;
   }

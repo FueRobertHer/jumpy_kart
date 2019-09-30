@@ -28,8 +28,8 @@ class Game {
 
     //to send down info on players and pipes and etc.
     this.update = this.update.bind(this);
-    this.pipeObjcollide = this.pipeObjcollide.bind(this);
-    this.playerPipeCollide = this.playerPipeCollide.bind(this);
+    // this.pipeObjcollide = this.pipeObjcollide.bind(this);
+    // this.playerPipeCollide = this.playerPipeCollide.bind(this);
 
     //to set game timer
     this.gameClock = 60000;
@@ -176,20 +176,49 @@ class Game {
   update(socket){
     //update the items currently on the map
     this.allPresentItems();
-    
 
-    //collision logic will take care of moving the player
-    //bind this for update to this for game class??
-    this.playerPipeCollide();
-    this.playerItemCollide();
-    this.emitUpdateGame(socket);
+    Object.values(this.players).forEach(player => {
+      player.horiSpeed = 8;
+      player.vertSpeed = 5;
+      // for each player, calculate how much they should move by
+      // move them by that much, while updating Player inst and
+      // player info object
+
+      // player and item collision
+      // what is the benefit of 
+      for (let j = this.allItems.length - 1; j >= 0; --j) {
+        let didCollide = player.itemCollide(this.allItems[j]);
+        if (didCollide === true) {
+          this.allItems.splice(j, 1);
+        }
+      }
+
+      //player and pipe collision
+      this.pipes.forEach(pipe => {
+        player.pipeCollide(pipe);
+      });
+
+      console.log(player.horiSpeed);
+      // move the player
+      player.move();
+
+      // send back player info
+      this.playerInfoObject[player.id] = {
+        id: player.id,
+        pos: player.pos,
+        sprite: this.playerInfoObject[player.id].sprite
+      }
+      
+      this.emitUpdateGame(socket);
+
+    });
   }
 
   checkFinish(){
     //loop through players and see if their pos has crossed line
     Object.values(this.players).forEach(player => {
       if (player.pos[0] > 9900){
-        this.podium.push([player.id, 60 - this.gameClock]);
+        this.podium.push([player.id, (60000 - this.gameClock)/1000 ]);
       } else if( (this.podium.length > 4) || this.gameClock < 0.2) {
         // run game ending logic raceEnd();
       } 
@@ -203,33 +232,6 @@ class Game {
 
   allPresentItems(){
     this.allItems = [].concat(this.coins, this.bananas, this.mushrooms);
-  }
-
-  playerPipeCollide(){
-    Object.keys(this.players).forEach(playerId => {
-      this.pipes.forEach(pipe => {
-        this.players[playerId].pipeCollide(pipe);
-        this.playerInfoObject[playerId] = {
-          id: playerId,
-          pos: this.players[playerId].pos,
-          sprite: this.playerInfoObject[playerId].sprite
-        }
-        console.log(this.playerInfoObject[playerId]);
-      });
-    });
-  }
-
-  playerItemCollide(){
-    //loops over players and allItems
-    Object.keys(this.players).forEach(playerId => {
-      for (let j = this.allItems.length - 1; j >= 0; --j) {
-        let didCollide = this.players[playerId].itemCollide(this.allItems[j]);
-        //delete the item after collision
-        if (didCollide === true){
-          this.allItems.splice(j,1);
-        }
-      }
-    });
   }
 
 
