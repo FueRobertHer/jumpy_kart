@@ -178,9 +178,8 @@ class Game {
     this.allPresentItems();
 
     Object.values(this.players).forEach(player => {
-      player.horiSpeed = 1;
+      player.horiSpeed = 8;
       player.vertSpeed = 5;
-      console.log("speed check", player);
       // for each player, calculate how much they should move by
       // move them by that much, while updating Player inst and
       // player info object
@@ -199,10 +198,9 @@ class Game {
         player.pipeCollide(pipe);
       });
 
-
+      console.log(player.horiSpeed);
       // move the player
       player.move();
-
 
       // send back player info
       this.playerInfoObject[player.id] = {
@@ -210,6 +208,8 @@ class Game {
         pos: player.pos,
         sprite: this.playerInfoObject[player.id].sprite
       }
+      
+      this.emitUpdateGame(socket);
 
     });
   }
@@ -233,32 +233,6 @@ class Game {
   allPresentItems(){
     this.allItems = [].concat(this.coins, this.bananas, this.mushrooms);
   }
-
-  // playerPipeCollide(){
-  //   Object.keys(this.players).forEach(playerId => {
-  //     this.pipes.forEach(pipe => {
-  //       this.players[playerId].pipeCollide(pipe);
-  //       this.playerInfoObject[playerId] = {
-  //         id: playerId,
-  //         pos: this.players[playerId].pos
-  //       }
-  //       console.log(this.playerInfoObject[playerId]);
-  //     });
-  //   });
-  // }
-
-  // playerItemCollide(){
-  //   //loops over players and allItems
-  //   Object.keys(this.players).forEach(playerId => {
-  //     for (let j = this.allItems.length - 1; j >= 0; --j) {
-  //       let didCollide = this.players[playerId].itemCollide(this.allItems[j]);
-  //       //delete the item after collision
-  //       if (didCollide === true){
-  //         this.allItems.splice(j,1);
-  //       }
-  //     }
-  //   });
-  // }
 
 
 /////////////////////////Race End helper////////////////////////////
