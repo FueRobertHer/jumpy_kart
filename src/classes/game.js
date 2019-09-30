@@ -28,8 +28,8 @@ class Game {
 
     //to send down info on players and pipes and etc.
     this.update = this.update.bind(this);
-    this.pipeObjcollide = this.pipeObjcollide.bind(this);
-    this.playerPipeCollide = this.playerPipeCollide.bind(this);
+    // this.pipeObjcollide = this.pipeObjcollide.bind(this);
+    // this.playerPipeCollide = this.playerPipeCollide.bind(this);
 
     //to set game timer
     this.gameClock = 60000;
@@ -58,21 +58,24 @@ class Game {
     console.log(this.players[playerId]);
     this.playerSockets[playerId] = socket;
 
+    const sprites = ['mario', 'peach', 'toad', 'yoshi'];
+
     for (let i = 0; i < Object.values(this.players).length; i++) {
       const player = Object.values(this.players)[i];
       this.playerInfoObject[player.id] = {
         id: player.id,
         pos: player.pos,
+        sprite: sprites[i]
       };
     }
 
     Object.values(this.playerSockets).forEach(socket => {
+      console.log('this.playerInfoObject', this.playerInfoObject)
       socket.emit("playerJoined", {
         players: this.playerInfoObject
       });
     });
     
-    console.log(this.playerInfoObject);
     return player;
   }
 
@@ -163,9 +166,9 @@ class Game {
       //check finish of race
       this.checkFinish();
       //subtract from gameClock
-      this.gameClock -= (1000/50);
+      this.gameClock -= (1000/24);
       this.update(socket);
-      await this.sleep(1000/60);
+      await this.sleep(1000/24);
     }
     
   }
@@ -177,7 +180,7 @@ class Game {
     Object.values(this.players).forEach(player => {
       player.horiSpeed = 1;
       player.vertSpeed = 5;
-
+      console.log("speed check", player);
       // for each player, calculate how much they should move by
       // move them by that much, while updating Player inst and
       // player info object
@@ -194,17 +197,18 @@ class Game {
       //player and pipe collision
       this.pipes.forEach(pipe => {
         player.pipeCollide(pipe);
-        console.log(this.playerInfoObject[playerId]);
       });
 
 
       // move the player
       player.move();
 
+
       // send back player info
-      this.playerInfoObject[player.playerId] = {
-        id: player.playerId,
-        pos:player.pos
+      this.playerInfoObject[player.id] = {
+        id: player.id,
+        pos: player.pos,
+        sprite: this.playerInfoObject[player.id].sprite
       }
 
     });
@@ -270,9 +274,7 @@ class Game {
 /////////////////////Emit Stuff/////////////////////////////////
 
   emitUpdateGame(socket) {
-    
-    //emit game setup
-    // change out placePipes with game set up
+
     socket.emit("placeItems", {
       pipes: this.pipes.map(pipe => ({
         pos: pipe.pos,
@@ -285,9 +287,6 @@ class Game {
       }))
     });
 
-
-    // this will emit the game state
-    // such as player locations
     socket.emit("updateGameState", ({
       hostId: this.hostId,
       gameId: this.gameId,

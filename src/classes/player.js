@@ -36,7 +36,7 @@ class Player {
 
   move() {
     //add velocity to pos every frame
-    this.pos[0] + this.horiSpeed;
+    this.pos[0] += this.horiSpeed;
 
     // make sure the player doesnt fall off the map
     // make sure the jump func is run first so that vertSpeed is changed
@@ -59,23 +59,27 @@ class Player {
     let pipeX = pipe.pos[0];
     let pipeY = pipe.pos[1];
 
-
-    if( 
-      //pipe left side collision
-        playerX + 55 - pipeX < 1 &&
-        playerY + 55 - pipeY < 2
-      ){
+    // check if player's x position is within range
+    // then check if player's y pos
+    if( (playerX + 55 - pipeX < 1) && 
+        (playerX      - pipeX > -2) &&
+        (playerY + 55 - pipeY > -1) &&
+        (playerY + 55 - pipeY < 5) 
+    ){
       this.horiSpeed = 0;
-    } else if(
-      //pipe top collision
-      (playerX + 55 - pipeX < 1) &&
-      (playerY + 55 - pipeY > -1) &&
-      (playerY + 55 - pipeY < 3)
+      }  
+    
+    if( (playerX + 55 - pipeX < -1) &&
+        (playerY      - pipeX > -3) &&
+        (playerY + 55 - pipeY < 1) &&
+        (playerY + 55 - pipeY > -2)
     ){
       this.vertSpeed = 0;
+      console.log("pipe collide v", this.vertSpeed);
     }
 
   }
+
 ///////////////////////////// trying to update game state
 ///////////////////////////// with updated player pos
 
