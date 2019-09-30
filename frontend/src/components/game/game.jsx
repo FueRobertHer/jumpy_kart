@@ -32,6 +32,7 @@ class Canvas extends React.Component {
     this.emitStartGame = this.emitStartGame.bind(this);
     this.socket = null;
     this.characters = ['mario', 'peach', 'toad', 'yoshi'];
+    this.userNums = [];
     this.roomId = props.match.params.roomId;
     this.username = props.location.username;
     this.userId = props.location.userId;
@@ -93,6 +94,7 @@ class Canvas extends React.Component {
         username: this.username
       };
       socket.emit('roomInfo', roomInfo);
+
       resolve();
     });
   }
@@ -118,7 +120,6 @@ class Canvas extends React.Component {
       }
     }
 
-
     this.drawObjects();
     requestAnimationFrame(this.drawObjects);
   }
@@ -130,8 +131,8 @@ class Canvas extends React.Component {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    DrawUtil._drawPipes(ctx, this.pipes)
-    DrawUtil._drawItems(ctx, this.items) 
+    DrawUtil._drawPipes(ctx, this.pipes);
+    DrawUtil._drawItems(ctx, this.items);
     
     this.players.forEach(player => {
       DrawUtil._drawKart(ctx, player)
@@ -174,4 +175,5 @@ class Canvas extends React.Component {
     )
   }
 }
+
 export default Canvas;
