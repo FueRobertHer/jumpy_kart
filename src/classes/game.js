@@ -32,7 +32,7 @@ class Game {
     // this.playerPipeCollide = this.playerPipeCollide.bind(this);
 
     //to set game timer
-    this.gameClock = 10000;
+    this.gameClock = 60000;
 
     // to record the order of players
     this.podium = [];
@@ -86,7 +86,7 @@ class Game {
     //
     if (this.pipes.length === 0) {
       for ( let i = 0; i < 13; i++){
-        let randomXCoord = Math.random() * (250 * (i + 1) - 250 * i) + 700 * i + 1000;
+        let randomXCoord = Math.random() * (250 * (i + 1) - 250 * i) + 650 * i + 500;
         let randomHeight = Math.random() * (300 - 50) + 175;
         this.pipes.push(new Pipe(randomXCoord, 70, randomHeight));
       }
@@ -180,7 +180,7 @@ class Game {
       if (player.pos[0] > 9600){
         player.horiSpeed = 0;
       } else {
-        player.horiSpeed = 4;
+        player.horiSpeed = 8;
         player.vertSpeed = 4;
       }
       // for each player, calculate how much they should move by
@@ -243,7 +243,8 @@ class Game {
         player.finishPlace = "DNF";
       }
     })
-    console.log("race end")
+    console.log("race end");
+    console.log("this podium", this.podium);
     
   }
 
