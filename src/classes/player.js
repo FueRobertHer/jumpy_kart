@@ -61,17 +61,15 @@ class Player {
     // check if player's x position is within range
     // then check if player's y pos
 
-    if ( (playerX + 55 >= pipeX) &&
-         (playerY + 55 >= pipeY)
-    ) {
-      console.log("hit pipe?")
+    // top collision (driving on pipe)
+    if ((playerX + 55 >= pipeX) && (playerX < pipeX + 51) && (playerY + 55 - pipeY > 0) && (playerY + 55 - pipeY < 4)) { //  check to change later to = pipeY
+      this.vertSpeed = 0;                                                                                   // ^^^ this vertical buffer has to change if gravity speed (constant) changes
+    }
+    // side collision below top of pipe
+    else if ((playerX + 55 >= pipeX) && (playerX < pipeX + 51) && (playerY + 55 > pipeY)) {
       this.horiSpeed = 0;
     }
-
   }
-
-///////////////////////////// trying to update game state
-///////////////////////////// with updated player pos
 
   itemCollide(item){
     //check what the item.type
