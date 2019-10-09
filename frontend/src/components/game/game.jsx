@@ -6,9 +6,13 @@ import roadSprite from '../../assets/images/road.png';
 
 let SERVER = io("http://localhost:5000", { transports: ['websocket'] });
 
+// if (process.env.NODE_ENV === "production") {
+//   console.log(`process.env: ${process.env}`);
+//   SERVER = process.env.REACT_APP_SERVER || 'http://jumpykart.herokuapp.com/#/';
+// }
 if (process.env.NODE_ENV === "production") {
   console.log(`process.env: ${process.env}`);
-  SERVER = process.env.REACT_APP_SERVER || 'http://jumpykart.herokuapp.com/#/';
+  SERVER = io();
 }
 
 class Canvas extends React.Component {
