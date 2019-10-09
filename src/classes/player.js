@@ -72,31 +72,29 @@ class Player {
   }
 
   itemCollide(item){
-    //check what the item.type
-    //return true or false to show collision
     let playerX = this.pos[0];
     let playerY = this.pos[1];
     let itemX = item.pos[0];
     let itemY = item.pos[1];
 
-
     let didCollide = true;
 
     if(
-      (playerX < itemX + 28) &&
-      (playerX + 56 > itemX) &&
-      (playerY < itemY + 28) &&
-      (playerY > itemY) 
+      (playerX < itemX + 27) &&
+      (playerX + 55 > itemX) &&
+      (playerY < itemY + 27) &&
+      (playerY + 55 > itemY) 
     ){
+      console.log('item.type', item.type)
       switch(item.type){
-        case 'coin': 
-          this.numCoin++;
-        case 'mushroom':
-          this.horiSpeed = 2;
-        case 'banana':
-          this.horiSpeed = 0.5;
-        default:
-          this.horiSpeed = 1;        
+        case 'Coin':
+          this.pos[0] = this.pos[0] + 1000;
+          this.numCoin = this.numCoin + 1;
+          console.log('this.numCoin', this.numCoin)
+        case 'Mushroom':
+          this.pos[0] = this.pos[0] + 1000; // change once we change to velocity
+        case 'Banana':
+          this.pos[0] = this.pos[0] - 100;      
       }
     } else {
       didCollide = false;
@@ -104,9 +102,6 @@ class Player {
 
     return didCollide;
   }
-
-
-
 }
 
 export default Player;

@@ -162,8 +162,10 @@ class Game {
 
   async raceStart(socket){
     //should call the update function
+    this.allPresentItems();
+
     while (this.gameClock > 0.5){
-      console.log(this.gameClock);
+      // console.log(this.gameClock);
       //check finish of race
       this.checkFinish();
       //subtract from gameClock
@@ -175,12 +177,9 @@ class Game {
   }
 
   update(socket){
-    //update the items currently on the map
-    this.allPresentItems();
-
     Object.values(this.players).forEach(player => {
       player.horiSpeed = 4;
-      player.vertSpeed = 4;
+      player.vertSpeed = 4  ;
       // for each player, calculate how much they should move by
       // move them by that much, while updating Player inst and
       // player info object
@@ -199,7 +198,7 @@ class Game {
         player.pipeCollide(pipe);
       });
 
-      console.log(player.horiSpeed);
+      // console.log(player.horiSpeed);
       // move the player
       player.move();
 
