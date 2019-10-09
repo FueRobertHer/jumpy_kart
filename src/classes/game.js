@@ -169,9 +169,9 @@ class Game {
       //check finish of race
       this.checkFinish();
       //subtract from gameClock
-      this.gameClock -= (1000/60);
+      this.gameClock -= (1000/24);
       this.update(socket);
-      await this.sleep(1000/60);
+      await this.sleep(1000/24);
     }
     
   }

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import * as DrawUtil from './drawUtil';
 import roadSprite from '../../assets/images/road.png';
+import backgroundSprite from '../../assets/images/background.png';
 
 let SERVER;
 
@@ -147,7 +148,9 @@ class Canvas extends React.Component {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    DrawUtil._drawBackground(ctx);
     DrawUtil._drawPipes(ctx, this.pipes);
+    DrawUtil._drawRoad(ctx);
     DrawUtil._drawItems(ctx, this.items);
     
     this.players.forEach(player => {
