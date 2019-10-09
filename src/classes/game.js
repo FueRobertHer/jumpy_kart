@@ -32,7 +32,7 @@ class Game {
     // this.playerPipeCollide = this.playerPipeCollide.bind(this);
 
     //to set game timer
-    this.gameClock = 60000;
+    this.gameClock = 10000;
 
     // to record the order of players
     this.podium = [];
@@ -164,24 +164,25 @@ class Game {
     //should call the update function
     this.allPresentItems();
     while (this.gameClock > 0.5){
-      console.log(this.gameClock);
+      // console.log(this.gameClock);
       //check finish of race
       this.checkFinish();
       //subtract from gameClock
-      this.gameClock -= (1000/24);
+      this.gameClock -= (1000/60);
       this.update(socket);
-      await this.sleep(1000/24);
+      await this.sleep(1000/60);
     }
     
   }
 
   update(socket){
-    //update the items currently on the map
-    // this.allPresentItems();
-
     Object.values(this.players).forEach(player => {
-      player.horiSpeed = 4;
-      player.vertSpeed = 4;
+      if (player.pos[0] > 9600){
+        player.horiSpeed = 0;
+      } else {
+        player.horiSpeed = 4;
+        player.vertSpeed = 4;
+      }
       // for each player, calculate how much they should move by
       // move them by that much, while updating Player inst and
       // player info object
@@ -200,7 +201,7 @@ class Game {
         player.pipeCollide(pipe);
       });
 
-      console.log(player.horiSpeed);
+      // console.log(player.horiSpeed);
       // move the player
       player.move();
 
@@ -218,19 +219,36 @@ class Game {
 
   //random comment
   checkFinish(){
+    
     //loop through players and see if their pos has crossed line
     Object.values(this.players).forEach(player => {
-      if (player.pos[0] > 9900){
+      if ((player.finishPlace === 0) && (player.pos[0] > 9600)){
         this.podium.push([player.id, (60000 - this.gameClock)/1000 ]);
-      } else if( (this.podium.length > 4) || this.gameClock < 0.2) {
-        // run game ending logic raceEnd();
+        player.finishPlace = this.podium.length;
+        console.log("player finish podium", this.podium);
+      } else if( (this.podium.length > 3) || (this.gameClock < 70) ) {
+        this.raceEnd();
+        console.log("race end hit?")
       } 
     })
+
   }
 
   raceEnd(){
-    //run when all 4 player finish or timer runs out
+    //loop through players and push to podium based on position if they are not finished
+    let unfinished = [];
+    Object.values(this.players).forEach(player => {
+      if (player.finishPlace === 0){
+        this.podium.push([player.id, 60000]);
+        player.finishPlace = "DNF";
+      }
+    })
+    console.log("race end")
+    
   }
+
+
+
 ////////////////////////Collision Helper methods//////////////////
 
   allPresentItems(){
