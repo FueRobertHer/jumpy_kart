@@ -60,14 +60,19 @@ class Player {
     let pipeY = pipe.pos[1];
     console.log("pipe pos", pipe.pos[0]);
     console.log("player pos", playerX);
-    
-    // work on collision logic
+    // check if player's x position is within range
+    // then check if player's y pos
 
-    if( (playerX + 55 - pipeX < 100) && 
-        (playerX      - pipeX > -100) &&
-        (playerY + 55 - pipeY > -1) &&
-        (playerY + 55 - pipeY < 5) 
+    if ( (playerX + 55 >= pipeX) &&
+         (playerY + 55 >= pipeY)
+
     )
+
+    // if( (playerX + 55 - pipeX < 100) && 
+    //     (playerX      - pipeX > -100) &&
+    //     (playerY + 55 - pipeY > -1) &&
+    //     (playerY + 55 - pipeY < 5) 
+    // )
     {
       console.log("hit pipe?" )
       this.horiSpeed = 0;
