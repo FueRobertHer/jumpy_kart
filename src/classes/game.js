@@ -147,6 +147,7 @@ class Game {
     // the players should already be registered
 
     // start the race
+    // await ???
     this.raceStart(socket);
     
     // the race finish logic
@@ -178,8 +179,8 @@ class Game {
     this.allPresentItems();
 
     Object.values(this.players).forEach(player => {
-      player.horiSpeed = 8;
-      player.vertSpeed = 5;
+      player.horiSpeed = 2;
+      player.vertSpeed = 2;
       // for each player, calculate how much they should move by
       // move them by that much, while updating Player inst and
       // player info object
