@@ -215,6 +215,7 @@ class Game {
     });
   }
 
+  //random comment
   checkFinish(){
     //loop through players and see if their pos has crossed line
     Object.values(this.players).forEach(player => {
