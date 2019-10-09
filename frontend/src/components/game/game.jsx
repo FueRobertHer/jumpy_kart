@@ -107,16 +107,6 @@ class Canvas extends React.Component {
     });
   }
 
-  // componentWillMount() {
-  //   this.openSocket()
-  //     .then(() => {
-  //       this.joinRoom()
-  //         .then(() => {
-  //           this.loadGame()
-  //         })
-  //     })
-  // }
-
   componentDidMount() {
     this.openSocket()
       .then(() => {
@@ -154,24 +144,6 @@ class Canvas extends React.Component {
       DrawUtil._drawKart(ctx, player)
     })
     
-                 
-    // if (Object.keys(this.players).length !== 0) {
-      // DrawUtil._drawKart(ctx, 'mario', Object.values(this.players)[0].pos);
-    //   for (let i = 0; i < Object.keys(that.players).length; i++) {
-    //     remainingChars.push(i)
-    //   }
-
-    //   // for (let i = 0; i < Object.keys(this.players).length; i++) {
-    //   //   const playerId = Object.keys(that.players)[i];
-    //   //   if (playerId !== that.props.currentUserId) {
-    //   //     DrawUtil._drawKart.apply(that, [ctx, that.characters[i], Object.values(that.players)[i].pos]);
-    //   //     remainingChars.splice(i, 1);
-    //   //   }
-    //   // }
-
-    //   DrawUtil._drawKart(ctx, this.characters[remainingChars[0]], Object.values(this.players)[remainingChars[0]].pos);
-    // }
-    // requestAnimationFrame(this.drawObjects);
   }
 
   render() {

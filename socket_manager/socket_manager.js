@@ -24,8 +24,8 @@ export const socketManager = (socket) => {
 
   socket.on('startGame', () => {
     console.log('inside gameloop.on')
-    game.gameloop(socket)
-  })
+    game.gameloop(socket);
+  });
 
   socket.on('roomInfo', roomInfo => {
     if (roomInfo.type === "createRoom") {
