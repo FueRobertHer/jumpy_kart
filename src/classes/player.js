@@ -14,7 +14,7 @@ class Player {
     this.horiSpeed = 2;
 
     //gravity
-    this.vertSpeed = 5;
+    this.vertSpeed = 2;
     
    
     
@@ -42,13 +42,11 @@ class Player {
     // make sure the jump func is run first so that vertSpeed is changed
     if (this.pos[1] < 420){
       this.pos[1] += this.vertSpeed;
-    } else {
-
     }
   }
 
   pipeCollide(pipe) {  
-    //set horizontal verlocity to zero when the obj corners overlap
+    // set horizontal verlocity to zero when the obj corners overlap
     // the game class will call this function for each player and each pipe
     // each pipe instance has corners method.
 
@@ -58,32 +56,16 @@ class Player {
     let playerY = this.pos[1];
     let pipeX = pipe.pos[0];
     let pipeY = pipe.pos[1];
-    console.log("pipe pos", pipe.pos[0]);
-    console.log("player pos", playerX);
+    
+
     // check if player's x position is within range
     // then check if player's y pos
 
     if ( (playerX + 55 >= pipeX) &&
          (playerY + 55 >= pipeY)
-
-    )
-
-    // if( (playerX + 55 - pipeX < 100) && 
-    //     (playerX      - pipeX > -100) &&
-    //     (playerY + 55 - pipeY > -1) &&
-    //     (playerY + 55 - pipeY < 5) 
-    // )
-    {
-      console.log("hit pipe?" )
+    ) {
+      console.log("hit pipe?")
       this.horiSpeed = 0;
-      }  
-    
-    if( (playerX + 55 - pipeX < -1) &&
-        (playerY      - pipeX > -3) &&
-        (playerY + 55 - pipeY < 1) &&
-        (playerY + 55 - pipeY > -2)
-    ){
-      this.vertSpeed = 0;
     }
 
   }
