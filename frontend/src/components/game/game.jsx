@@ -139,6 +139,11 @@ class Canvas extends React.Component {
       DrawUtil._drawKart(ctx, player)
     })
     
+    const viewport = this.refs.viewport;
+    const cam = canvas.getContext('2d');
+    cam.clearRect(0, 0, viewport.width, viewport.height);
+    cam.drawImage(canvas, 0, 0, 500, 300, 0, 0, 500, 300)
+
                  
     // if (Object.keys(this.players).length !== 0) {
       // DrawUtil._drawKart(ctx, 'mario', Object.values(this.players)[0].pos);
@@ -167,11 +172,13 @@ class Canvas extends React.Component {
     return (
       <div className='canvas-container'>
         <canvas id='background' ref="canvas" width="10000" height="500" />
+        <canvas id="viewport" ref="viewport" width="500" height="300" />   
         {(this.state.hostId === this.props.currentUserId) ? 
          (<button className='start-game-button input submit'
                   onClick={this.emitStartGame}
           >Start Game</button>) : 
-         (<div/>)}        
+         (<div/>)}     
+
       </div>
     )
   }

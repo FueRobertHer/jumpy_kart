@@ -82,3 +82,7 @@ html {
   top: 30;
   z-index: 1;
 }
+
+#background {
+  display:  none;
+}
