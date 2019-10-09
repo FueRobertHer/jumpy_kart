@@ -60,11 +60,11 @@ class Player {
 
     // check if player's x position is within range
     // then check if player's y pos
-    if( (playerX + 55 - pipeX < 20) && 
-        (playerX + 55 - pipeX > -20) )
+    if( (playerX + 56 > pipeX) && 
+        (playerX < pipeX + 51))  
     {         
       // check the y coordinates
-      if(playerY + 55 + 20 < pipeY){
+      if(playerY + 56 > pipeY){
         this.vertSpeed = 0;
       } else{
         this.horiSpeed = 0;
