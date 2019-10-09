@@ -4,11 +4,16 @@ import io from 'socket.io-client';
 import * as DrawUtil from './drawUtil';
 import roadSprite from '../../assets/images/road.png';
 
-let SERVER = io("http://localhost:5000", { transports: ['websocket'] });
+let SERVER;
+
+if (process.env.NODE_ENV !== "production") {
+  console.log(`process.env: ${process.env}`);
+  SERVER = io("http://localhost:5000");
+}
 
 if (process.env.NODE_ENV === "production") {
   console.log(`process.env: ${process.env}`);
-  SERVER = process.env.REACT_APP_SERVER || 'http://jumpykart.herokuapp.com/#/';
+  SERVER = io();
 }
 
 class Canvas extends React.Component {
@@ -72,8 +77,11 @@ class Canvas extends React.Component {
   }
 
   emitStartGame() {
+    document.querySelector(".start-game-button").remove();
+    document.querySelector("canvas").focus();
     let socket = this.socket;
     socket.emit('startGame');
+
   }
   
   loadGame() {
@@ -99,32 +107,39 @@ class Canvas extends React.Component {
     });
   }
 
-  componentWillMount() {
+  // componentWillMount() {
+  //   this.openSocket()
+  //     .then(() => {
+  //       this.joinRoom()
+  //         .then(() => {
+  //           this.loadGame()
+  //         })
+  //     })
+  // }
+
+  componentDidMount() {
     this.openSocket()
       .then(() => {
         this.joinRoom()
           .then(() => {
-            this.loadGame()
-          })
-      })
-  }
+            this.loadGame();
+          });
+      });
 
-  componentDidMount() {
     let socket = this.socket;
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
+    console.log(`mounting`);
 
     document.body.onkeydown = function (e) {
       if (e.keyCode === 32) {
         socket.emit('pressSpace');
       }
-    }
+    };
 
     this.drawObjects();
     requestAnimationFrame(this.drawObjects);
   }
-
-
 
   drawObjects() {
     console.log(this.players);
@@ -174,11 +189,11 @@ class Canvas extends React.Component {
         <canvas id='background' ref="canvas" width="10000" height="500" />
         <canvas id="viewport" ref="viewport" width="500" height="300" />   
         {(this.state.hostId === this.props.currentUserId) ? 
-         (<button className='start-game-button input submit'
-                  onClick={this.emitStartGame}
-          >Start Game</button>) : 
-         (<div/>)}     
-
+         (<button 
+            className='start-game-button input submit'
+            onClick={this.emitStartGame}>Start Game
+          </button>) : 
+         (<div/>)}        
       </div>
     )
   }
