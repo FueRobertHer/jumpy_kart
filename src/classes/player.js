@@ -46,7 +46,7 @@ class Player {
   }
 
   pipeCollide(pipe) {  
-    //set horizontal verlocity to zero when the obj corners overlap
+    // set horizontal verlocity to zero when the obj corners overlap
     // the game class will call this function for each player and each pipe
     // each pipe instance has corners method.
 
@@ -60,36 +60,16 @@ class Player {
 
     // check if player's x position is within range
     // then check if player's y pos
-    if( (playerX + 56 > pipeX) && 
-        (playerX < pipeX + 51))  
-    {         
-      // check the y coordinates
-      if(playerY + 56 > pipeY){
-        this.vertSpeed = 0;
-      } else{
-        this.horiSpeed = 0;
-      }
+
+    // top collision (driving on pipe)
+    if ((playerX + 55 >= pipeX) && (playerX < pipeX + 51) && (playerY + 55 - pipeY > 0) && (playerY + 55 - pipeY < 4)) { //  check to change later to = pipeY
+      this.vertSpeed = 0;                                                                                   // ^^^ this vertical buffer has to change if gravity speed (constant) changes
+    }
+    // side collision below top of pipe
+    else if ((playerX + 55 >= pipeX) && (playerX < pipeX + 51) && (playerY + 55 > pipeY)) {
+      this.horiSpeed = 0;
     }
   }
-        // (playerY + 55 - pipeY > -1) &&
-        // (playerY + 55 - pipeY < 5) 
-  //   {
-  //     console.log("hit pipe?" )
-  //     this.horiSpeed = 0;
-  //     }  
-    
-  //   if( (playerX + 55 - pipeX < -1) &&
-  //       (playerY      - pipeX > -3) &&
-  //       (playerY + 55 - pipeY < 1) &&
-  //       (playerY + 55 - pipeY > -2)
-  //   ){
-  //     this.vertSpeed = 0;
-  //   }
-
-  // }
-
-///////////////////////////// trying to update game state
-///////////////////////////// with updated player pos
 
   itemCollide(item){
     //check what the item.type
@@ -103,10 +83,10 @@ class Player {
     let didCollide = true;
 
     if(
-      (playerX < itemX + 28) &&
-      (playerX + 56 > itemX) &&
-      (playerY < itemY + 28) &&
-      (playerY > itemY) 
+      (playerX < itemX + 27) &&
+      (playerX + 55 > itemX) &&
+      (playerY < itemY + 27) &&
+      (playerY + 55 > itemY) 
     ){
       switch(item.type){
         case 'coin': 
