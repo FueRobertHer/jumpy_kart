@@ -16,8 +16,6 @@ class Player {
     //gravity
     this.vertSpeed = 2;
     
-   
-    
     //number of coins collected
     this.numCoin = 0;
 
@@ -43,6 +41,8 @@ class Player {
     if (this.pos[1] < 420){
       this.pos[1] += this.vertSpeed;
     }
+
+
   }
 
   pipeCollide(pipe) {  

@@ -30,12 +30,8 @@ export const socketManager = (socket) => {
   socket.on('roomInfo', roomInfo => {
     if (roomInfo.type === "createRoom") {
       socket.id = roomInfo.userId;
-      console.log('roomInfo.userId')
-      console.log(roomInfo.userId)
       gameState.rooms[roomInfo.roomId] = new Game(roomInfo.roomId, socket.id);
       game = gameState.rooms[roomInfo.roomId];
-      console.log('game');
-      console.log(game);
       socket.on('loadGame', () => {
         console.log('loading game');
         game.loadGame(socket);
