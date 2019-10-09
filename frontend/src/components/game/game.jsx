@@ -71,8 +71,11 @@ class Canvas extends React.Component {
   }
 
   emitStartGame() {
+    document.querySelector(".start-game-button").remove();
+    document.querySelector("canvas").focus();
     let socket = this.socket;
     socket.emit('startGame');
+
   }
   
   loadGame() {

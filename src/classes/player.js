@@ -14,7 +14,7 @@ class Player {
     this.horiSpeed = 2;
 
     //gravity
-    this.vertSpeed = 5;
+    this.vertSpeed = 2;
     
    
     
@@ -30,7 +30,7 @@ class Player {
     // does not rely move function
 
     if (this.pos[1] > 30){
-      this.pos[1] += 120;
+      this.pos[1] -= 120;
     }
   }
 
@@ -42,8 +42,6 @@ class Player {
     // make sure the jump func is run first so that vertSpeed is changed
     if (this.pos[1] < 420){
       this.pos[1] += this.vertSpeed;
-    } else {
-
     }
   }
 
@@ -58,28 +56,37 @@ class Player {
     let playerY = this.pos[1];
     let pipeX = pipe.pos[0];
     let pipeY = pipe.pos[1];
-    console.log("pipe pos", pipe.pos[0]);
-    console.log("player pos", playerX);
+    
+
     // check if player's x position is within range
     // then check if player's y pos
-    if( (playerX + 55 - pipeX < 100) && 
-        (playerX      - pipeX > -100)
+    if( (playerX + 55 - pipeX < 20) && 
+        (playerX + 55 - pipeX > -20) )
+    {         
+      // check the y coordinates
+      if(playerY + 55 + 20 < pipeY){
+        this.vertSpeed = 0;
+      } else{
+        this.horiSpeed = 0;
+      }
+    }
+  }
         // (playerY + 55 - pipeY > -1) &&
         // (playerY + 55 - pipeY < 5) 
-    ){
-      console.log("hit pipe?" )
-      this.horiSpeed = 0;
-      }  
+  //   {
+  //     console.log("hit pipe?" )
+  //     this.horiSpeed = 0;
+  //     }  
     
-    if( (playerX + 55 - pipeX < -1) &&
-        (playerY      - pipeX > -3) &&
-        (playerY + 55 - pipeY < 1) &&
-        (playerY + 55 - pipeY > -2)
-    ){
-      this.vertSpeed = 0;
-    }
+  //   if( (playerX + 55 - pipeX < -1) &&
+  //       (playerY      - pipeX > -3) &&
+  //       (playerY + 55 - pipeY < 1) &&
+  //       (playerY + 55 - pipeY > -2)
+  //   ){
+  //     this.vertSpeed = 0;
+  //   }
 
-  }
+  // }
 
 ///////////////////////////// trying to update game state
 ///////////////////////////// with updated player pos
