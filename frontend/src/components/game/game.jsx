@@ -104,32 +104,39 @@ class Canvas extends React.Component {
     });
   }
 
-  componentWillMount() {
+  // componentWillMount() {
+  //   this.openSocket()
+  //     .then(() => {
+  //       this.joinRoom()
+  //         .then(() => {
+  //           this.loadGame()
+  //         })
+  //     })
+  // }
+
+  componentDidMount() {
     this.openSocket()
       .then(() => {
         this.joinRoom()
           .then(() => {
-            this.loadGame()
-          })
-      })
-  }
+            this.loadGame();
+          });
+      });
 
-  componentDidMount() {
     let socket = this.socket;
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
+    console.log(`mounting`);
 
     document.body.onkeydown = function (e) {
       if (e.keyCode === 32) {
         socket.emit('pressSpace');
       }
-    }
+    };
 
     this.drawObjects();
     requestAnimationFrame(this.drawObjects);
   }
-
-
 
   drawObjects() {
     console.log(this.players);
@@ -173,9 +180,10 @@ class Canvas extends React.Component {
       <div className='canvas-container'>
         <canvas id='background' ref="canvas" width="10000" height="500" />
         {(this.state.hostId === this.props.currentUserId) ? 
-         (<button className='start-game-button input submit'
-                  onClick={this.emitStartGame}
-          >Start Game</button>) : 
+         (<button 
+            className='start-game-button input submit'
+            onClick={this.emitStartGame}>Start Game
+          </button>) : 
          (<div/>)}        
       </div>
     )

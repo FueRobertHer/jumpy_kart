@@ -16,8 +16,6 @@ class Player {
     //gravity
     this.vertSpeed = 5;
     
-   
-    
     //number of coins collected
     this.numCoin = 0;
 
@@ -42,9 +40,9 @@ class Player {
     // make sure the jump func is run first so that vertSpeed is changed
     if (this.pos[1] < 420){
       this.pos[1] += this.vertSpeed;
-    } else {
-
     }
+
+
   }
 
   pipeCollide(pipe) {  
