@@ -4,12 +4,12 @@ import io from 'socket.io-client';
 import * as DrawUtil from './drawUtil';
 import roadSprite from '../../assets/images/road.png';
 
-let SERVER = io("http://localhost:5000", { transports: ['websocket'] });
+let SERVER;
 
-// if (process.env.NODE_ENV === "production") {
-//   console.log(`process.env: ${process.env}`);
-//   SERVER = process.env.REACT_APP_SERVER || 'http://jumpykart.herokuapp.com/#/';
-// }
+if (process.env.NODE_ENV !== "production") {
+  console.log(`process.env: ${process.env}`);
+  SERVER = io("http://localhost:5000");
+
 if (process.env.NODE_ENV === "production") {
   console.log(`process.env: ${process.env}`);
   SERVER = io();
