@@ -8,7 +8,7 @@ let SERVER;
 
 if (process.env.NODE_ENV !== "production") {
   console.log(`process.env: ${process.env}`);
-  SERVER = io("http://localhost:5000");
+  SERVER = io("http://localhost:5000", { transports: ['websocket'] });
 }
 
 if (process.env.NODE_ENV === "production") {
@@ -119,7 +119,6 @@ class Canvas extends React.Component {
     let socket = this.socket;
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
-    console.log(`mounting`);
 
     document.body.onkeydown = function (e) {
       if (e.keyCode === 32) {
@@ -132,7 +131,6 @@ class Canvas extends React.Component {
   }
 
   drawObjects() {
-    console.log(this.players);
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);

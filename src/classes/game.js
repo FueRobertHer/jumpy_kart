@@ -79,6 +79,11 @@ class Game {
     return player;
   }
 
+  removePlayer(playerId) {
+    delete this.players[playerId];
+    delete this.playerSockets[playerId];
+  }
+
   placePipes(){
     //place a random pipe somewhere on the board: worked
     //place random pipes but make sure that they are minimum dist from each other
