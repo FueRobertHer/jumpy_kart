@@ -51,11 +51,10 @@ class Game {
 
   addPlayer(playerId, socket, gameId){
     let startPos = [100, 200];
-    let player = new Player(startPos, playerId, gameId);
+    let player = new Player(startPos, playerId, gameId, socket);
 
     //fill out player info for game
     this.players[playerId] = player;
-    console.log(this.players[playerId]);
     this.playerSockets[playerId] = socket;
 
     const sprites = ['mario', 'peach', 'toad', 'yoshi'];
@@ -70,13 +69,17 @@ class Game {
     }
 
     Object.values(this.playerSockets).forEach(socket => {
-      console.log('this.playerInfoObject', this.playerInfoObject)
       socket.emit("playerJoined", {
         players: this.playerInfoObject
       });
     });
     
     return player;
+  }
+
+  removePlayer(playerId) {
+    delete this.players[playerId];
+    delete this.playerSockets[playerId];
   }
 
   placePipes(){
@@ -181,14 +184,14 @@ class Game {
         player.horiSpeed = 0;
       } else {
         player.horiSpeed = 8;
-        player.vertSpeed = 4;
+        player.gravity = 5;
       }
       // for each player, calculate how much they should move by
       // move them by that much, while updating Player inst and
       // player info object
 
       for (let j = this.allItems.length - 1; j >= 0; --j) {
-        let didCollide = player.itemCollide(this.allItems[j]);
+        let didCollide = player.itemCollide(this.allItems[j], socket);
         if (didCollide === true) {
           this.allItems.splice(j, 1);
         }
