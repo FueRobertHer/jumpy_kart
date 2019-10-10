@@ -3,7 +3,7 @@
 import Pipe from './pipe';
 
 class Player {
-  constructor(pos, id) {
+  constructor(pos, id, gameId) {
 
     //position on map
     this.pos = pos;
@@ -28,13 +28,15 @@ class Player {
     this.finishPlace = 0;        
   }
 
-  jump() {
+  jump(socket) {
     // changes the player position
     // does not rely move function
     console.log("jumping")
     if (this.pos[1] > 30){
       this.vertSpeed = -35;
     }
+
+    socket.emit('jumpSound');
   }
 
   move() {
@@ -88,7 +90,7 @@ class Player {
     }
   }
 
-  itemCollide(item){
+  itemCollide(item, socket){
     let playerX = this.pos[0];
     let playerY = this.pos[1];
     let itemX = item.pos[0];
@@ -103,19 +105,33 @@ class Player {
       (playerY + 55 > itemY) 
     ){
       console.log('item.type', item.type)
-      switch(item.type){
-        case 'Coin':
-          // this.pos[0] = this.pos[0] + 200;
-          this.numCoin = this.numCoin + 1;
-          console.log('this.numCoin', this.numCoin)
-        case 'Mushroom':
-          // this.pos[0] = this.pos[0] + 200; // change once we change to velocity
-          this.horiSpeed += 20;
-          console.log('Mushroom')
-        case 'Banana':
-          // this.pos[0] = this.pos[0] - 100;      
-          this.horiSpeed -= 10;
+      if (item.type === "Coin") {
+        socket.emit("coinSound");
+        console.log("coinSound");
+        // this.pos[0] = this.pos[0] + 200;
+        this.numCoin = this.numCoin + 1;
+      } else if (item.type === "Mushroom") {
+        socket.emit("mushroomSound");
+        console.log("mushroomSound");
+        this.horiSpeed += 20;
+      } else if (item.type === 'Banana') {
+        this.horiSpeed -= 10;
       }
+
+      // switch(item.type){
+      //   case 'Coin':
+      //     socket.emit("coinSound");
+      //     console.log('coinSound')
+      //     this.pos[0] = this.pos[0] + 200;
+      //     this.numCoin = this.numCoin + 1;
+      //     // console.log('this.numCoin', this.numCoin)
+      //   case 'Mushroom':
+      //     socket.emit('mushroomSound');
+      //     console.log("mushroomSound");
+      //     this.pos[0] = this.pos[0] + 200; // change once we change to velocity
+      //   case 'Banana':
+      //     this.pos[0] = this.pos[0] - 100;      
+      // }
     } else {
       didCollide = false;
     }

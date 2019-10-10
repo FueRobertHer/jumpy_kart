@@ -2,6 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import * as DrawUtil from './drawUtil';
+import backgroundMusic from '../../style/sounds/Cheep Cheep Cape.mp3';
+import jumpSound from "../../style/sounds/jump.wav";
+import coinSound from "../../style/sounds/coin.wav";
+import mushroomSound from '../../style/sounds/mushroom.wav';
 
 let SERVER;
 
@@ -71,6 +75,18 @@ class Canvas extends React.Component {
         this.drawObjects();
       });
 
+      socket.on('coinSound', () => {
+        let coin = new Audio(coinSound);
+        coin.volume = 0.2;
+        coin.play();
+      });
+      
+      socket.on('mushroomSound', () => {
+        let mushroom = new Audio(mushroomSound);
+        mushroom.volume = 0.2;
+        mushroom.play();
+      });
+
       resolve();
     });
   }
@@ -80,6 +96,8 @@ class Canvas extends React.Component {
     document.querySelector("canvas").focus();
     let socket = this.socket;
     socket.emit('startGame');
+    let audio = document.querySelector('audio');
+    audio.setAttribute('autoPlay', true);
   }
   
   loadGame() {
@@ -121,8 +139,15 @@ class Canvas extends React.Component {
     //comment for testing jump button
 
     document.body.onkeydown = function (e) {
+      // let jump = new Audio();
       if (e.keyCode === 32) {
+        // jump.pause();
         socket.emit('pressSpace');
+        // socket.on("jumpSound", () => {
+        //   jump = new Audio(jumpSound);
+        //   jump.volume = 0.1;
+        //   jump.play();
+        // });
       }
     };
 
@@ -166,7 +191,7 @@ class Canvas extends React.Component {
     return (
       <div>
         <div className='canvas-container'>
-          {/* <audio src={backgroundMusic} autoPlay loop /> */}
+          <audio src={backgroundMusic} loop />
           <canvas id='background' ref="canvas" width="10000" height="500" />
           <canvas id="viewport" ref="viewport" width="700" height="500" />   
         </div>
