@@ -1,4 +1,6 @@
 import React from 'react';
+import ambientAudio from '../../assets/audio/background_music.mp3';
+import Sound from 'react-sound';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import * as DrawUtil from './drawUtil';
@@ -34,6 +36,7 @@ class Canvas extends React.Component {
     this.loadGame = this.loadGame.bind(this);
     this.joinRoom = this.joinRoom.bind(this);
     this.emitStartGame = this.emitStartGame.bind(this);
+    this.toggleAmbient = this.toggleAmbient.bind(this);
     this.socket = null;
     this.characters = ['mario', 'peach', 'toad', 'yoshi'];
     this.userNums = [];
@@ -140,6 +143,11 @@ class Canvas extends React.Component {
     requestAnimationFrame(this.drawObjects);
   }
 
+  toggleAmbient() {
+    const a = document.getElementById('ambient-music');
+    a.muted = a.muted ? false : true;
+  }
+
   drawObjects() {
     console.log(this.players);
     const canvas = this.refs.canvas;
@@ -194,6 +202,12 @@ class Canvas extends React.Component {
 
     return (
       <div>
+        <div>
+          <audio id='ambient-music' src={ambientAudio} autoPlay controls loop>AUDIO ELEMENT</audio>
+        </div>
+        <div>
+          <button onClick={this.toggleAmbient}></button>
+        </div>
         <div className='canvas-container'>
           <canvas id='background' ref="canvas" width="10000" height="500" />
           <canvas id="viewport" ref="viewport" width="700" height="500" />   
