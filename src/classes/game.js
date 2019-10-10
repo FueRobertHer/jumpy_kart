@@ -184,7 +184,7 @@ class Game {
         player.horiSpeed = 0;
       } else {
         player.horiSpeed = 8;
-        player.vertSpeed = 4;
+        player.gravity = 5;
       }
       // for each player, calculate how much they should move by
       // move them by that much, while updating Player inst and
