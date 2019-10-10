@@ -15,7 +15,7 @@ class Player {
     this.bottom = this.top + 55;
 
     //speed    
-    this.horiSpeed = 10;
+    this.horiSpeed = 0;
     this.vertSpeed = 0;
 
     //gravity
@@ -105,14 +105,16 @@ class Player {
       console.log('item.type', item.type)
       switch(item.type){
         case 'Coin':
-          this.pos[0] = this.pos[0] + 200;
+          // this.pos[0] = this.pos[0] + 200;
           this.numCoin = this.numCoin + 1;
           console.log('this.numCoin', this.numCoin)
         case 'Mushroom':
-          this.pos[0] = this.pos[0] + 200; // change once we change to velocity
+          // this.pos[0] = this.pos[0] + 200; // change once we change to velocity
+          this.horiSpeed += 20;
           console.log('Mushroom')
         case 'Banana':
-          this.pos[0] = this.pos[0] - 100;      
+          // this.pos[0] = this.pos[0] - 100;      
+          this.horiSpeed -= 10;
       }
     } else {
       didCollide = false;

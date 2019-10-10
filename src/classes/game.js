@@ -183,7 +183,8 @@ class Game {
       if (player.pos[0] > 9600){
         player.horiSpeed = 0;
       } else {
-        player.horiSpeed = 8;
+        if (player.horiSpeed < 10) player.horiSpeed += 1;
+        if (player.horiSpeed > 10) player.horiSpeed -= 1;
         player.gravity = 5;
       }
       // for each player, calculate how much they should move by
