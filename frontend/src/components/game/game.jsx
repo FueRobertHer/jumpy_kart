@@ -6,6 +6,7 @@ import backgroundMusic from '../../style/sounds/Cheep Cheep Cape.mp3';
 import jumpSound from "../../style/sounds/jump.wav";
 import coinSound from "../../style/sounds/coin.wav";
 import mushroomSound from '../../style/sounds/mushroom.wav';
+import bananaSound from '../../style/sounds/banana_slide.mp3';
 
 let SERVER;
 
@@ -77,14 +78,20 @@ class Canvas extends React.Component {
 
       socket.on('coinSound', () => {
         let coin = new Audio(coinSound);
-        coin.volume = 0.2;
+        coin.volume = 0.25;
         coin.play();
       });
       
       socket.on('mushroomSound', () => {
         let mushroom = new Audio(mushroomSound);
-        mushroom.volume = 0.2;
+        mushroom.volume = 0.25;
         mushroom.play();
+      });
+
+      socket.on('bananaSlide', () => {
+        let banana = new Audio(bananaSound);
+        banana.volume = 0.55;
+        banana.play();
       });
 
       resolve();

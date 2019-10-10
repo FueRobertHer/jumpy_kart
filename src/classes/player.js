@@ -104,17 +104,15 @@ class Player {
       (playerY < itemY + 27) &&
       (playerY + 55 > itemY) 
     ){
-      console.log('item.type', item.type)
       if (item.type === "Coin") {
-        socket.emit("coinSound");
-        console.log("coinSound");
+        socket.emit('coinSound');
         this.pos[0] = this.pos[0] + 200;
         this.numCoin = this.numCoin + 1;
       } else if (item.type === "Mushroom") {
-        socket.emit("mushroomSound");
-        console.log("mushroomSound");
+        socket.emit('mushroomSound');
         this.pos[0] = this.pos[0] + 200; // change once we change to velocity
       } else if (item.type === 'Banana') {
+        socket.emit('bananaSlide');
         this.pos[0] = this.pos[0] - 100;
       }
 
