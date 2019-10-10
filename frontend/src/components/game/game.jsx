@@ -139,13 +139,15 @@ class Canvas extends React.Component {
     //comment for testing jump button
 
     document.body.onkeydown = function (e) {
+      // let jump = new Audio();
       if (e.keyCode === 32) {
+        // jump.pause();
         socket.emit('pressSpace');
-        socket.on("jumpSound", () => {
-          let jump = new Audio(jumpSound);
-          jump.volume = 0.1;
-          jump.play();
-        });
+        // socket.on("jumpSound", () => {
+        //   jump = new Audio(jumpSound);
+        //   jump.volume = 0.1;
+        //   jump.play();
+        // });
       }
     };
 

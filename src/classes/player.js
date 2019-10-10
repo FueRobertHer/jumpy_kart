@@ -105,20 +105,33 @@ class Player {
       (playerY + 55 > itemY) 
     ){
       console.log('item.type', item.type)
-      switch(item.type){
-        case 'Coin':
-          socket.emit("coinSound");
-          console.log('coinSound')
-          this.pos[0] = this.pos[0] + 200;
-          this.numCoin = this.numCoin + 1;
-          // console.log('this.numCoin', this.numCoin)
-        case 'Mushroom':
-          socket.emit('mushroomSound');
-          console.log("mushroomSound");
-          this.pos[0] = this.pos[0] + 200; // change once we change to velocity
-        case 'Banana':
-          this.pos[0] = this.pos[0] - 100;      
+      if (item.type === "Coin") {
+        socket.emit("coinSound");
+        console.log("coinSound");
+        this.pos[0] = this.pos[0] + 200;
+        this.numCoin = this.numCoin + 1;
+      } else if (item.type === "Mushroom") {
+        socket.emit("mushroomSound");
+        console.log("mushroomSound");
+        this.pos[0] = this.pos[0] + 200; // change once we change to velocity
+      } else if (item.type === 'Banana') {
+        this.pos[0] = this.pos[0] - 100;
       }
+
+      // switch(item.type){
+      //   case 'Coin':
+      //     socket.emit("coinSound");
+      //     console.log('coinSound')
+      //     this.pos[0] = this.pos[0] + 200;
+      //     this.numCoin = this.numCoin + 1;
+      //     // console.log('this.numCoin', this.numCoin)
+      //   case 'Mushroom':
+      //     socket.emit('mushroomSound');
+      //     console.log("mushroomSound");
+      //     this.pos[0] = this.pos[0] + 200; // change once we change to velocity
+      //   case 'Banana':
+      //     this.pos[0] = this.pos[0] - 100;      
+      // }
     } else {
       didCollide = false;
     }
