@@ -31,7 +31,7 @@ class Player {
   jump() {
     // changes the player position
     // does not rely move function
-
+    console.log("jumping")
     if (this.pos[1] > 30){
       this.vertSpeed = -35;
     }
