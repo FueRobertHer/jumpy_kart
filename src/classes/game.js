@@ -103,13 +103,13 @@ class Game {
     // then place the item
     let itemTypes = ['coin', 'mushroom', 'banana'];
 
-    for(let j =0; j< 3; j++){
-      for (let i = 0; i < 3; i++) {      
+    for(let j = 0; j< 3; j++){
+      for (let i = 0; i < 7; i++) {      
         let objOverlap = true;
         
         while (objOverlap === true){
           let randomPos = [
-            Math.random() * (2500 * (i + 1) - 2500 * i) + 2500 * i + 1000,
+            Math.random() * (1000 * (i + 1) - 1000 * i) + 1000 * i + 500,
             Math.random() * (300 - 50) + 100
           ];
           if ( this.pipeObjcollide(this.pipes, randomPos) === false ){
