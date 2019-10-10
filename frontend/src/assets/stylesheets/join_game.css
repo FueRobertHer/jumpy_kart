@@ -9,10 +9,16 @@
 }
 
 .join-button {
+  cursor: pointer;
   width: 100%;
   border: none;
   background: none;
 }
+
+.join-button:focus {
+  outline: none;
+}
+
 
 .button-text {
   font-size: 40px;

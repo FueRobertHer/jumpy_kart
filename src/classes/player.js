@@ -82,15 +82,16 @@ class Player {
         (playerX < pipeX + 51))
     {
       //check for top collision
-      if ((playerY + 55 - pipeY > -30) &&
-        (playerY + 55 - pipeY < 4))
-      {
-        this.pos[1] = pipeY - 55;
+      // if ((playerY + 55 - pipeY > -30) &&
+      //   (playerY + 55 - pipeY < 4))
+      if (pipeY > playerY && pipeY < playerY + 55) {
+        if (playerY + 55 > pipeY) this.pos[1] = pipeY - 55;
         if (this.vertSpeed > 0) this.vertSpeed = 0;
-        this.gravity = 0;   
-      }
-      else if ((playerY + 55 - pipeY > 1))
-      {
+        // this.gravity = 0;
+        console.log("on pipe");
+        
+        this.doubleJumped = false;
+      } else if ((playerY + 55 > pipeY)) {
         this.horiSpeed = 0;
       }
     }
