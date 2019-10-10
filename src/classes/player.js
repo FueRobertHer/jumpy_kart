@@ -50,10 +50,7 @@ class Player {
     if (this.pos[1] > 425){
       this.pos[1] = 425;
       this.vertSpeed = 0;
-    } else {
-      
     }
-
 
   }
 
@@ -72,18 +69,22 @@ class Player {
 
     // check if player's x position is within range
     // then check if player's y pos
-
-    // top collision (driving on pipe)
-    if ((playerX + 55 >= pipeX) && (playerX < pipeX + 51) && (playerY + 55 - pipeY > 0) && (playerY + 55 - pipeY < 4)) { //  check to change later to = pipeY
-      this.pos[1] = pipeY - 55;
-      this.vertSpeed = 0;         
-      this.gravity = 0;                                                                          // ^^^ this vertical buffer has to change if gravity speed (constant) changes
-    }
     // side collision below top of pipe
-    else if ((playerX + 55 >= pipeX) && (playerX < pipeX + 51) && (playerY + 55 > pipeY)) {
-      this.horiSpeed = 0;
-    } else {
-      this.gravity = 5;
+    if ((playerX + 55 >= pipeX) && 
+        (playerX < pipeX + 51))
+    {
+      //check for top collision
+      if ((playerY + 55 - pipeY > -30) &&
+        (playerY + 55 - pipeY < 4))
+      {
+        this.pos[1] = pipeY - 55;
+        this.vertSpeed = 0;
+        this.gravity = 0;   
+      }
+      else if ((playerY + 55 - pipeY > 1))
+      {
+        this.horiSpeed = 0;
+      }
     }
   }
 
@@ -109,6 +110,7 @@ class Player {
           console.log('this.numCoin', this.numCoin)
         case 'Mushroom':
           this.pos[0] = this.pos[0] + 200; // change once we change to velocity
+          console.log('Mushroom')
         case 'Banana':
           this.pos[0] = this.pos[0] - 100;      
       }
