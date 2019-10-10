@@ -25,15 +25,19 @@ class Player {
     this.numCoin = 0;
 
     // finishing place
-    this.finishPlace = 0;        
+    this.finishPlace = 0;   
+    
+    this.jumped = false;
+    this.doubleJumped = false;
   }
 
   jump(socket) {
-    // changes the player position
-    // does not rely move function
-    console.log("jumping")
-    if (this.pos[1] > 30){
-      this.vertSpeed = -35;
+    if (!this.jumped) {
+      this.vertSpeed = -45;
+      this.jumped = true;
+    } else if (!this.doubleJumped) {
+      this.vertSpeed = -40;
+      this.doubleJumped = true;
     }
 
     socket.emit('jumpSound');
@@ -52,6 +56,8 @@ class Player {
     if (this.pos[1] > 425){
       this.pos[1] = 425;
       this.vertSpeed = 0;
+      this.jumped = false;
+      this.doubleJumped = false;
     }
 
   }
@@ -80,7 +86,7 @@ class Player {
         (playerY + 55 - pipeY < 4))
       {
         this.pos[1] = pipeY - 55;
-        this.vertSpeed = 0;
+        if (this.vertSpeed > 0) this.vertSpeed = 0;
         this.gravity = 0;   
       }
       else if ((playerY + 55 - pipeY > 1))
@@ -90,7 +96,7 @@ class Player {
     }
   }
 
-  itemCollide(item, socket){
+  itemCollide (item, socket) {
     let playerX = this.pos[0];
     let playerY = this.pos[1];
     let itemX = item.pos[0];
@@ -98,12 +104,12 @@ class Player {
 
     let didCollide = true;
 
-    if(
+    if (
       (playerX < itemX + 27) &&
       (playerX + 55 > itemX) &&
       (playerY < itemY + 27) &&
       (playerY + 55 > itemY) 
-    ){
+    ) {
       console.log('item.type', item.type)
       if (item.type === "Coin") {
         socket.emit("coinSound");
@@ -117,21 +123,6 @@ class Player {
       } else if (item.type === 'Banana') {
         this.horiSpeed -= 10;
       }
-
-      // switch(item.type){
-      //   case 'Coin':
-      //     socket.emit("coinSound");
-      //     console.log('coinSound')
-      //     this.pos[0] = this.pos[0] + 200;
-      //     this.numCoin = this.numCoin + 1;
-      //     // console.log('this.numCoin', this.numCoin)
-      //   case 'Mushroom':
-      //     socket.emit('mushroomSound');
-      //     console.log("mushroomSound");
-      //     this.pos[0] = this.pos[0] + 200; // change once we change to velocity
-      //   case 'Banana':
-      //     this.pos[0] = this.pos[0] - 100;      
-      // }
     } else {
       didCollide = false;
     }
