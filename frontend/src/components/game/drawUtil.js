@@ -6,6 +6,8 @@ import pipeSprite from '../../assets/images/pipes_sprite.png';
 import bananaSprite from '../../assets/images/banana.png';
 import coinSprite from '../../assets/images/coin.png';
 import mushroomSprite from '../../assets/images/mushroom.png';
+import backgroundSprite from '../../assets/images/background.png';
+import roadSprite from '../../assets/images/road.png';
 
 export const _drawKart = (ctx, player) => {
   if (player.sprite === 'mario') {
@@ -34,6 +36,23 @@ export const _drawKart = (ctx, player) => {
     ctx.restore();
   }
 }
+
+export const _drawBackground = (ctx) => {
+  let background = new Image();
+  background.src = backgroundSprite;
+  ctx.save();
+  ctx.drawImage(background, 0, 0);
+  ctx.restore();
+}
+
+export const _drawRoad = (ctx) => {
+  let road = new Image();
+  road.src = roadSprite;
+  ctx.save();
+  ctx.drawImage(road, 0, 476);
+  ctx.restore();
+}
+
 export const _drawPipes = (ctx, pipes) => {
   return new Promise(resolve => {
     pipes.forEach(pipe => {
@@ -47,6 +66,7 @@ export const _drawPipes = (ctx, pipes) => {
     resolve();
   })
 }
+
 export const _drawItems = (ctx, items) => {
   if (items !== []) {
     items.forEach(item => {

@@ -55,7 +55,6 @@ class Game {
 
     //fill out player info for game
     this.players[playerId] = player;
-    // console.log(this.players[playerId]);
     this.playerSockets[playerId] = socket;
 
     const sprites = ['mario', 'peach', 'toad', 'yoshi'];
@@ -70,13 +69,17 @@ class Game {
     }
 
     Object.values(this.playerSockets).forEach(socket => {
-      // console.log('this.playerInfoObject', this.playerInfoObject)
       socket.emit("playerJoined", {
         players: this.playerInfoObject
       });
     });
     
     return player;
+  }
+
+  removePlayer(playerId) {
+    delete this.players[playerId];
+    delete this.playerSockets[playerId];
   }
 
   placePipes(){
@@ -86,7 +89,7 @@ class Game {
     //
     if (this.pipes.length === 0) {
       for ( let i = 0; i < 13; i++){
-        let randomXCoord = Math.random() * (250 * (i + 1) - 250 * i) + 700 * i + 1000;
+        let randomXCoord = Math.random() * (250 * (i + 1) - 250 * i) + 650 * i + 500;
         let randomHeight = Math.random() * (300 - 50) + 175;
         this.pipes.push(new Pipe(randomXCoord, 70, randomHeight));
       }
@@ -162,6 +165,7 @@ class Game {
 
   async raceStart(socket){
     //should call the update function
+    this.allPresentItems();
     while (this.gameClock > 0.5){
       // console.log(this.gameClock);
       //check finish of race
@@ -175,18 +179,17 @@ class Game {
   }
 
   update(socket){
-    //update the items currently on the map
-    this.allPresentItems();
-
     Object.values(this.players).forEach(player => {
-      player.horiSpeed = 10;
-      // player.vertSpeed = 4;
+      if (player.pos[0] > 9600){
+        player.horiSpeed = 0;
+      } else {
+        player.horiSpeed = 8;
+        player.vertSpeed = 4;
+      }
       // for each player, calculate how much they should move by
       // move them by that much, while updating Player inst and
       // player info object
 
-      // player and item collision
-      // what is the benefit of 
       for (let j = this.allItems.length - 1; j >= 0; --j) {
         let didCollide = player.itemCollide(this.allItems[j]);
         if (didCollide === true) {
@@ -217,19 +220,37 @@ class Game {
 
   //random comment
   checkFinish(){
+    
     //loop through players and see if their pos has crossed line
     Object.values(this.players).forEach(player => {
-      if (player.pos[0] > 9900){
+      if ((player.finishPlace === 0) && (player.pos[0] > 9600)){
         this.podium.push([player.id, (60000 - this.gameClock)/1000 ]);
-      } else if( (this.podium.length > 4) || this.gameClock < 0.2) {
-        // run game ending logic raceEnd();
+        player.finishPlace = this.podium.length;
+        console.log("player finish podium", this.podium);
+      } else if( (this.podium.length > 3) || (this.gameClock < 70) ) {
+        this.raceEnd();
+        console.log("race end hit?")
       } 
     })
+
   }
 
   raceEnd(){
-    //run when all 4 player finish or timer runs out
+    //loop through players and push to podium based on position if they are not finished
+    let unfinished = [];
+    Object.values(this.players).forEach(player => {
+      if (player.finishPlace === 0){
+        this.podium.push([player.id, 60000]);
+        player.finishPlace = "DNF";
+      }
+    })
+    console.log("race end");
+    console.log("this podium", this.podium);
+    
   }
+
+
+
 ////////////////////////Collision Helper methods//////////////////
 
   allPresentItems(){

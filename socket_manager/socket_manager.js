@@ -8,7 +8,7 @@ import Game from '../src/classes/game';
 
 export const gameState = {
   users: {},
-  rooms: {}
+  rooms: {},
   //gameState.rooms[roomInfo.roomId]
 };
 
@@ -21,11 +21,12 @@ export const socketManager = (socket) => {
   //test case - on connection, render game
   let game;
   let player;
+  
 
   socket.on('startGame', () => {
     console.log('inside gameloop.on')
-    game.gameloop(socket)
-  })
+    game.gameloop(socket);
+  });
 
   socket.on('roomInfo', roomInfo => {
     if (roomInfo.type === "createRoom") {
@@ -36,6 +37,7 @@ export const socketManager = (socket) => {
         console.log('loading game');
         game.loadGame(socket);
       });
+      
       gameState.users[socket.id] = game.addPlayer(roomInfo.userId, socket, roomInfo.roomId);
       player = gameState.users[socket.id];
 
@@ -59,7 +61,9 @@ export const socketManager = (socket) => {
 
         socket.on('pressSpace', () => {
           if (player) {
+            let a = new Audio(jump);
             player.jump();
+            a.play();
           }
         });
         
@@ -68,13 +72,12 @@ export const socketManager = (socket) => {
       }
     }
 
-    
-
   });
-
 
   socket.on('disconnect', () => {
     console.log('user disconnected');
+    console.log(socket.id);
+    console.log(gameState);
   });
 
 };

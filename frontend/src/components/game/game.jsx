@@ -2,13 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import * as DrawUtil from './drawUtil';
-import roadSprite from '../../assets/images/road.png';
 
 let SERVER;
 
 if (process.env.NODE_ENV !== "production") {
   console.log(`process.env: ${process.env}`);
-  SERVER = io("http://localhost:5000");
+  SERVER = io("http://localhost:5000", { transports: ['websocket'] });
 }
 
 if (process.env.NODE_ENV === "production") {
@@ -30,6 +29,7 @@ class Canvas extends React.Component {
       mushrooms: [],
       items: []
     };
+    this.jump = this.jump.bind(this);
     this.drawObjects = this.drawObjects.bind(this);
     this.openSocket = this.openSocket.bind(this);
     this.loadGame = this.loadGame.bind(this);
@@ -81,7 +81,6 @@ class Canvas extends React.Component {
     document.querySelector("canvas").focus();
     let socket = this.socket;
     socket.emit('startGame');
-
   }
   
   loadGame() {
@@ -107,16 +106,6 @@ class Canvas extends React.Component {
     });
   }
 
-  // componentWillMount() {
-  //   this.openSocket()
-  //     .then(() => {
-  //       this.joinRoom()
-  //         .then(() => {
-  //           this.loadGame()
-  //         })
-  //     })
-  // }
-
   componentDidMount() {
     this.openSocket()
       .then(() => {
@@ -129,7 +118,6 @@ class Canvas extends React.Component {
     let socket = this.socket;
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
-    // console.log(`mounting`);
 
     document.body.onkeydown = function (e) {
       if (e.keyCode === 32) {
@@ -142,12 +130,13 @@ class Canvas extends React.Component {
   }
 
   drawObjects() {
-    // console.log(this.players);
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+    DrawUtil._drawBackground(ctx);
     DrawUtil._drawPipes(ctx, this.pipes);
+    DrawUtil._drawRoad(ctx);
     DrawUtil._drawItems(ctx, this.items);
     
     this.players.forEach(player => {
@@ -165,26 +154,8 @@ class Canvas extends React.Component {
     const cam = viewport.getContext('2d');
     cam.clearRect(0, 0, viewport.width, viewport.height);
     cam.drawImage(canvas, x - viewport.width / 4, 0, viewport.width, viewport.height, 0, 0, viewport.width, viewport.height)
-
-                 
-    // if (Object.keys(this.players).length !== 0) {
-      // DrawUtil._drawKart(ctx, 'mario', Object.values(this.players)[0].pos);
-    //   for (let i = 0; i < Object.keys(that.players).length; i++) {
-    //     remainingChars.push(i)
-    //   }
-
-    //   // for (let i = 0; i < Object.keys(this.players).length; i++) {
-    //   //   const playerId = Object.keys(that.players)[i];
-    //   //   if (playerId !== that.props.currentUserId) {
-    //   //     DrawUtil._drawKart.apply(that, [ctx, that.characters[i], Object.values(that.players)[i].pos]);
-    //   //     remainingChars.splice(i, 1);
-    //   //   }
-    //   // }
-
-    //   DrawUtil._drawKart(ctx, this.characters[remainingChars[0]], Object.values(this.players)[remainingChars[0]].pos);
-    // }
-    // requestAnimationFrame(this.drawObjects);
   }
+
 
   render() {
     if (!this.props) {
@@ -194,6 +165,7 @@ class Canvas extends React.Component {
     return (
       <div>
         <div className='canvas-container'>
+          {/* <audio src={backgroundMusic} autoPlay loop /> */}
           <canvas id='background' ref="canvas" width="10000" height="500" />
           <canvas id="viewport" ref="viewport" width="700" height="500" />   
         </div>
