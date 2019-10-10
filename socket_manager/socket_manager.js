@@ -61,7 +61,9 @@ export const socketManager = (socket) => {
 
         socket.on('pressSpace', () => {
           if (player) {
+            let a = new Audio(jump);
             player.jump();
+            a.play();
           }
         });
         

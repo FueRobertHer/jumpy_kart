@@ -55,7 +55,6 @@ class Game {
 
     //fill out player info for game
     this.players[playerId] = player;
-    console.log(this.players[playerId]);
     this.playerSockets[playerId] = socket;
 
     const sprites = ['mario', 'peach', 'toad', 'yoshi'];
@@ -70,7 +69,6 @@ class Game {
     }
 
     Object.values(this.playerSockets).forEach(socket => {
-      console.log('this.playerInfoObject', this.playerInfoObject)
       socket.emit("playerJoined", {
         players: this.playerInfoObject
       });

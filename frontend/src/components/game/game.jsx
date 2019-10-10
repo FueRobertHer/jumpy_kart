@@ -30,6 +30,7 @@ class Canvas extends React.Component {
       mushrooms: [],
       items: []
     };
+    this.jump = this.jump.bind(this);
     this.drawObjects = this.drawObjects.bind(this);
     this.openSocket = this.openSocket.bind(this);
     this.loadGame = this.loadGame.bind(this);
@@ -81,7 +82,6 @@ class Canvas extends React.Component {
     document.querySelector("canvas").focus();
     let socket = this.socket;
     socket.emit('startGame');
-
   }
   
   loadGame() {
@@ -155,6 +155,7 @@ class Canvas extends React.Component {
     cam.drawImage(canvas, x - viewport.width / 4, 0, viewport.width, viewport.height, 0, 0, viewport.width, viewport.height)
   }
 
+
   render() {
     if (!this.props) {
       return null;
@@ -163,6 +164,7 @@ class Canvas extends React.Component {
     return (
       <div>
         <div className='canvas-container'>
+          {/* <audio src={backgroundMusic} autoPlay loop /> */}
           <canvas id='background' ref="canvas" width="10000" height="500" />
           <canvas id="viewport" ref="viewport" width="700" height="500" />   
         </div>

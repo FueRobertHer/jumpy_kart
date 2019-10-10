@@ -2,7 +2,6 @@
 
 import Pipe from './pipe';
 
-
 class Player {
   constructor(pos, id) {
 
@@ -91,6 +90,7 @@ class Player {
       switch(item.type){
         case 'coin': 
           this.numCoin++;
+
         case 'mushroom':
           this.horiSpeed = 2;
         case 'banana':
