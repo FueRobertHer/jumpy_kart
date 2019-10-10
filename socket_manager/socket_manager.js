@@ -43,7 +43,7 @@ export const socketManager = (socket) => {
 
       socket.on('pressSpace', () => {
         if (player) {
-          player.jump();
+          player.jump(socket);
         }
       });
     } 
@@ -61,7 +61,7 @@ export const socketManager = (socket) => {
 
         socket.on('pressSpace', () => {
           if (player) {
-            player.jump();
+            player.jump(socket);
           }
         });
         

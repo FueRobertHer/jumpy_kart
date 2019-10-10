@@ -3,12 +3,11 @@
 import Pipe from './pipe';
 
 class Player {
-  constructor(pos, id) {
+  constructor(pos, id, gameId) {
 
     //position on map
     this.pos = pos;
     this.id = id;
-
     //speed    
     this.horiSpeed = 2;
 
@@ -22,13 +21,15 @@ class Player {
     this.finishPlace = 0;        
   }
 
-  jump() {
+  jump(socket) {
     // changes the player position
     // does not rely move function
 
     if (this.pos[1] > 30){
       this.pos[1] -= 120;
     }
+
+    socket.emit('jumpSound');
   }
 
   move() {
@@ -70,7 +71,7 @@ class Player {
     }
   }
 
-  itemCollide(item){
+  itemCollide(item, socket){
     let playerX = this.pos[0];
     let playerY = this.pos[1];
     let itemX = item.pos[0];
@@ -87,11 +88,15 @@ class Player {
       console.log('item.type', item.type)
       switch(item.type){
         case 'Coin':
+          socket.emit("coinSound");
+          console.log('coinSound')
           this.pos[0] = this.pos[0] + 200;
           this.numCoin = this.numCoin + 1;
-          console.log('this.numCoin', this.numCoin)
+          // console.log('this.numCoin', this.numCoin)
         case 'Mushroom':
-          this.pos[0] = this.pos[0] + 200; // change once we change to velocity
+          socket.emit('mushroomSound');
+          console.log("mushroomSound");
+          // this.pos[0] = this.pos[0] + 200; // change once we change to velocity
         case 'Banana':
           this.pos[0] = this.pos[0] - 100;      
       }
