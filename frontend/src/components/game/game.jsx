@@ -1,14 +1,10 @@
 import React from 'react';
-import ambientAudio from '../../assets/audio/background_music.mp3';
-import Sound from 'react-sound';
-import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import * as DrawUtil from './drawUtil';
-import backgroundMusic from '../../style/sounds/Cheep Cheep Cape.mp3';
-import jumpSound from "../../style/sounds/jump.wav";
-import coinSound from "../../style/sounds/coin.wav";
-import mushroomSound from '../../style/sounds/mushroom.wav';
-import bananaSound from '../../style/sounds/banana_slide.mp3';
+import coinSound from "../../assets/audio/coin.wav";
+import ambientAudio from '../../assets/audio/background_music.mp3';
+import mushroomSound from "../../assets/audio/mushroom.wav";
+import bananaSound from "../../assets/audio/banana_slide.mp3";
 
 let SERVER;
 
@@ -26,7 +22,6 @@ class Canvas extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // time: "no timestamp yet",
       players: {},
       hostId: 0,
       gameId: 0,
@@ -146,18 +141,9 @@ class Canvas extends React.Component {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
 
-    //comment for testing jump button
-
     document.body.onkeydown = function (e) {
-      // let jump = new Audio();
       if (e.keyCode === 32) {
-        // jump.pause();
         socket.emit('pressSpace');
-        // socket.on("jumpSound", () => {
-        //   jump = new Audio(jumpSound);
-        //   jump.volume = 0.1;
-        //   jump.play();
-        // });
       }
     };
 
@@ -168,6 +154,7 @@ class Canvas extends React.Component {
   toggleAmbient() {
     const a = document.getElementById('ambient-music');
     a.muted = a.muted ? false : true;
+    a.blur();
   }
 
   drawObjects() {
@@ -212,7 +199,6 @@ class Canvas extends React.Component {
           <button onClick={this.toggleAmbient}></button>
         </div>
         <div className='canvas-container'>
-          <audio src={backgroundMusic} loop />
           <canvas id='background' ref="canvas" width="10000" height="500" />
           <canvas id="viewport" ref="viewport" width="700" height="500" />   
         </div>
