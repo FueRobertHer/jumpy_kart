@@ -10,11 +10,17 @@ class Player {
     this.pos = pos;
     this.id = id;
 
+    this.left = pos[0];
+    this.top = pos[1];
+    this.right = this.left + 55;
+    this.bottom = this.top + 55;
+
     //speed    
-    this.horiSpeed = 2;
+    this.horiSpeed = 10;
+    this.vertSpeed = 0;
 
     //gravity
-    this.vertSpeed = 2;
+    this.gravity = 5;
     
     //number of coins collected
     this.numCoin = 0;
@@ -28,18 +34,25 @@ class Player {
     // does not rely move function
 
     if (this.pos[1] > 30){
-      this.pos[1] -= 120;
+      this.vertSpeed = -35;
     }
   }
 
   move() {
+    //add gravity to vertSpeed
+    this.vertSpeed += this.gravity;
+
     //add velocity to pos every frame
     this.pos[0] += this.horiSpeed;
+    this.pos[1] += this.vertSpeed;
 
     // make sure the player doesnt fall off the map
     // make sure the jump func is run first so that vertSpeed is changed
-    if (this.pos[1] < 420){
-      this.pos[1] += this.vertSpeed;
+    if (this.pos[1] > 425){
+      this.pos[1] = 425;
+      this.vertSpeed = 0;
+    } else {
+      
     }
 
 
@@ -63,11 +76,15 @@ class Player {
 
     // top collision (driving on pipe)
     if ((playerX + 55 >= pipeX) && (playerX < pipeX + 51) && (playerY + 55 - pipeY > 0) && (playerY + 55 - pipeY < 4)) { //  check to change later to = pipeY
-      this.vertSpeed = 0;                                                                                   // ^^^ this vertical buffer has to change if gravity speed (constant) changes
+      this.pos[1] = pipeY - 55;
+      this.vertSpeed = 0;         
+      this.gravity = 0;                                                                          // ^^^ this vertical buffer has to change if gravity speed (constant) changes
     }
     // side collision below top of pipe
     else if ((playerX + 55 >= pipeX) && (playerX < pipeX + 51) && (playerY + 55 > pipeY)) {
       this.horiSpeed = 0;
+    } else {
+      this.gravity = 5;
     }
   }
 

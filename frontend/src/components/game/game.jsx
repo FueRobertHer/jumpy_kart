@@ -129,7 +129,7 @@ class Canvas extends React.Component {
     let socket = this.socket;
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
-    console.log(`mounting`);
+    // console.log(`mounting`);
 
     document.body.onkeydown = function (e) {
       if (e.keyCode === 32) {
@@ -142,7 +142,7 @@ class Canvas extends React.Component {
   }
 
   drawObjects() {
-    console.log(this.players);
+    // console.log(this.players);
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
