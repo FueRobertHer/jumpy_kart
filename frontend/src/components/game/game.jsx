@@ -1,11 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import * as DrawUtil from './drawUtil';
-import backgroundMusic from '../../style/sounds/Cheep Cheep Cape.mp3';
-import jumpSound from "../../style/sounds/jump.wav";
-import coinSound from "../../style/sounds/coin.wav";
-import mushroomSound from '../../style/sounds/mushroom.wav';
+import coinSound from "../../assets/audio/coin.wav";
+import ambientAudio from '../../assets/audio/background_music.mp3';
+import mushroomSound from "../../assets/audio/mushroom.wav";
+import bananaSound from "../../assets/audio/banana_slide.mp3";
 
 let SERVER;
 
@@ -23,7 +22,6 @@ class Canvas extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // time: "no timestamp yet",
       players: {},
       hostId: 0,
       gameId: 0,
@@ -38,6 +36,7 @@ class Canvas extends React.Component {
     this.loadGame = this.loadGame.bind(this);
     this.joinRoom = this.joinRoom.bind(this);
     this.emitStartGame = this.emitStartGame.bind(this);
+    this.toggleAmbient = this.toggleAmbient.bind(this);
     this.socket = null;
     this.characters = ['mario', 'peach', 'toad', 'yoshi'];
     this.userNums = [];
@@ -77,14 +76,20 @@ class Canvas extends React.Component {
 
       socket.on('coinSound', () => {
         let coin = new Audio(coinSound);
-        coin.volume = 0.2;
+        coin.volume = 0.25;
         coin.play();
       });
       
       socket.on('mushroomSound', () => {
         let mushroom = new Audio(mushroomSound);
-        mushroom.volume = 0.2;
+        mushroom.volume = 0.25;
         mushroom.play();
+      });
+
+      socket.on('bananaSlide', () => {
+        let banana = new Audio(bananaSound);
+        banana.volume = 0.55;
+        banana.play();
       });
 
       resolve();
@@ -136,23 +141,20 @@ class Canvas extends React.Component {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
 
-    //comment for testing jump button
-
     document.body.onkeydown = function (e) {
-      // let jump = new Audio();
       if (e.keyCode === 32) {
-        // jump.pause();
         socket.emit('pressSpace');
-        // socket.on("jumpSound", () => {
-        //   jump = new Audio(jumpSound);
-        //   jump.volume = 0.1;
-        //   jump.play();
-        // });
       }
     };
 
     this.drawObjects();
     requestAnimationFrame(this.drawObjects);
+  }
+
+  toggleAmbient() {
+    const a = document.getElementById('ambient-music');
+    a.muted = a.muted ? false : true;
+    a.blur();
   }
 
   drawObjects() {
@@ -190,8 +192,13 @@ class Canvas extends React.Component {
 
     return (
       <div>
+        <div>
+          <audio id='ambient-music' src={ambientAudio} autoPlay controls loop>AUDIO ELEMENT</audio>
+        </div>
+        <div>
+          <button onClick={this.toggleAmbient}></button>
+        </div>
         <div className='canvas-container'>
-          <audio src={backgroundMusic} loop />
           <canvas id='background' ref="canvas" width="10000" height="500" />
           <canvas id="viewport" ref="viewport" width="700" height="500" />   
         </div>

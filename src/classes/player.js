@@ -110,15 +110,11 @@ class Player {
       (playerY < itemY + 27) &&
       (playerY + 55 > itemY) 
     ) {
-      console.log('item.type', item.type)
       if (item.type === "Coin") {
         socket.emit("coinSound");
-        console.log("coinSound");
-        // this.pos[0] = this.pos[0] + 200;
         this.numCoin = this.numCoin + 1;
       } else if (item.type === "Mushroom") {
         socket.emit("mushroomSound");
-        console.log("mushroomSound");
         this.horiSpeed += 20;
       } else if (item.type === 'Banana') {
         this.horiSpeed -= 10;
