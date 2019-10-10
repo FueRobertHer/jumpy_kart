@@ -118,6 +118,8 @@ class Canvas extends React.Component {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
 
+    //comment for testing jump button
+
     document.body.onkeydown = function (e) {
       if (e.keyCode === 32) {
         socket.emit('pressSpace');
