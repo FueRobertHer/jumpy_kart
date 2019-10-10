@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 import * as DrawUtil from './drawUtil';
-import roadSprite from '../../assets/images/road.png';
-import backgroundSprite from '../../assets/images/background.png';
 
 let SERVER;
 
@@ -82,7 +80,7 @@ class Canvas extends React.Component {
     document.querySelector("canvas").focus();
     let socket = this.socket;
     socket.emit('startGame');
-
+    // console.log('this.players', this.players)
   }
   
   loadGame() {

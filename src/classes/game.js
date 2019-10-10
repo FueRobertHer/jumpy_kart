@@ -180,12 +180,7 @@ class Game {
     Object.values(this.players).forEach(player => {
       player.horiSpeed = 4;
       player.vertSpeed = 4  ;
-      // for each player, calculate how much they should move by
-      // move them by that much, while updating Player inst and
-      // player info object
 
-      // player and item collision
-      // what is the benefit of 
       for (let j = this.allItems.length - 1; j >= 0; --j) {
         let didCollide = player.itemCollide(this.allItems[j]);
         if (didCollide === true) {
