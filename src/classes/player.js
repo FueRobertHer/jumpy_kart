@@ -118,7 +118,7 @@ class Player {
         socket.emit("mushroomSound");
         this.horiSpeed += 20;
       } else if (item.type === 'Banana') {
-        this.horiSpeed -= 10;
+        this.horiSpeed -= 20;
       }
     } else {
       didCollide = false;

@@ -88,7 +88,7 @@ class Canvas extends React.Component {
 
       socket.on('bananaSlide', () => {
         let banana = new Audio(bananaSound);
-        banana.volume = 0.55;
+        banana.volume = 0.8;
         banana.play();
       });
 
@@ -199,7 +199,7 @@ class Canvas extends React.Component {
           <button onClick={this.toggleAmbient}></button>
         </div>
         <div className='canvas-container'>
-          <canvas id='background' ref="canvas" width="10000" height="500" />
+          <canvas id='background' ref="canvas" width="10500" height="500" />
           <canvas id="viewport" ref="viewport" width="700" height="500" />   
         </div>
         {(this.state.hostId === this.props.currentUserId) ? 
