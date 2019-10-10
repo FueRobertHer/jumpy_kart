@@ -88,11 +88,11 @@ class Player {
       console.log('item.type', item.type)
       switch(item.type){
         case 'Coin':
-          this.pos[0] = this.pos[0] + 1000;
+          this.pos[0] = this.pos[0] + 200;
           this.numCoin = this.numCoin + 1;
           console.log('this.numCoin', this.numCoin)
         case 'Mushroom':
-          this.pos[0] = this.pos[0] + 1000; // change once we change to velocity
+          this.pos[0] = this.pos[0] + 200; // change once we change to velocity
         case 'Banana':
           this.pos[0] = this.pos[0] - 100;      
       }
