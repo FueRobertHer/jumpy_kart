@@ -29,7 +29,6 @@ class Canvas extends React.Component {
       mushrooms: [],
       items: []
     };
-    this.jump = this.jump.bind(this);
     this.drawObjects = this.drawObjects.bind(this);
     this.openSocket = this.openSocket.bind(this);
     this.loadGame = this.loadGame.bind(this);
