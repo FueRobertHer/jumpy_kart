@@ -119,7 +119,7 @@ class Game {
               this.coins.push(new Coin(randomPos));
             } else if (itemTypes[j] === 'mushroom'){
               this.mushrooms.push(new Mushroom(randomPos));
-            } else{
+            } else {
               this.bananas.push(new Banana(randomPos));
             }
           }
@@ -130,7 +130,7 @@ class Game {
 
   pipeObjcollide(pipes, randomPos) {
     let collide = false;
-    //get the coordinates covered by pipes
+
     pipes.forEach(pipe => {
       if (randomPos[0] < pipe.pos[0] + pipe.width &&
         randomPos[0] + 28 > pipe.pos[0] &&
