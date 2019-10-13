@@ -1,11 +1,29 @@
+.game-ui {
+  display: flex;
+  flex-direction: column;
+}
+
 .canvas-container {
-  /* overflow: scroll; */
   display: flex;
   flex-direction: column;
 }
 
 .start-game-button {
-  margin-top: 14px;
+  margin: 14px auto;
+  padding-bottom: 12px;
+  position: relative;
+}
+
+.mute-button {
+  position: absolute;
+  height: 30px;
+  width: 90px;
+  cursor: pointer;
+  padding: 5px 7px 1px;
+  color: #fa0000;
+  background-color: #ffff00;
+  box-shadow: #fa0000 0px 0px 10px;
+  border: outset #fa0000;
 }
 
 #background {

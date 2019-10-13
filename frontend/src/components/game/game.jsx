@@ -1,6 +1,7 @@
 import React from "react";
 import io from "socket.io-client";
 import * as DrawUtil from "./drawUtil";
+import MuteButton from "./mute_button";
 import coinSound from "../../assets/audio/coin.wav";
 import ambientAudio from "../../assets/audio/background_music.mp3";
 import mushroomSound from "../../assets/audio/mushroom.wav";
@@ -37,6 +38,8 @@ class Canvas extends React.Component {
     this.joinRoom = this.joinRoom.bind(this);
     this.emitStartGame = this.emitStartGame.bind(this);
     this.toggleAmbient = this.toggleAmbient.bind(this);
+    this.returnMuted = this.returnMuted.bind(this);
+    this.muted = false;
     this.socket = null;
     this.characters = ["mario", "peach", "toad", "yoshi"];
     this.userNums = [];
@@ -140,6 +143,7 @@ class Canvas extends React.Component {
     const ctx = canvas.getContext("2d");
 
     document.body.onkeydown = function(e) {
+      e.preventDefault();
       if (e.keyCode === 32) {
         socket.emit("pressSpace");
       }
@@ -147,12 +151,6 @@ class Canvas extends React.Component {
 
     this.drawObjects();
     requestAnimationFrame(this.drawObjects);
-  }
-
-  toggleAmbient() {
-    const a = document.getElementById("ambient-music");
-    a.muted = a.muted ? false : true;
-    a.blur();
   }
 
   drawObjects() {
@@ -198,12 +196,9 @@ class Canvas extends React.Component {
     }
 
     return (
-      <div>
+      <div className='game-ui'>
         <div>
-          <audio id='ambient-music' src={ambientAudio} autoPlay loop />
-        </div>
-        <div>
-          <button onClick={this.toggleAmbient}></button>
+          {/* <audio id='ambient-music' src={ambientAudio} autoPlay loop /> */}
         </div>
         <div className='canvas-container'>
           <canvas id='background' ref='canvas' width='10500' height='500' />
@@ -219,6 +214,9 @@ class Canvas extends React.Component {
         ) : (
           <div />
         )}
+        <div>
+          <MuteButton muted={this.muted} toggleAmbient={this.toggleAmbient} />
+        </div>
       </div>
     );
   }
