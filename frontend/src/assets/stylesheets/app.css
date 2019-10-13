@@ -5,10 +5,10 @@ html {
 .parent {
   height: 70vh;
   width: 80vw;
-  margin: auto;
+  margin: 100px auto;
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
 }
 
 .main-container {
