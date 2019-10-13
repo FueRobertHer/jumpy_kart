@@ -85,7 +85,7 @@ class Canvas extends React.Component {
         mushroom.play();
       });
 
-      socket.on("bananaSlide", () => {
+      socket.on("bananaSound", () => {
         let banana = new Audio(bananaSound);
         banana.volume = 1;
         banana.play();
