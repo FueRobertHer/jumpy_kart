@@ -35,7 +35,7 @@ class NavBar extends React.Component {
   render() {
     return (
       <div className="navbar">
-        <Link to="/"><h1>JUMPY KART</h1></Link>
+        <Link to="/"><h1 className='home-button'>JUMPY KART</h1></Link>
         {this.getLinks()}
       </div>
     );

@@ -200,20 +200,18 @@ class Canvas extends React.Component {
     return (
       <div>
         <div>
-          <audio id="ambient-music" src={ambientAudio} autoPlay controls loop>
-            AUDIO ELEMENT
-          </audio>
+          <audio id='ambient-music' src={ambientAudio} autoPlay loop />
         </div>
         <div>
           <button onClick={this.toggleAmbient}></button>
         </div>
-        <div className="canvas-container">
-          <canvas id="background" ref="canvas" width="10500" height="500" />
-          <canvas id="viewport" ref="viewport" width="700" height="500" />
+        <div className='canvas-container'>
+          <canvas id='background' ref='canvas' width='10500' height='500' />
+          <canvas id='viewport' ref='viewport' width='700' height='500' />
         </div>
         {this.state.hostId === this.props.currentUserId ? (
           <button
-            className="start-game-button input submit"
+            className='start-game-button input submit'
             onClick={this.emitStartGame}
           >
             Start Game
