@@ -3,7 +3,6 @@ import io from "socket.io-client";
 import * as DrawUtil from "./drawUtil";
 import MuteButton from "./mute_button";
 import coinSound from "../../assets/audio/coin.wav";
-import ambientAudio from "../../assets/audio/background_music.mp3";
 import mushroomSound from "../../assets/audio/mushroom.wav";
 import bananaSound from "../../assets/audio/banana_slide.mp3";
 
@@ -37,9 +36,6 @@ class Canvas extends React.Component {
     this.loadGame = this.loadGame.bind(this);
     this.joinRoom = this.joinRoom.bind(this);
     this.emitStartGame = this.emitStartGame.bind(this);
-    this.toggleAmbient = this.toggleAmbient.bind(this);
-    this.returnMuted = this.returnMuted.bind(this);
-    this.muted = false;
     this.socket = null;
     this.characters = ["mario", "peach", "toad", "yoshi"];
     this.userNums = [];
@@ -91,7 +87,7 @@ class Canvas extends React.Component {
 
       socket.on("bananaSlide", () => {
         let banana = new Audio(bananaSound);
-        banana.volume = 0.8;
+        banana.volume = 1;
         banana.play();
       });
 
@@ -143,8 +139,8 @@ class Canvas extends React.Component {
     const ctx = canvas.getContext("2d");
 
     document.body.onkeydown = function(e) {
-      e.preventDefault();
       if (e.keyCode === 32) {
+        e.preventDefault();
         socket.emit("pressSpace");
       }
     };
