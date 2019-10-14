@@ -112,6 +112,7 @@ class Player {
         socket.emit("mushroomSound");
         this.horiSpeed += 20;
       } else if (item.type === 'Banana') {
+        socket.emit("bananaSound");
         this.horiSpeed -= 20;
       }
     } else {

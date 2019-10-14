@@ -54,17 +54,13 @@ export const _drawRoad = (ctx) => {
 }
 
 export const _drawPipes = (ctx, pipes) => {
-  return new Promise(resolve => {
-    pipes.forEach(pipe => {
-      let randomPipe = new Image();
-      randomPipe.src = pipeSprite;
-      ctx.save();
-      ctx.drawImage(randomPipe, pipe.pos[0], pipe.height);
-      ctx.restore();
-    });
-
-    resolve();
-  })
+  pipes.forEach(pipe => {
+    let randomPipe = new Image();
+    randomPipe.src = pipeSprite;
+    ctx.save();
+    ctx.drawImage(randomPipe, pipe.pos[0], pipe.height);
+    ctx.restore();
+  });
 }
 
 export const _drawItems = (ctx, items) => {

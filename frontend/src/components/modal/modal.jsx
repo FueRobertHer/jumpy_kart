@@ -1,7 +1,6 @@
 import React from 'react';
 import { openModal, closeModal } from '../../actions/modal';
 import { connect } from 'react-redux';
-// import CreateRoomContainer from '../rooms/create_room_container';
 import JoinRoomContainer from '../rooms/join_room_container';
 
 const Modal = ({ modal, closeModal }) => {
@@ -10,11 +9,7 @@ const Modal = ({ modal, closeModal }) => {
   }
 
   let component;
-  switch (modal) {
-    // case 'createRoom':
-    //   component = <CreateRoomContainer />;
-    //   break;           
-                                 
+  switch (modal) {               
     case 'joinRoom':
       component = <JoinRoomContainer />;
       break;                             

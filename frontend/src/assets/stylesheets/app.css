@@ -5,10 +5,9 @@ html {
 .parent {
   height: 70vh;
   width: 80vw;
-  margin: auto;
+  margin: 100px auto;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .main-container {
@@ -25,8 +24,6 @@ html {
   background-repeat: no-repeat;
   background-size: auto;
   background-size: 100% 100%;
-  /* margin-top: 50px; */
-
 }
 
 @keyframes growBorder {
