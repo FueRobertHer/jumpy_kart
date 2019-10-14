@@ -1,0 +1,42 @@
+.background-div {
+  width: 1024px;
+  height: 530px;
+  background-image: url('../images/podium_road.png');
+  position: relative;
+}
+
+.player-div {
+  position: absolute;
+  /* width: 112px; */
+  /* height: 112px; */
+}
+
+.player {
+  width: 112px;
+  height: 112px;
+}
+
+#first-place {
+  top: 283px;
+  left: 440px;
+}
+
+#second-place {
+  top: 315px;
+  left: 323px;
+}
+
+#third-place {
+  top: 348px;
+  left: 561px;
+}
+
+#fourth-place {
+  top: 304px;
+  left: 35px;
+}
+
+#fourth-place > div > div > img {
+  width: 56px;
+  height: 56px;
+}

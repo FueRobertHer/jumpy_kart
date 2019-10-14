@@ -8,6 +8,7 @@ import '../assets/stylesheets/signup_login_form.css';
 import '../assets/stylesheets/app.css';
 import '../assets/stylesheets/game.css';
 import '../assets/stylesheets/join_game.css';
+import '../assets/stylesheets/podium.css';
 
 import NavBarContainer from './nav/navbar_container';
 import MainPage from './main/main_page';
@@ -15,6 +16,7 @@ import GameContainer from './game/game_container';
 import LoginFormContainer from './session/login_form_container';
 import SignupFormContainer from './session/signup_form_container';
 import LobbyContainer from './game/lobby_container';
+import PodiumContainer from './podium/podium_container';
 
 class App extends React.Component {
 
@@ -33,6 +35,7 @@ class App extends React.Component {
             <ProtectedRoute exact path="/game" component={GameContainer} />
             <ProtectedRoute exact path="/game/:roomId" component={GameContainer} />
             <ProtectedRoute exact path="/lobby" component={LobbyContainer} />
+            <ProtectedRoute exact path="/podium" component={PodiumContainer} />
             <AuthRoute exact path="/login" component={LoginFormContainer} />
             <AuthRoute exact path="/signup" component={SignupFormContainer} />
           </Switch>
