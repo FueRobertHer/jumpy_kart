@@ -14,13 +14,11 @@ class MainPage extends React.Component {
               </div>
             </Link>
           </div>
-        </div>
-
-        <div>
           <marquee className="marquee" direction="right" scrollamount="30">
             <p className="main-kart"></p>
           </marquee>
         </div>
+
       </div>
     );
   }
