@@ -67,13 +67,11 @@ class Player {
     // the game class will call this function for each player and each pipe
     // each pipe instance has corners method.
 
-
     //player and pipe positions
     let playerX = this.pos[0];
     let playerY = this.pos[1];
     let pipeX = pipe.pos[0];
     let pipeY = pipe.pos[1];
-    
 
     // check if player's x position is within range
     // then check if player's y pos
@@ -82,15 +80,12 @@ class Player {
         (playerX < pipeX + 51))
     {
       //check for top collision
-      if ((playerY + 55 - pipeY > -30) &&
-        (playerY + 55 - pipeY < 4))
-      {
-        this.pos[1] = pipeY - 55;
+
+      if (pipeY > playerY && pipeY < playerY + 55) {
+        if (playerY + 55 > pipeY) this.pos[1] = pipeY - 55;
         if (this.vertSpeed > 0) this.vertSpeed = 0;
-        this.gravity = 0;   
-      }
-      else if ((playerY + 55 - pipeY > 1))
-      {
+        this.doubleJumped = false;
+      } else if ((playerY + 55 > pipeY)) {
         this.horiSpeed = 0;
       }
     }
@@ -117,7 +112,8 @@ class Player {
         socket.emit("mushroomSound");
         this.horiSpeed += 20;
       } else if (item.type === 'Banana') {
-        this.horiSpeed -= 10;
+        socket.emit("bananaSound");
+        this.horiSpeed -= 20;
       }
     } else {
       didCollide = false;

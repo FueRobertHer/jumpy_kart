@@ -1,11 +1,10 @@
 import { connect } from "react-redux";
-// import { logout } from '../../actions/session_actions';
 
-import Game from "./game";
+import MuteButton from "./mute_button";
 
 const mapStateToProps = state => ({
   currentUserId: state.session.user.id,
   currentUsername: state.session.user.username
 });
 
-export default connect(mapStateToProps)(Game);
+export default connect(mapStateToProps)(MuteButton);

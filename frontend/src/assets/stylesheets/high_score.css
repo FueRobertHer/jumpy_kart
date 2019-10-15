@@ -1,0 +1,90 @@
+.high-score-master {
+  /* border: solid red 2px; */
+  display: flex;
+  align-items: center;
+  height: 530px;
+  background-color: rgba(39, 39, 39, 0.9);
+  /* border: solid blue 2px; */
+}
+
+.high-score-master > * {
+  z-index: 10;
+}
+
+.high-score-container {
+  margin: 0px auto 0px;
+  background-color: rgb(22, 22, 22);
+  padding: 52px 68px;
+  /* border: solid green 2px; */
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 11px;
+  right: 9px;
+  width: 30px;
+  height: 30px;
+  padding-top: 7px;
+  padding-left: 6.75px;
+  border-style: outset;
+  background-color: red;
+  font-size: 17px;
+  cursor: pointer;
+  border-color: yellow;
+}
+
+.high-score {
+  margin-bottom: 6.5px;
+  /* border: solid red 2px; */
+}
+
+table {
+}
+
+tr {
+}
+
+th {
+  padding: 5px;
+  padding-top: 11px;
+}
+
+td {
+  padding: 11px 5px 5px 5px;
+  border-top: solid red 2px;
+}
+
+.left-side {
+}
+
+#top-left {
+  padding-right: 80px;
+}
+
+#top-right {
+  padding-left: 15px;
+}
+
+.right-side {
+  text-align: end;
+}
+
+.button-container {
+  display: flex;
+}
+
+.high-scores-button {
+  width: fit-content;
+  margin: 15px auto 0px;
+  cursor: pointer;
+  padding: 7px 7px 1px 11px;
+  background-color: #FFFF00;
+  box-shadow: #FA0000 0px 0px 10px;
+  border: outset #FA0000;
+}
+
+.high-scores-button-text {
+  color: #FA0000;
+  text-shadow: none;
+}
