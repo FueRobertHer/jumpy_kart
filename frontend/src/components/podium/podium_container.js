@@ -1,6 +1,5 @@
 import { connect } from 'react-redux';
 import { closeModal, openModal } from '../../actions/modal';
-
 import Podium from './podium';
 
 const mapStateToProps = state => ({

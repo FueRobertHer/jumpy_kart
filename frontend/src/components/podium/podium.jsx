@@ -6,12 +6,27 @@ import Peach from "../../assets/images/peach_finish.png";
 import Toad from "../../assets/images/toad_finish.png";
 import Yoshi from "../../assets/images/yoshi_finish.png";
 import PodiumModal from "../modal/podium_modal";
+import io from "socket.io-client";
+
+let SERVER;
+
+if (process.env.NODE_ENV !== "production") {
+  console.log(`process.env: ${process.env}`);
+  SERVER = io("http://localhost:5000", { transports: ["websocket"] });
+}
+
+if (process.env.NODE_ENV === "production") {
+  console.log(`process.env: ${process.env}`);
+  SERVER = io();
+}
+
 
 class Podium extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
     this.spriteIds = ["Mario", "Peach", "Toad", "Yoshi"];
+    this.socket = null;
     // this.podiumArr = (pass in podium array here)
   }
 

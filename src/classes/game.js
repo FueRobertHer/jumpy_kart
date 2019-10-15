@@ -169,7 +169,7 @@ class Game {
     while (this.gameClock > 0.5){
       // console.log(this.gameClock);
       //check finish of race
-      this.checkFinish();
+      this.checkFinish();//can pass socket here
       //subtract from gameClock
       this.gameClock -= (1000/24);
       this.update(socket);
@@ -220,7 +220,7 @@ class Game {
   }
 
   //random comment
-  checkFinish(){
+  checkFinish(){ //can pass socket
     
     //loop through players and see if their pos has crossed line
     Object.values(this.players).forEach(player => {
@@ -229,14 +229,14 @@ class Game {
         player.finishPlace = this.podium.length;
         console.log("player finish podium", this.podium);
       } else if( (this.podium.length > 3) || (this.gameClock < 70) ) {
-        this.raceEnd();
+        this.raceEnd(); //can pass socket
         console.log("race end hit?")
       } 
     })
 
   }
 
-  raceEnd(){
+  raceEnd(){ //can pass socket
     //loop through players and push to podium based on position if they are not finished
     let unfinished = [];
     Object.values(this.players).forEach(player => {
@@ -251,10 +251,16 @@ class Game {
       socket.emit('raceEnd', {
         podium: this.podium.map(player => ({
           playerId: player[0],
-          playerTime: player[1]
+          playerTime: player[1],
+          playerChar: player[2]
         }))
+        // podium: this.podium.map(player => {
+        //   console.log('podium player', player[0], player[1])
+        //   return ({playerId: player[0],
+        //   playerTime: player[1]})
+        // })
       });
-    });
+    })
   }
 
 
