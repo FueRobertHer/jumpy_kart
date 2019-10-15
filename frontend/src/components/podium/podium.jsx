@@ -31,9 +31,6 @@ class Podium extends React.Component {
           <div id='third-place' className='player-div'>
             <Player image={Toad} />
           </div>
-          <div id='fourth-place' className='player-div'>
-            <Player image={Yoshi} />
-          </div>
         </div>
 
         <div className='button-container'>

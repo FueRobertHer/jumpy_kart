@@ -11,10 +11,20 @@ class HighScore extends React.Component {
     return (
       <div className='high-score-master'>
         <div className='high-score-container'>
+          <button
+            className='close-button'
+            onClick={this.props.closeModal}
+          >
+            <span>X</span>
+          </button>
           <table className='high-score-list'>
             <tr className='high-score-header'>
-              <th id='top-left' className='left-side'>Username</th>
-              <th id='top-right' className='right-side'>Coins</th>
+              <th id='top-left' className='left-side'>
+                Username
+              </th>
+              <th id='top-right' className='right-side'>
+                Coins
+              </th>
             </tr>
             <tr className='high-score'>
               <td className='left-side'>test1</td>
