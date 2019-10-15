@@ -247,7 +247,14 @@ class Game {
     })
     console.log("race end");
     console.log("this podium", this.podium);
-    
+    Object.values(this.playerSockets).forEach(socket => {
+      socket.emit('raceEnd', {
+        podium: this.podium.map(player => ({
+          playerId: player[0],
+          playerTime: player[1]
+        }))
+      });
+    });
   }
 
 
