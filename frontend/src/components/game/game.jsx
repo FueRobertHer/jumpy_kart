@@ -5,6 +5,8 @@ import MuteButton from "./mute_button";
 import coinSound from "../../assets/audio/coin.wav";
 import mushroomSound from "../../assets/audio/mushroom.wav";
 import bananaSound from "../../assets/audio/banana_slide.mp3";
+import Instructions from "../heads_up/instructions";
+import HUD from "../heads_up/hud";
 
 let SERVER;
 
@@ -192,26 +194,31 @@ class Canvas extends React.Component {
     }
 
     return (
-      <div className='game-ui'>
-        <div>
-          {/* <audio id='ambient-music' src={ambientAudio} autoPlay loop /> */}
+      <div className='game-master'>
+        <div className='instructions-div'>
+          <Instructions />
         </div>
-        <div className='canvas-container'>
-          <canvas id='background' ref='canvas' width='10500' height='500' />
-          <canvas id='viewport' ref='viewport' width='700' height='500' />
+        <div className='game-ui'>
+          <div className='canvas-container'>
+            <canvas id='background' ref='canvas' width='10500' height='500' />
+            <canvas id='viewport' ref='viewport' width='700' height='500' />
+          </div>
+          {this.state.hostId === this.props.currentUserId ? (
+            <button
+              className='start-game-button input submit'
+              onClick={this.emitStartGame}
+            >
+              Start Game
+            </button>
+          ) : (
+            <div />
+          )}
+          <div>
+            <MuteButton muted={this.muted} toggleAmbient={this.toggleAmbient} />
+          </div>
         </div>
-        {this.state.hostId === this.props.currentUserId ? (
-          <button
-            className='start-game-button input submit'
-            onClick={this.emitStartGame}
-          >
-            Start Game
-          </button>
-        ) : (
-          <div />
-        )}
-        <div>
-          <MuteButton muted={this.muted} toggleAmbient={this.toggleAmbient} />
+        <div className='hud-div'>
+          <HUD players={this.players} />
         </div>
       </div>
     );

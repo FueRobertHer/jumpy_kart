@@ -10,6 +10,8 @@ import "../assets/stylesheets/game.css";
 import "../assets/stylesheets/join_game.css";
 import "../assets/stylesheets/podium.css";
 import "../assets/stylesheets/high_score.css";
+import "../assets/stylesheets/instructions.css";
+import "../assets/stylesheets/hud.css";
 
 import NavBarContainer from "./nav/navbar_container";
 import MainPage from "./main/main_page";
