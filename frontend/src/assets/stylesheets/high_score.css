@@ -1,0 +1,52 @@
+.high-score-master {
+  /* border: solid red 2px; */
+  display: flex;
+  align-items: center;
+  height: 530px;
+  background-color: rgba(39, 39, 39, 0.9);
+}
+
+.high-score-master > * {
+  z-index: 10;
+}
+
+.high-score-container {
+  margin: 0px auto 0px;
+    background-color: rgb(22, 22, 22);
+    padding: 52px 60px;
+}
+
+.high-score {
+  margin-bottom: 6.5px;
+}
+
+table {
+}
+
+tr {
+}
+
+th {
+  padding: 5px;
+  padding-top: 11px;
+}
+
+td {
+  padding: 11px 5px 5px 5px;
+  border-top: solid red 2px;
+}
+
+.left-side {
+}
+
+#top-left {
+  padding-right: 80px;
+}
+
+#top-right {
+  padding-left: 15px;
+}
+
+.right-side {
+  text-align: end;
+}

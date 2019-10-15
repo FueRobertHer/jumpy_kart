@@ -1,14 +1,12 @@
 .background-div {
   width: 1024px;
   height: 530px;
-  background-image: url('../images/podium_road.png');
+  background-image: url("../images/podium_road.png");
   position: relative;
 }
 
 .player-div {
   position: absolute;
-  /* width: 112px; */
-  /* height: 112px; */
 }
 
 .player {
