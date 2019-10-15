@@ -1,0 +1,62 @@
+.hud-master {
+  /* border: solid yellow 2px; */
+  height: 500px;
+  width: 400px;
+}
+
+.hud-master > * {
+  font-family: 'microgramma';
+}
+
+.hud-master > * > * {
+  font-family: 'microgramma';
+}
+
+.hud-master > h2 {
+  margin-bottom: 25px;
+  font-size: 30px;
+}
+
+.lists-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sprite-list {
+  /* border: solid green 2px; */
+  width: 72px;
+}
+
+.sprite-li {
+  height: 72px;
+}
+
+.bar-list {
+  /* border: solid green 2px; */
+  width: 315px;
+}
+
+.bar-holder {
+  height: 36px;
+  padding: 18px 0px;
+}
+
+.bar {
+  height: 36px;
+}
+
+.player-1 {
+  background-color: #f80000;
+}
+
+.player-2 {
+  background-color: #d17575
+}
+
+.player-3 {
+  background-color: white;
+}
+
+.player-4 {
+  background-color: #33ff33;
+}

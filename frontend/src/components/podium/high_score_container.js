@@ -1,6 +1,6 @@
-import { connect } from 'react-redux';
-import { closeModal, openModal } from '../../actions/modal';
-import Podium from './podium';
+import { openModal, closeModal } from "../../actions/modal";
+import { connect } from "react-redux";
+import HighScore from "./high_score";
 
 const mapStateToProps = state => ({
   currentUserId: state.session.user.id,
@@ -11,6 +11,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   openModal: modal => dispatch(openModal(modal)),
   closeModal: () => dispatch(closeModal())
-})
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Podium);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HighScore);

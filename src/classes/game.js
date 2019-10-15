@@ -1,55 +1,43 @@
-import Pipe from './pipe';
-import Player from './player';
+import Pipe from "./pipe";
+import Player from "./player";
 
-//item imports
-import Coin from './coin';
-import Mushroom from './mushroom';
-import Banana from './banana';
+import Coin from "./coin";
+import Mushroom from "./mushroom";
+import Banana from "./banana";
 
 const BoardSize = ["500", "1500"];
 const FPS = 60;
 
 class Game {
-  constructor(gameId, hostId){
-
-    //socket and player info related
+  constructor(gameId, hostId) {
     this.hostId = hostId;
     this.gameId = gameId;
     this.players = {};
     this.playerSockets = {};
     this.playerInfoObject = {};
 
-    //in game objects related
     this.pipes = [];
     this.coins = [];
     this.bananas = [];
     this.mushrooms = [];
     this.allItems = [];
 
-    //to send down info on players and pipes and etc.
     this.update = this.update.bind(this);
-    // this.pipeObjcollide = this.pipeObjcollide.bind(this);
-    // this.playerPipeCollide = this.playerPipeCollide.bind(this);
 
-    //to set game timer
     this.gameClock = 60000;
-
-    // to record the order of players
     this.podium = [];
   }
 
-
-  async loadGame(socket){
+  async loadGame(socket) {
     this.placePipes(socket);
     this.placeItems(socket);
     this.allPresentItems(socket);
     this.emitUpdateGame(socket);
   }
 
+  ////////////The Game Set up///////////////////////////////////
 
-////////////The Game Set up///////////////////////////////////
-
-  addPlayer(playerId, socket, gameId){
+  addPlayer(playerId, socket, gameId) {
     let startPos = [100, 200];
     let player = new Player(startPos, playerId, gameId, socket);
 
@@ -57,7 +45,7 @@ class Game {
     this.players[playerId] = player;
     this.playerSockets[playerId] = socket;
 
-    const sprites = ['mario', 'peach', 'toad', 'yoshi'];
+    const sprites = ["mario", "peach", "toad", "yoshi"];
 
     for (let i = 0; i < Object.values(this.players).length; i++) {
       const player = Object.values(this.players)[i];
@@ -73,7 +61,7 @@ class Game {
         players: this.playerInfoObject
       });
     });
-    
+
     return player;
   }
 
@@ -82,105 +70,105 @@ class Game {
     delete this.playerSockets[playerId];
   }
 
-  placePipes(){
+  placePipes() {
     //place a random pipe somewhere on the board: worked
     //place random pipes but make sure that they are minimum dist from each other
     //place a pipe per 250px width
     //
     if (this.pipes.length === 0) {
-      for ( let i = 0; i < 13; i++){
-        let randomXCoord = Math.random() * (250 * (i + 1) - 250 * i) + 650 * i + 500;
+      for (let i = 0; i < 13; i++) {
+        let randomXCoord =
+          Math.random() * (250 * (i + 1) - 250 * i) + 650 * i + 500;
         let randomHeight = Math.random() * (300 - 50) + 175;
         this.pipes.push(new Pipe(randomXCoord, 70, randomHeight));
       }
     }
+  }
 
-  } 
-
-  placeItems(){
+  placeItems() {
     // this function places coins, mushrooms, and bananas on the map
     // check if random position isnt next to pipes
     // then place the item
-    let itemTypes = ['coin', 'mushroom', 'banana'];
+    let itemTypes = ["coin", "mushroom", "banana"];
 
-    for(let j = 0; j< 3; j++){
-      for (let i = 0; i < 7; i++) {      
+    for (let j = 0; j < 3; j++) {
+      for (let i = 0; i < 7; i++) {
         let objOverlap = true;
-        
-        while (objOverlap === true){
+
+        while (objOverlap === true) {
           let randomPos = [
             Math.random() * (1000 * (i + 1) - 1000 * i) + 1000 * i + 500,
             Math.random() * (300 - 50) + 100
           ];
-          if ( this.pipeObjcollide(this.pipes, randomPos) === false ){
+          if (this.pipeObjcollide(this.pipes, randomPos) === false) {
             objOverlap = false;
-            // the item should be placed on map
-            if(itemTypes[j] === 'coin'){
+
+            if (itemTypes[j] === "coin") {
               this.coins.push(new Coin(randomPos));
-            } else if (itemTypes[j] === 'mushroom'){
+            } else if (itemTypes[j] === "mushroom") {
               this.mushrooms.push(new Mushroom(randomPos));
             } else {
               this.bananas.push(new Banana(randomPos));
             }
           }
-        }       
-      }  
-    } 
+        }
+      }
+    }
   }
 
   pipeObjcollide(pipes, randomPos) {
     let collide = false;
 
     pipes.forEach(pipe => {
-      if (randomPos[0] < pipe.pos[0] + pipe.width &&
+      if (
+        randomPos[0] < pipe.pos[0] + pipe.width &&
         randomPos[0] + 28 > pipe.pos[0] &&
         randomPos[1] < pipe.pos[1] &&
-        randomPos[1] + 28 > pipe.pos[1]) {
+        randomPos[1] + 28 > pipe.pos[1]
+      ) {
         collide = true;
       }
     });
     return collide;
   }
-  
 
-/////////////////Game Loop///////////////////////////////////////
+  /////////////////Game Loop///////////////////////////////////////
 
-  gameloop(socket){
+  gameloop(socket) {
     // call the game setup function
     // the players should already be registered
 
     // start the race
     // await ???
     this.raceStart(socket);
-    
+
     // the race finish logic
     // this should take the coins players earned and deposit them in backend
   }
 
   sleep(ms) {
     return new Promise(resolve => {
-      setTimeout(resolve, ms)
+      setTimeout(resolve, ms);
     });
   }
 
-  async raceStart(socket){
+  async raceStart(socket) {
     //should call the update function
     this.allPresentItems();
-    while (this.gameClock > 0.5){
+    while (this.gameClock > 0.5) {
       // console.log(this.gameClock);
       //check finish of race
-      this.checkFinish();
+      this.checkFinish(socket);//can pass socket here
       //subtract from gameClock
-      this.gameClock -= (1000/24);
+      this.gameClock -= 1000 / 24;
       this.update(socket);
-      await this.sleep(1000/24);
+      await this.sleep(1000 / 24);
     }
-    
   }
 
-  update(socket){
+  update(socket) {
     Object.values(this.players).forEach(player => {
-      if (player.pos[0] > 9600){
+      if (player.pos[0] > 9600) {
         player.horiSpeed = 0;
       } else {
         if (player.horiSpeed < 10) player.horiSpeed += 1;
@@ -212,67 +200,77 @@ class Game {
         id: player.id,
         pos: player.pos,
         sprite: this.playerInfoObject[player.id].sprite
-      }
-      
-      this.emitUpdateGame(socket);
+      };
 
+      this.emitUpdateGame(socket);
     });
   }
 
   //random comment
-  checkFinish(){
+  checkFinish(socket){ //can pass socket
     
     //loop through players and see if their pos has crossed line
     Object.values(this.players).forEach(player => {
-      if ((player.finishPlace === 0) && (player.pos[0] > 9600)){
-        this.podium.push([player.id, (60000 - this.gameClock)/1000 ]);
+      if (player.finishPlace === 0 && player.pos[0] > 9600) {
+        this.podium.push([
+          player.id,
+          (60000 - this.gameClock) / 1000,
+          this.playerInfoObject[player.id].sprite
+        ]);
         player.finishPlace = this.podium.length;
-        console.log("player finish podium", this.podium);
       } else if( (this.podium.length > 3) || (this.gameClock < 70) ) {
-        this.raceEnd();
-        console.log("race end hit?")
+        this.raceEnd(socket); //can pass socket
+        console.log('podium', this.podium)
       } 
-    })
+    });
 
   }
 
-  raceEnd(){
+  raceEnd(socket){ //can pass socket
     //loop through players and push to podium based on position if they are not finished
     let unfinished = [];
     Object.values(this.players).forEach(player => {
-      if (player.finishPlace === 0){
+      if (player.finishPlace === 0) {
         this.podium.push([player.id, 60000]);
         player.finishPlace = "DNF";
       }
     })
-    console.log("race end");
-    console.log("this podium", this.podium);
-    
+    socket.emit('gameRunning')
+    socket.emit('raceEnd', this.podium.map(player => ({
+      id: player[0],
+      time: player[1],
+      sprite: player[2]
+    })));
+    // Object.values(this.playerSockets).forEach(socket => {
+    //   socket.emit('raceEnd', {
+    //     podium: this.podium.map(player => ({
+    //       playerId: player[0],
+    //       playerTime: player[1],
+    //       playerChar: player[2]
+    //     }))
+    //     // podium: this.podium.map(player => {
+    //     //   console.log('podium player', player[0], player[1])
+    //     //   return ({playerId: player[0],
+    //     //   playerTime: player[1]})
+    //     // })
+    //   });
+    // })
   }
 
+  ////////////////////////Collision Helper methods//////////////////
 
-
-////////////////////////Collision Helper methods//////////////////
-
-  allPresentItems(){
+  allPresentItems() {
     this.allItems = [].concat(this.coins, this.bananas, this.mushrooms);
   }
 
+  /////////////////////////Race End helper////////////////////////////
 
-/////////////////////////Race End helper////////////////////////////
-
-  gameTimeUp(){
+  gameTimeUp() {
     //see the positions of each player and assign rankings
-
   }
-
-
-  
-
 /////////////////////Emit Stuff/////////////////////////////////
 
   emitUpdateGame(socket) {
-
     socket.emit("placeItems", {
       pipes: this.pipes.map(pipe => ({
         pos: pipe.pos,
@@ -285,21 +283,18 @@ class Game {
       }))
     });
 
-    socket.emit("updateGameState", ({
+    socket.emit("updateGameState", {
       hostId: this.hostId,
       gameId: this.gameId,
       players: this.playerInfoObject
-    }));
+    });
 
     //emit end game state
-    
   }
-  
-
 }
 
 export default Game;
 
 //game should loop will call move, collision, fucntion each loop
-//game class will call the loop. 
+//game class will call the loop.
 // game's move call will run move functions for all the players

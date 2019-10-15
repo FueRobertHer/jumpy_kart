@@ -5,6 +5,8 @@ import MuteButton from "./mute_button";
 import coinSound from "../../assets/audio/coin.wav";
 import mushroomSound from "../../assets/audio/mushroom.wav";
 import bananaSound from "../../assets/audio/banana_slide.mp3";
+import Instructions from "../heads_up/instructions";
+import HUD from "../heads_up/hud";
 
 let SERVER;
 
@@ -35,6 +37,7 @@ class Canvas extends React.Component {
     this.openSocket = this.openSocket.bind(this);
     this.loadGame = this.loadGame.bind(this);
     this.joinRoom = this.joinRoom.bind(this);
+    this.gameRunning = true;
     this.emitStartGame = this.emitStartGame.bind(this);
     this.socket = null;
     this.characters = ["mario", "peach", "toad", "yoshi"];
@@ -47,13 +50,14 @@ class Canvas extends React.Component {
     this.players = [];
     this.pipes = [];
     this.items = [];
+    this.podium = [];
   }
 
   openSocket() {
     return new Promise(resolve => {
       this.socket = SERVER;
       let socket = this.socket;
-
+      
       socket.on("placeItems", data => {
         this.pipes = Object.values(data.pipes);
         this.items = Object.values(data.items);
@@ -61,10 +65,12 @@ class Canvas extends React.Component {
       });
 
       socket.on("updateGameState", data => {
-        this.setState({
-          hostId: data.hostId,
-          gameId: data.gameId
-        });
+        if (this.gameRunning) {
+          this.setState({
+            hostId: data.hostId,
+            gameId: data.gameId
+          });
+        }
         this.players = Object.values(data.players);
       });
 
@@ -89,6 +95,18 @@ class Canvas extends React.Component {
         let banana = new Audio(bananaSound);
         banana.volume = 1;
         banana.play();
+      });
+
+      socket.on('gameRunning', () => {
+        this.gameRunning = false;
+      })
+
+      socket.on('raceEnd', (data) => {
+        this.podium = this.podium.concat(data);
+        this.props.history.push({
+          pathname: '/podium',
+          podium: this.podium
+        });
       });
 
       resolve();
@@ -150,40 +168,42 @@ class Canvas extends React.Component {
   }
 
   drawObjects() {
-    const canvas = this.refs.canvas;
-    const ctx = canvas.getContext("2d");
-
-    DrawUtil._drawBackground(ctx);
-    DrawUtil._drawPipes(ctx, this.pipes);
-    DrawUtil._drawRoad(ctx);
-    DrawUtil._drawItems(ctx, this.items);
-
-    this.players.forEach(player => {
-      DrawUtil._drawKart(ctx, player);
-    });
-
-    const currentUserID = this.props.location.userId;
-    let currentUser;
-    this.players.forEach(player => {
-      if (player.id === currentUserID) currentUser = player;
-    });
-    const x = currentUser ? currentUser.pos[0] : 0;
-    // const y = currentUser ? currentUser.pos[1] : 0
-
-    const viewport = this.refs.viewport;
-    const cam = viewport.getContext("2d");
-    cam.clearRect(0, 0, viewport.width, viewport.height);
-    cam.drawImage(
-      canvas,
-      x - viewport.width / 4,
-      0,
-      viewport.width,
-      viewport.height,
-      0,
-      0,
-      viewport.width,
-      viewport.height
-    );
+    if (this.gameRunning) {
+      const canvas = this.refs.canvas;
+      const ctx = canvas.getContext("2d");
+  
+      DrawUtil._drawBackground(ctx);
+      DrawUtil._drawPipes(ctx, this.pipes);
+      DrawUtil._drawRoad(ctx);
+      DrawUtil._drawItems(ctx, this.items);
+  
+      this.players.forEach(player => {
+        DrawUtil._drawKart(ctx, player);
+      });
+  
+      const currentUserID = this.props.location.userId;
+      let currentUser;
+      this.players.forEach(player => {
+        if (player.id === currentUserID) currentUser = player;
+      });
+      const x = currentUser ? currentUser.pos[0] : 0;
+      // const y = currentUser ? currentUser.pos[1] : 0
+  
+      const viewport = this.refs.viewport;
+      const cam = viewport.getContext("2d");
+      cam.clearRect(0, 0, viewport.width, viewport.height);
+      cam.drawImage(
+        canvas,
+        x - viewport.width / 4,
+        0,
+        viewport.width,
+        viewport.height,
+        0,
+        0,
+        viewport.width,
+        viewport.height
+      );
+    }
   }
 
   render() {
@@ -192,26 +212,31 @@ class Canvas extends React.Component {
     }
 
     return (
-      <div className='game-ui'>
-        <div>
-          {/* <audio id='ambient-music' src={ambientAudio} autoPlay loop /> */}
+      <div className='game-master'>
+        <div className='instructions-div'>
+          <Instructions />
         </div>
-        <div className='canvas-container'>
-          <canvas id='background' ref='canvas' width='10500' height='500' />
-          <canvas id='viewport' ref='viewport' width='700' height='500' />
+        <div className='game-ui'>
+          <div className='canvas-container'>
+            <canvas id='background' ref='canvas' width='10500' height='500' />
+            <canvas id='viewport' ref='viewport' width='700' height='500' />
+          </div>
+          {this.state.hostId === this.props.currentUserId ? (
+            <button
+              className='start-game-button input submit'
+              onClick={this.emitStartGame}
+            >
+              Start Game
+            </button>
+          ) : (
+            <div />
+          )}
+          <div>
+            <MuteButton muted={this.muted} toggleAmbient={this.toggleAmbient} />
+          </div>
         </div>
-        {this.state.hostId === this.props.currentUserId ? (
-          <button
-            className='start-game-button input submit'
-            onClick={this.emitStartGame}
-          >
-            Start Game
-          </button>
-        ) : (
-          <div />
-        )}
-        <div>
-          <MuteButton muted={this.muted} toggleAmbient={this.toggleAmbient} />
+        <div className='hud-div'>
+          <HUD players={this.players} />
         </div>
       </div>
     );

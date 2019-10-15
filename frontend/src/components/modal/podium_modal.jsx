@@ -1,7 +1,7 @@
 import React from "react";
 import { openModal, closeModal } from "../../actions/modal";
 import { connect } from "react-redux";
-import JoinRoomContainer from "../rooms/join_room_container";
+import HighScoreContainer from "../podium/high_score_container";
 
 const Modal = ({ modal, closeModal }) => {
   if (!modal) {
@@ -10,16 +10,16 @@ const Modal = ({ modal, closeModal }) => {
 
   let component;
   switch (modal) {
-    case "joinRoom":
-      component = <JoinRoomContainer />;
+    case "highScore":
+      component = <HighScoreContainer />;
       break;
     default:
       return null;
   }
 
   return (
-    <div className='modal-background' onClick={closeModal}>
-      <div className='modal-child' onClick={e => e.stopPropagation()}>
+    <div className='podium-modal-background' onClick={closeModal}>
+      <div className='podium-modal-child' onClick={e => e.stopPropagation()}>
         {component}
       </div>
     </div>
