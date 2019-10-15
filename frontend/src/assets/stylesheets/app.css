@@ -3,8 +3,6 @@ html {
 }
 
 .parent {
-  height: 70vh;
-  width: 80vw;
   margin: 100px auto;
   display: flex;
   justify-content: center;
@@ -18,8 +16,8 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30vw;
-  width: 70vw;
+  height: 350px;
+  width: 750px;
   background: url('../images/main_screen.png');
   background-repeat: no-repeat;
   background-size: auto;
@@ -64,7 +62,7 @@ html {
 
 .marquee {
   position: absolute;
-  bottom: 56px;
+  bottom: 54px;
   animation-name: jump;
   animation-duration: 1s;
   animation-timing-function: cubic-bezier(0.25,0.1,0.25,1);
