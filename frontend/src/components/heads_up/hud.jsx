@@ -40,7 +40,7 @@ class HUD extends React.Component {
 
     return (
       <div className='hud-master'>
-        <h2>PLACEMENTS HERE</h2>
+        <h2>PROGRESS TRACKER</h2>
 
         {/* Math.floor(pos / 9500 * 100) */}
         <div className='lists-div'>

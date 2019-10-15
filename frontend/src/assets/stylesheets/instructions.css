@@ -1,9 +1,21 @@
 .instructions-master {
-  border: solid yellow 2px;
+  /* border: solid yellow 2px; */
   height: 500px;
   width: 400px;
 }
 
 .instructions-master > * {
   font-family: 'microgramma';
+}
+
+.instructions-master > h2 {
+  font-size: 30px;
+  text-align: end;
+  margin-bottom: 25px;
+}
+
+.instructions-master > p {
+  font-size: 20px;
+  margin-bottom: 15px;
+  /* text-align: end; */
 }
