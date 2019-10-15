@@ -14,7 +14,7 @@
 .high-score-container {
   margin: 0px auto 0px;
   background-color: rgb(22, 22, 22);
-  padding: 52px 60px;
+  padding: 52px 68px;
   /* border: solid green 2px; */
   position: relative;
 }
@@ -68,4 +68,23 @@ td {
 
 .right-side {
   text-align: end;
+}
+
+.button-container {
+  display: flex;
+}
+
+.high-scores-button {
+  width: fit-content;
+  margin: 15px auto 0px;
+  cursor: pointer;
+  padding: 7px 7px 1px 11px;
+  background-color: #FFFF00;
+  box-shadow: #FA0000 0px 0px 10px;
+  border: outset #FA0000;
+}
+
+.high-scores-button-text {
+  color: #FA0000;
+  text-shadow: none;
 }

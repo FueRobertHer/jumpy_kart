@@ -36,9 +36,9 @@ class Podium extends React.Component {
         <div className='button-container'>
           <button
             onClick={() => this.props.openModal("highScore")}
-            className='join-button'
+            className='high-scores-button'
           >
-            <p className='button-text'>View High Scores!</p>
+            <p className='high-scores-button-text'>View High Scores!</p>
           </button>
         </div>
       </div>
