@@ -158,7 +158,7 @@ class Game {
     while (this.gameClock > 0.5) {
       // console.log(this.gameClock);
       //check finish of race
-      this.checkFinish();
+      this.checkFinish(socket);//can pass socket here
       //subtract from gameClock
       this.gameClock -= 1000 / 24;
       this.update(socket);
@@ -207,7 +207,8 @@ class Game {
   }
 
   //random comment
-  checkFinish() {
+  checkFinish(socket){ //can pass socket
+    
     //loop through players and see if their pos has crossed line
     Object.values(this.players).forEach(player => {
       if (player.finishPlace === 0 && player.pos[0] > 9600) {
@@ -217,15 +218,15 @@ class Game {
           this.playerInfoObject[player.id].sprite
         ]);
         player.finishPlace = this.podium.length;
-        console.log("player finish podium", this.podium);
-      } else if (this.podium.length > 3 || this.gameClock < 70) {
-        this.raceEnd();
-        console.log("race end hit?");
-      }
+      } else if( (this.podium.length > 3) || (this.gameClock < 70) ) {
+        this.raceEnd(socket); //can pass socket
+        console.log('podium', this.podium)
+      } 
     });
+
   }
 
-  raceEnd() {
+  raceEnd(socket){ //can pass socket
     //loop through players and push to podium based on position if they are not finished
     let unfinished = [];
     Object.values(this.players).forEach(player => {
@@ -233,9 +234,27 @@ class Game {
         this.podium.push([player.id, 60000]);
         player.finishPlace = "DNF";
       }
-    });
-    console.log("race end");
-    console.log("this podium", this.podium);
+    })
+    socket.emit('gameRunning')
+    socket.emit('raceEnd', this.podium.map(player => ({
+      id: player[0],
+      time: player[1],
+      sprite: player[2]
+    })));
+    // Object.values(this.playerSockets).forEach(socket => {
+    //   socket.emit('raceEnd', {
+    //     podium: this.podium.map(player => ({
+    //       playerId: player[0],
+    //       playerTime: player[1],
+    //       playerChar: player[2]
+    //     }))
+    //     // podium: this.podium.map(player => {
+    //     //   console.log('podium player', player[0], player[1])
+    //     //   return ({playerId: player[0],
+    //     //   playerTime: player[1]})
+    //     // })
+    //   });
+    // })
   }
 
   ////////////////////////Collision Helper methods//////////////////
@@ -249,8 +268,7 @@ class Game {
   gameTimeUp() {
     //see the positions of each player and assign rankings
   }
-
-  /////////////////////Emit Stuff/////////////////////////////////
+/////////////////////Emit Stuff/////////////////////////////////
 
   emitUpdateGame(socket) {
     socket.emit("placeItems", {

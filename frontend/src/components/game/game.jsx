@@ -37,6 +37,7 @@ class Canvas extends React.Component {
     this.openSocket = this.openSocket.bind(this);
     this.loadGame = this.loadGame.bind(this);
     this.joinRoom = this.joinRoom.bind(this);
+    this.gameRunning = true;
     this.emitStartGame = this.emitStartGame.bind(this);
     this.socket = null;
     this.characters = ["mario", "peach", "toad", "yoshi"];
@@ -49,13 +50,14 @@ class Canvas extends React.Component {
     this.players = [];
     this.pipes = [];
     this.items = [];
+    this.podium = [];
   }
 
   openSocket() {
     return new Promise(resolve => {
       this.socket = SERVER;
       let socket = this.socket;
-
+      
       socket.on("placeItems", data => {
         this.pipes = Object.values(data.pipes);
         this.items = Object.values(data.items);
@@ -63,10 +65,12 @@ class Canvas extends React.Component {
       });
 
       socket.on("updateGameState", data => {
-        this.setState({
-          hostId: data.hostId,
-          gameId: data.gameId
-        });
+        if (this.gameRunning) {
+          this.setState({
+            hostId: data.hostId,
+            gameId: data.gameId
+          });
+        }
         this.players = Object.values(data.players);
       });
 
@@ -91,6 +95,18 @@ class Canvas extends React.Component {
         let banana = new Audio(bananaSound);
         banana.volume = 1;
         banana.play();
+      });
+
+      socket.on('gameRunning', () => {
+        this.gameRunning = false;
+      })
+
+      socket.on('raceEnd', (data) => {
+        this.podium = this.podium.concat(data);
+        this.props.history.push({
+          pathname: '/podium',
+          podium: this.podium
+        });
       });
 
       resolve();
@@ -152,40 +168,42 @@ class Canvas extends React.Component {
   }
 
   drawObjects() {
-    const canvas = this.refs.canvas;
-    const ctx = canvas.getContext("2d");
-
-    DrawUtil._drawBackground(ctx);
-    DrawUtil._drawPipes(ctx, this.pipes);
-    DrawUtil._drawRoad(ctx);
-    DrawUtil._drawItems(ctx, this.items);
-
-    this.players.forEach(player => {
-      DrawUtil._drawKart(ctx, player);
-    });
-
-    const currentUserID = this.props.location.userId;
-    let currentUser;
-    this.players.forEach(player => {
-      if (player.id === currentUserID) currentUser = player;
-    });
-    const x = currentUser ? currentUser.pos[0] : 0;
-    // const y = currentUser ? currentUser.pos[1] : 0
-
-    const viewport = this.refs.viewport;
-    const cam = viewport.getContext("2d");
-    cam.clearRect(0, 0, viewport.width, viewport.height);
-    cam.drawImage(
-      canvas,
-      x - viewport.width / 4,
-      0,
-      viewport.width,
-      viewport.height,
-      0,
-      0,
-      viewport.width,
-      viewport.height
-    );
+    if (this.gameRunning) {
+      const canvas = this.refs.canvas;
+      const ctx = canvas.getContext("2d");
+  
+      DrawUtil._drawBackground(ctx);
+      DrawUtil._drawPipes(ctx, this.pipes);
+      DrawUtil._drawRoad(ctx);
+      DrawUtil._drawItems(ctx, this.items);
+  
+      this.players.forEach(player => {
+        DrawUtil._drawKart(ctx, player);
+      });
+  
+      const currentUserID = this.props.location.userId;
+      let currentUser;
+      this.players.forEach(player => {
+        if (player.id === currentUserID) currentUser = player;
+      });
+      const x = currentUser ? currentUser.pos[0] : 0;
+      // const y = currentUser ? currentUser.pos[1] : 0
+  
+      const viewport = this.refs.viewport;
+      const cam = viewport.getContext("2d");
+      cam.clearRect(0, 0, viewport.width, viewport.height);
+      cam.drawImage(
+        canvas,
+        x - viewport.width / 4,
+        0,
+        viewport.width,
+        viewport.height,
+        0,
+        0,
+        viewport.width,
+        viewport.height
+      );
+    }
   }
 
   render() {
