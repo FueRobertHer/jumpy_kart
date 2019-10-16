@@ -178,6 +178,7 @@ class Canvas extends React.Component {
       DrawUtil._drawItems(ctx, this.items);
 
       this.players.forEach(player => {
+        console.log(player);
         DrawUtil._drawKart(ctx, player);
       });
 

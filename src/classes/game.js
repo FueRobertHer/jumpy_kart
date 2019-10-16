@@ -26,6 +26,7 @@ class Game {
 
     this.gameClock = 60000;
     this.podium = [];
+    this.gameOver = false;
   }
 
   async loadGame(socket) {
@@ -152,7 +153,7 @@ class Game {
   async raceStart(socket) {
     //should call the update function
     this.allPresentItems();
-    while (this.gameClock > 0.5) {
+    while (this.gameClock > 0.5 && !this.gameOver) {
       // console.log(this.gameClock);
       //check finish of race
       this.checkFinish(socket); //can pass socket here
@@ -203,19 +204,26 @@ class Game {
     });
   }
 
-  checkFinish(socket){ //can pass socket
+  checkFinish(socket) {
+    //can pass socket
     //loop through players and see if their pos has crossed line
     Object.values(this.players).forEach(player => {
       if (player.finishPlace === 0 && player.pos[0] > 9600) {
         this.podium.push([
           player.id,
           (60000 - this.gameClock) / 1000,
-          this.playerInfoObject[player.id].sprite
+          this.playerInfoObject[player.id].sprite,
+          player.numCoin
         ]);
         player.finishPlace = this.podium.length;
-      } else if( (this.podium.length === Object.keys(this.players).length) || (this.podium.length > 3) || (this.gameClock < 70) ) {
+      } else if (
+        this.podium.length === Object.keys(this.players).length ||
+        this.podium.length > 3 ||
+        this.gameClock < 70
+      ) {
         this.raceEnd(socket); //can pass socket
         console.log("podium", this.podium);
+        this.gameOver = true;
       }
     });
   }
@@ -231,6 +239,7 @@ class Game {
       }
     });
     socket.emit("gameRunning");
+    // console.log(this.podium)
     socket.emit(
       "raceEnd",
       this.podium.map(player => ({
