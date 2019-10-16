@@ -29,11 +29,17 @@ class Game {
     this.gameOver = false;
   }
 
-  async loadGame(socket) {
+  //async loadGame(socket) {
+  loadGame(socket) {
     this.placePipes(socket);
     this.placeItems(socket);
     this.allPresentItems(socket);
     this.emitUpdateGame(socket);
+    console.log(this.pipes)
+    console.log(this.allItems)
+    console.log(this.players)
+    console.log(this.playerInfoObject)
+    console.log(this.playerSockets)
   }
 
   ////////////The Game Set up///////////////////////////////////

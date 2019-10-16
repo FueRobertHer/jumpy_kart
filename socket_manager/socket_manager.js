@@ -30,7 +30,8 @@ export const socketManager = (socket) => {
 
   socket.on('roomInfo', roomInfo => {
     if (roomInfo.type === "createRoom") {
-      socket.id = roomInfo.userId;
+      // socket.id = roomInfo.userId;
+      socket.id = roomInfo.roomId;
       gameState.rooms[roomInfo.roomId] = new Game(roomInfo.roomId, socket.id);
       game = gameState.rooms[roomInfo.roomId];
       socket.on('loadGame', () => {
@@ -38,20 +39,29 @@ export const socketManager = (socket) => {
         game.loadGame(socket);
       });
       
-      gameState.users[socket.id] = game.addPlayer(roomInfo.userId, socket, roomInfo.roomId);
-      player = gameState.users[socket.id];
-      // console.log(gameState.users[socket.id]);
+      // gameState.users[socket.id] = game.addPlayer(roomInfo.userId, socket, roomInfo.roomId);
+      gameState.users[roomInfo.userId] = game.addPlayer(roomInfo.userId, socket); //roomInfo.roomId);
+      // player = gameState.users[socket.id];
+      player = gameState.users[roomInfo.userId];
 
       socket.on('pressSpace', () => {
         if (player) {
           player.jump(socket);
         }
       });
+
+      // socket.on('startGame', () => {
+      //   console.log('inside gameloop.on')
+      //   console.log('inside startGame', gameState.rooms[roomInfo.roomId])
+      //   // game.gameloop(socket);
+      //   game.gameloop(socket);
+      // });
     } 
 
     if (roomInfo.type === "joinRoom") {
       if (gameState.rooms[roomInfo.roomId].gameId === roomInfo.roomId) {
-        socket.id = gameState.rooms[roomInfo.roomId].gameId;
+        // socket.id = gameState.rooms[roomInfo.roomId].gameId;
+        socket.id = roomInfo.roomId;
         game = gameState.rooms[roomInfo.roomId];
         socket.on('loadGame', () => {
           console.log('loading game');

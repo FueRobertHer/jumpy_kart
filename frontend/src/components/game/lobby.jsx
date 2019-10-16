@@ -20,7 +20,8 @@ class Lobby extends React.Component {
         type: 'createRoom',
         userId: this.props.currentUserId,
         roomId: roomId,
-        isHost: true
+        isHost: true,
+        roomOwner: this.props.currentUserId
       })
   }
 

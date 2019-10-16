@@ -46,6 +46,7 @@ class Canvas extends React.Component {
     this.username = props.location.username;
     this.userId = props.location.userId;
     this.isHost = props.location.isHost;
+    this.roomOwner = props.location.roomOwner;
     this.keyDown = false;
     this.players = [];
     this.pipes = [];
@@ -169,6 +170,7 @@ class Canvas extends React.Component {
 
   drawObjects() {
     if (this.gameRunning) {
+      console.log(this.players)
       const canvas = this.refs.canvas;
       const ctx = canvas.getContext("2d");
 
@@ -211,6 +213,9 @@ class Canvas extends React.Component {
     if (!this.props) {
       return null;
     }
+    console.log('hostId',this.state.hostId)
+    console.log('userId', this.props.currentUserId)
+    console.log('roomOwner', this.roomOwner)
 
     return (
       <div className='game-master'>
@@ -222,7 +227,7 @@ class Canvas extends React.Component {
             <canvas id='background' ref='canvas' width='10500' height='500' />
             <canvas id='viewport' ref='viewport' width='700' height='500' />
           </div>
-          {this.state.hostId === this.props.currentUserId ? (
+          {this.roomOwner === this.props.currentUserId ? (
             <button
               className='start-game-button input submit'
               onClick={this.emitStartGame}
