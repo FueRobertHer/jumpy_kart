@@ -5,17 +5,47 @@
 }
 
 .instructions-master > * {
-  font-family: 'microgramma';
+  font-family: "microgramma";
 }
 
 .instructions-master > h2 {
   font-size: 30px;
-  text-align: end;
-  margin-bottom: 25px;
+  text-align: center;
+  text-decoration: underline; 
+  margin-bottom: 20px;
 }
 
-.instructions-master > p {
-  font-size: 20px;
-  margin-bottom: 15px;
-  /* text-align: end; */
+.instruction-enumerables > p {
+  font-size: 12px;
+  color: white;
+  /* margin: 0px 0px 10px; */
+  font-family: "press_start_2pregular";
+  text-align: center;
+}
+
+.spacebar-sprite {
+  height: 32px;
+  width: fit-content;
+  margin: 10px auto 17px;
+}
+
+#space-bar {
+  position: absolute;
+  font-size: 10px;
+  color: black;
+  left: 176px;
+  top: 36px;
+  text-shadow: none;
+}
+
+.item-sprite {
+  height: 32px;
+  width: 32px;
+  margin: 10px auto 17px;
+}
+
+.instruction-enumerables {
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }

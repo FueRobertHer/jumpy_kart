@@ -42,7 +42,6 @@ class HUD extends React.Component {
       <div className='hud-master'>
         <h2>PROGRESS TRACKER</h2>
 
-        {/* Math.floor(pos / 9500 * 100) */}
         <div className='lists-div'>
           <ol className='sprite-list'>
             <li className='sprite-li'>
@@ -71,25 +70,35 @@ class HUD extends React.Component {
             <div className='bar-holder'>
               <div // Math.floor(pos / 9500 * 100)
                 className='bar player-1'
-                style={{ width: this.playerInfo.mario ? this.playerInfo.mario / 9500 * 315 : 0 }}
+                style={{
+                  width: this.playerInfo.mario
+                    ? (this.playerInfo.mario / 9500) * 285
+                    : 0
+                }}
               ></div>
             </div>
             <div className='bar-holder'>
               <div
                 className='bar player-2'
-                style={{ width: this.playerInfo.peach ? this.playerInfo.peach : 0 }}
+                style={{
+                  width: this.playerInfo.peach ? this.playerInfo.peach : 0
+                }}
               ></div>
             </div>
             <div className='bar-holder'>
               <div
                 className='bar player-3'
-                style={{ width: this.playerInfo.toad ? this.playerInfo.toad : 0 }}
+                style={{
+                  width: this.playerInfo.toad ? this.playerInfo.toad : 0
+                }}
               ></div>
             </div>
             <div className='bar-holder'>
               <div
                 className='bar player-4'
-                style={{ width: this.playerInfo.yoshi ? this.playerInfo.yoshi : 0 }}
+                style={{
+                  width: this.playerInfo.yoshi ? this.playerInfo.yoshi : 0
+                }}
               ></div>
             </div>
           </ol>
