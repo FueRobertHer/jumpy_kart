@@ -40,6 +40,7 @@ export const socketManager = (socket) => {
       
       gameState.users[socket.id] = game.addPlayer(roomInfo.userId, socket, roomInfo.roomId);
       player = gameState.users[socket.id];
+      // console.log(gameState.users[socket.id]);
 
       socket.on('pressSpace', () => {
         if (player) {
