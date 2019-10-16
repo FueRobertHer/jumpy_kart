@@ -7,6 +7,8 @@ import Toad from "../../assets/images/toad_finish.png";
 import Yoshi from "../../assets/images/yoshi_finish.png";
 import PodiumModal from "../modal/podium_modal";
 
+import {updateCoins} from '../../util/user_api_util';
+
 class Podium extends React.Component {
   constructor(props) {
     super(props);
@@ -14,12 +16,21 @@ class Podium extends React.Component {
     this.spriteIds = ["Mario", "Peach", "Toad", "Yoshi"];
     this.socket = null;
     // this.podiumArr = (pass in podium array here)
-    console.log(this.props)
+    // console.log(this.props)
+    this.podium = this.props.history.location.podium;
+
+  }
+
+  componentDidMount() {
+    console.log('podium props', this.podium);
+    this.podium.forEach( player => {
+      console.log('player', player.coins);
+      updateCoins(player).catch( err => {console.log(err)})
+    })
   }
 
   render() {
     if (!this.props) return null;
-    console.log(this.props);
     return (
       <div>
         <div className='background-div'>
