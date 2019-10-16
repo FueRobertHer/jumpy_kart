@@ -12,7 +12,9 @@ class Podium extends React.Component {
     super(props);
     this.state = {};
     this.spriteIds = ["Mario", "Peach", "Toad", "Yoshi"];
+    this.socket = null;
     // this.podiumArr = (pass in podium array here)
+    console.log(this.props)
   }
 
   render() {

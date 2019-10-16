@@ -1,3 +1,15 @@
+.game-master {
+  display: flex;
+}
+
+.instructions-div {
+  padding-right: 50px;
+}
+
+.hud-div {
+  padding-left: 50px;
+}
+
 .game-ui {
   display: flex;
   flex-direction: column;

@@ -1,28 +1,28 @@
-import mario from '../../assets/images/mario_sprite.png';
-import peach from '../../assets/images/peach_sprite.png';
-import toad from '../../assets/images/toad_sprite.png';
-import yoshi from '../../assets/images/yoshi_sprite.png';
-import pipeSprite from '../../assets/images/pipes_sprite.png';
-import bananaSprite from '../../assets/images/banana.png';
-import coinSprite from '../../assets/images/coin.png';
-import mushroomSprite from '../../assets/images/mushroom.png';
-import backgroundSprite from '../../assets/images/background.png';
-import roadSprite from '../../assets/images/road.png';
+import mario from "../../assets/images/mario_sprite.png";
+import peach from "../../assets/images/peach_sprite.png";
+import toad from "../../assets/images/toad_sprite.png";
+import yoshi from "../../assets/images/yoshi_sprite.png";
+import pipeSprite from "../../assets/images/pipes_sprite.png";
+import bananaSprite from "../../assets/images/banana.png";
+import coinSprite from "../../assets/images/coin.png";
+import mushroomSprite from "../../assets/images/mushroom.png";
+import backgroundSprite from "../../assets/images/background.png";
+import roadSprite from "../../assets/images/road.png";
 
 export const _drawKart = (ctx, player) => {
-  if (player.sprite === 'mario') {
+  if (player.sprite === "mario") {
     let char = new Image();
     char.src = mario;
     ctx.save();
     ctx.drawImage(char, player.pos[0], player.pos[1]);
     ctx.restore();
-  } else if (player.sprite === 'peach') {
+  } else if (player.sprite === "peach") {
     let char = new Image();
     char.src = peach;
     ctx.save();
     ctx.drawImage(char, player.pos[0], player.pos[1]);
     ctx.restore();
-  } else if (player.sprite === 'toad') {
+  } else if (player.sprite === "toad") {
     let char = new Image();
     char.src = toad;
     ctx.save();
@@ -35,23 +35,23 @@ export const _drawKart = (ctx, player) => {
     ctx.drawImage(char, player.pos[0], player.pos[1]);
     ctx.restore();
   }
-}
+};
 
-export const _drawBackground = (ctx) => {
+export const _drawBackground = ctx => {
   let background = new Image();
   background.src = backgroundSprite;
   ctx.save();
   ctx.drawImage(background, 0, 0);
   ctx.restore();
-}
+};
 
-export const _drawRoad = (ctx) => {
+export const _drawRoad = ctx => {
   let road = new Image();
   road.src = roadSprite;
   ctx.save();
   ctx.drawImage(road, 0, 476);
   ctx.restore();
-}
+};
 
 export const _drawPipes = (ctx, pipes) => {
   pipes.forEach(pipe => {
@@ -61,18 +61,18 @@ export const _drawPipes = (ctx, pipes) => {
     ctx.drawImage(randomPipe, pipe.pos[0], pipe.height);
     ctx.restore();
   });
-}
+};
 
 export const _drawItems = (ctx, items) => {
   if (items !== []) {
     items.forEach(item => {
-      if (item.type === 'Banana') {
+      if (item.type === "Banana") {
         let bananaImg = new Image();
         bananaImg.src = bananaSprite;
         ctx.save();
         ctx.drawImage(bananaImg, item.pos[0], item.pos[1]);
         ctx.restore();
-      } else if (item.type === 'Coin') {
+      } else if (item.type === "Coin") {
         let coinImg = new Image();
         coinImg.src = coinSprite;
         ctx.save();
@@ -85,13 +85,6 @@ export const _drawItems = (ctx, items) => {
         ctx.drawImage(mushroomImg, item.pos[0], item.pos[1]);
         ctx.restore();
       }
-    })
+    });
   }
-}
-
-
-
-
-
-
-
+};

@@ -1,0 +1,63 @@
+.hud-master {
+  height: 500px;
+  width: 400px;
+}
+
+.hud-master > * {
+  font-family: "microgramma";
+}
+
+.hud-master > * > * {
+  font-family: "microgramma";
+}
+
+.hud-master > h2 {
+  text-align: center;
+  text-decoration: underline;
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+
+.lists-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sprite-list {
+  margin-left: 15px;
+  width: 72px;
+}
+
+.sprite-li {
+  height: 72px;
+}
+
+.bar-list {
+  padding-left: 5px;
+  width: 310px;
+}
+
+.bar-holder {
+  height: 36px;
+  padding: 18px 0px;
+}
+
+.bar {
+  height: 36px;
+}
+
+.player-1 {
+  background-color: #f80000;
+}
+
+.player-2 {
+  background-color: #d17575;
+}
+
+.player-3 {
+  background-color: white;
+}
+
+.player-4 {
+  background-color: #33ff33;
+}
