@@ -38,7 +38,7 @@ class Game {
   ////////////The Game Set up///////////////////////////////////
 
   addPlayer(playerId, socket, gameId) {
-    let startPos = [100, 200];
+    let startPos = [150, 300];
     let player = new Player(startPos, playerId, gameId, socket);
 
     //fill out player info for game
