@@ -1,5 +1,4 @@
 .hud-master {
-  /* border: solid yellow 2px; */
   height: 500px;
   width: 400px;
 }
@@ -25,7 +24,6 @@
 }
 
 .sprite-list {
-  /* border: solid green 2px; */
   margin-left: 15px;
   width: 72px;
 }
@@ -35,7 +33,6 @@
 }
 
 .bar-list {
-  /* border: solid green 2px; */
   padding-left: 5px;
   width: 310px;
 }

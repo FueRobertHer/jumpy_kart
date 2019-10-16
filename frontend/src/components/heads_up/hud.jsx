@@ -68,7 +68,7 @@ class HUD extends React.Component {
 
           <ol className='bar-list'>
             <div className='bar-holder'>
-              <div // Math.floor(pos / 9500 * 100)
+              <div
                 className='bar player-1'
                 style={{
                   width: this.playerInfo.mario
