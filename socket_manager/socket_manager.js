@@ -24,7 +24,6 @@ export const socketManager = (socket) => {
   
 
   socket.on('startGame', () => {
-    console.log('inside gameloop.on')
     game.gameloop(socket);
   });
 
@@ -50,12 +49,6 @@ export const socketManager = (socket) => {
         }
       });
 
-      // socket.on('startGame', () => {
-      //   console.log('inside gameloop.on')
-      //   console.log('inside startGame', gameState.rooms[roomInfo.roomId])
-      //   // game.gameloop(socket);
-      //   game.gameloop(socket);
-      // });
     } 
 
     if (roomInfo.type === "joinRoom") {
