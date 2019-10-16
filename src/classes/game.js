@@ -38,7 +38,7 @@ class Game {
   ////////////The Game Set up///////////////////////////////////
 
   addPlayer(playerId, socket, gameId) {
-    let startPos = [100, 200];
+    let startPos = [150, 300];
     let player = new Player(startPos, playerId, gameId, socket);
 
     //fill out player info for game
@@ -203,10 +203,7 @@ class Game {
     });
   }
 
-  //random comment
-  checkFinish(socket) {
-    //can pass socket
-
+  checkFinish(socket){ //can pass socket
     //loop through players and see if their pos has crossed line
     Object.values(this.players).forEach(player => {
       if (player.finishPlace === 0 && player.pos[0] > 9600) {
@@ -216,7 +213,7 @@ class Game {
           this.playerInfoObject[player.id].sprite
         ]);
         player.finishPlace = this.podium.length;
-      } else if (this.podium.length > 3 || this.gameClock < 70) {
+      } else if( (this.podium.length === Object.keys(this.players).length) || (this.podium.length > 3) || (this.gameClock < 70) ) {
         this.raceEnd(socket); //can pass socket
         console.log("podium", this.podium);
       }

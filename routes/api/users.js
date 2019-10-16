@@ -13,8 +13,8 @@ router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
 
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.json({
-    id: req.user.id,
-    username: req.user.username,
+    id: req.body.id,
+    username: req.body.username,
   });
 })
 
@@ -90,7 +90,7 @@ router.post('/login', (req, res) => {
       compare(password, user.password)
         .then(isMatch => {
           if (isMatch) {
-            const payload = { id: user.id, username: user.username };
+            const payload = { id: user.id, username: user.username, coins: user.coins };
 
             sign(
               payload,
@@ -108,6 +108,20 @@ router.post('/login', (req, res) => {
             return res.status(400).json({ password: 'Incorrect password' });
           }
         })
+    })
+})
+
+router.patch('/update', (req, res) => {
+  const userId = req.body.id;
+  const coins = req.body.coins;
+
+  User.findOne({ _id: userId })
+    .then(user => {
+      // user.update({coins: coins});
+      const totalCoins = parseInt(user.coins) + parseInt(coins);
+      user.coins = totalCoins;
+      user.save();
+      res.json(user);
     })
 })
 
