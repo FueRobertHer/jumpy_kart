@@ -11,13 +11,10 @@ export const gameState = {
   //gameState.rooms[roomInfo.roomId]
 };
 
-<<<<<<< HEAD
 let clients = {};
 // this happens when socket emmission is heard
 // we will be calling game.gameloop()
 
-=======
->>>>>>> 0f7237e96bfb4870cc6debf1cae227d12bc0cb10
 export const socketManager = socket => {
 
   clients[socket.id] = socket;
