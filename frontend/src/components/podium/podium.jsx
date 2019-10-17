@@ -12,9 +12,7 @@ import { updateCoins } from "../../util/user_api_util";
 class Podium extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
-    this.spriteIds = { mario: Mario, peach: Peach, toad: Toad, yoshi: Yoshi };
-    this.socket = null;
+    this.spriteRef = { mario: Mario, peach: Peach, toad: Toad, yoshi: Yoshi };
     this.podium = this.props.history.location.podium;
     this.firstPlace = this.podium[0] || "";
     this.secondPlace = this.podium[1] || "";
@@ -39,13 +37,13 @@ class Podium extends React.Component {
         <div className='background-div'>
           <PodiumModal />
           <div id='first-place' className='player-div'>
-            <Player image={this.spriteIds[this.firstPlace.sprite]} />
+            <Player image={this.spriteRef[this.firstPlace.sprite]} />
           </div>
           <div id='second-place' className='player-div'>
-            <Player image={this.spriteIds[this.secondPlace.sprite]} />
+            <Player image={this.spriteRef[this.secondPlace.sprite]} />
           </div>
           <div id='third-place' className='player-div'>
-            <Player image={this.spriteIds[this.thirdPlace.sprite]} />
+            <Player image={this.spriteRef[this.thirdPlace.sprite]} />
           </div>
         </div>
 
