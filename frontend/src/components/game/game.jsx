@@ -37,8 +37,6 @@ class Canvas extends React.Component {
     this.openSocket = this.openSocket.bind(this);
     this.loadGame = this.loadGame.bind(this);
     this.joinRoom = this.joinRoom.bind(this);
-    this.startGameDrawing = this.startGameDrawing.bind(this);
-    // this.testFn = this.testFn.bind(this);
     this.gameRunning = true;
     this.emitStartGame = this.emitStartGame.bind(this);
     this.socket = null;
@@ -64,7 +62,6 @@ class Canvas extends React.Component {
       socket.on("placeItems", data => {
         this.pipes = Object.values(data.pipes);
         this.items = Object.values(data.items);
-        // this.drawObjects();
       });
 
       socket.on("updateGameState", data => {
@@ -99,12 +96,6 @@ class Canvas extends React.Component {
         banana.play();
       });
 
-      socket.on("triggerStart", () => {
-        // console.log("triggering start");
-        // if (this.state.hostId !== this.props.currentUserId)
-        // this.startGameDrawing();
-      });
-
       socket.on("gameRunning", () => {
         this.gameRunning = false;
       });
@@ -128,8 +119,6 @@ class Canvas extends React.Component {
     socket.emit("startGame");
     let audio = document.querySelector("audio");
     audio.setAttribute("autoPlay", true);
-    // this.startGameDrawing();
-    // requestAnimationFrame(this.drawObjects);
   }
 
   loadGame() {
@@ -169,30 +158,13 @@ class Canvas extends React.Component {
     document.body.onkeydown = function(e) {
       if (e.keyCode === 32) {
         e.preventDefault();
-        console.log("pressedspace");
         socket.emit("pressSpace");
       }
     };
-    // debugger
     this.drawObjects();
-    // requestAnimationFrame(this.drawObjects);
   }
-
-  startGameDrawing() {
-    console.log("in startGameDrawing");
-    // // debugger
-    // this.drawObjects();
-    // requestAnimationFrame(this.drawObjects);
-  }
-
-  // testFn() {
-  //   this.drawObjects();
-  //   requestAnimationFrame(this.testFn);
-  //   console.log("test fn");
-  // }
 
   drawObjects() {
-    console.log("drawing objects");
     requestAnimationFrame(this.drawObjects);
     if (this.gameRunning) {
       const canvas = this.refs.canvas;
@@ -203,13 +175,7 @@ class Canvas extends React.Component {
       DrawUtil._drawRoad(ctx);
       DrawUtil._drawItems(ctx, this.items);
 
-      console.log("this.isHost", this.isHost);
-      console.log("this.players", this.players);
-      console.log("this.pipes", this.pipes);
-      console.log("this.items", this.items);
-      console.log("this.gameRunning", this.gameRunning);
       this.players.forEach(player => {
-        console.log("player", player);
         DrawUtil._drawKart(ctx, player);
       });
 
