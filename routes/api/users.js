@@ -125,10 +125,10 @@ router.patch('/update', (req, res) => {
     })
 })
 
-router.get('/highscore', (res, res) => {
+router.get('/highscore', (req, res) => {
   User.find()
     .sort({coins: -1})
-    .then(players => res.json(players))
+    .then(players => res.json(players).slice(0, 10))
 })
 
 export default router;
