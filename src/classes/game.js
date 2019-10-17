@@ -91,26 +91,66 @@ class Game {
   placeItems() {
     let itemTypes = ["coin", "mushroom", "banana"];
 
-    for (let j = 0; j < 3; j++) {
-      for (let i = 0; i < 7; i++) {
-        let objOverlap = true;
+    //banana in air
+    for (let i = 0; i < 20; i++) {
+      let objOverlap = true;
 
-        while (objOverlap === true) {
-          let randomPos = [
-            (Math.random() * (1000 * (i + 1) - 1000 * i) + 1000 * i + 500),
-            (Math.random() * (300 - 50) + 100)
-          ];
-          if (this.pipeObjcollide(this.pipes, randomPos) === false) {
-            objOverlap = false;
+      while (objOverlap === true) {
+        let randomPos = [
+          (Math.random() * (450 * (i + 1) - 450 * i) + 450 * i + 500),
+          (Math.random() * (300) + 100)
+        ];
+        if (this.pipeObjcollide(this.pipes, randomPos) === false) {
+          objOverlap = false;
+          this.bananas.push(new Banana(randomPos));
+        }
+      }
+    }
 
-            if (itemTypes[j] === "coin") {
-              this.coins.push(new Coin(randomPos));
-            } else if (itemTypes[j] === "mushroom") {
-              this.mushrooms.push(new Mushroom(randomPos));
-            } else {
-              this.bananas.push(new Banana(randomPos));
-            }
-          }
+    //banana on ground
+    for (let i = 0; i < 20; i++) {
+      let objOverlap = true;
+
+      while (objOverlap === true) {
+        let randomPos = [
+          (Math.random() * (450 * (i + 1) - 450 * i) + 450 * i + 500),
+          (445)
+        ];
+        if (this.pipeObjcollide(this.pipes, randomPos) === false) {
+          objOverlap = false;
+          this.bananas.push(new Banana(randomPos));
+        }
+      }
+    }
+
+    //mushroom
+    for (let i = 0; i < 20; i++) {
+      let objOverlap = true;
+
+      while (objOverlap === true) {
+        let randomPos = [
+          (Math.random() * (450 * (i + 1) - 450 * i) + 450 * i + 500),
+          (Math.random() * (300 - 50) + 100)
+        ];
+        if (this.pipeObjcollide(this.pipes, randomPos) === false) {
+          objOverlap = false;
+          this.mushrooms.push(new Mushroom(randomPos));
+        }
+      }
+    }
+
+    //coin
+    for (let i = 0; i < 20; i++) {
+      let objOverlap = true;
+
+      while (objOverlap === true) {
+        let randomPos = [
+          (Math.random() * (450 * (i + 1) - 450 * i) + 450 * i + 500),
+          (Math.random() * (300 - 50) + 100)
+        ];
+        if (this.pipeObjcollide(this.pipes, randomPos) === false) {
+          objOverlap = false;
+          this.coins.push(new Coin(randomPos));
         }
       }
     }
