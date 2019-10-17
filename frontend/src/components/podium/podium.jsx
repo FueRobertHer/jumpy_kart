@@ -7,43 +7,45 @@ import Toad from "../../assets/images/toad_finish.png";
 import Yoshi from "../../assets/images/yoshi_finish.png";
 import PodiumModal from "../modal/podium_modal";
 
-import {updateCoins} from '../../util/user_api_util';
+import { updateCoins } from "../../util/user_api_util";
 
 class Podium extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.spriteIds = ["Mario", "Peach", "Toad", "Yoshi"];
+    this.spriteIds = { mario: Mario, peach: Peach, toad: Toad, yoshi: Yoshi };
     this.socket = null;
-    // this.podiumArr = (pass in podium array here)
-    // console.log(this.props)
     this.podium = this.props.history.location.podium;
-
+    this.firstPlace = this.podium[0] || "";
+    this.secondPlace = this.podium[1] || "";
+    this.thirdPlace = this.podium[2] || "";
   }
 
   componentDidMount() {
-    console.log('podium props', this.podium);
-    this.podium.forEach( player => {
-      console.log('player', player.coins);
-      updateCoins(player).catch( err => {console.log(err)})
-    })
+    console.log("podium props", this.podium);
+    this.podium.forEach(player => {
+      console.log("player coins", player.coins);
+      updateCoins(player).catch(err => {
+        console.log(err);
+      });
+    });
   }
 
   render() {
-    if (!this.props) return null;
-    console.log(this.podium)
+    if (!this.firstPlace) return null;
+
     return (
       <div>
         <div className='background-div'>
           <PodiumModal />
           <div id='first-place' className='player-div'>
-            <Player image={Mario} />
+            <Player image={this.spriteIds[this.firstPlace.sprite]} />
           </div>
           <div id='second-place' className='player-div'>
-            <Player image={Peach} />
+            <Player image={this.spriteIds[this.secondPlace.sprite]} />
           </div>
           <div id='third-place' className='player-div'>
-            <Player image={Toad} />
+            <Player image={this.spriteIds[this.thirdPlace.sprite]} />
           </div>
         </div>
 
