@@ -92,7 +92,7 @@ class Game {
     let itemTypes = ["coin", "mushroom", "banana"];
 
     //banana in air
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 30; i++) {
       let objOverlap = true;
 
       while (objOverlap === true) {
@@ -108,7 +108,7 @@ class Game {
     }
 
     //banana on ground
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 30; i++) {
       let objOverlap = true;
 
       while (objOverlap === true) {
@@ -124,7 +124,7 @@ class Game {
     }
 
     //mushroom
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 30; i++) {
       let objOverlap = true;
 
       while (objOverlap === true) {
