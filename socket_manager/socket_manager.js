@@ -23,7 +23,6 @@ export const socketManager = socket => {
   socket.on("startGame", () => {
     console.log("inside gameloop.on");
     game.gameloop(socket);
-    socket.broadcast.emit("triggerStart");
   });
 
   socket.on("roomInfo", roomInfo => {
