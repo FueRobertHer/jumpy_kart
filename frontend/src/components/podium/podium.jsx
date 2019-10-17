@@ -14,24 +14,32 @@ class Podium extends React.Component {
     super(props);
     this.spriteRef = { mario: Mario, peach: Peach, toad: Toad, yoshi: Yoshi };
     this.podium = this.props.history.location.podium;
+    this.socket = this.props.history.location.socket;
     this.firstPlace = this.podium[0] || "";
     this.secondPlace = this.podium[1] || "";
     this.thirdPlace = this.podium[2] || "";
+
+    this.backToLobby = this.backToLobby.bind(this);
   }
 
   componentDidMount() {
     this.podium.forEach(player => {
-      updateCoins(player)
+      updateCoins(player);
     });
 
     this.props.fetchHighScore();
+  }
+
+  backToLobby() {
+    this.props.history.push('/lobby');
+    window.location.reload();
   }
 
   render() {
     if (!this.firstPlace) return null;
 
     return (
-      <div>
+      <div className='podium-master'>
         <div className='background-div'>
           <PodiumModal />
           <div id='first-place' className='player-div'>
@@ -51,6 +59,11 @@ class Podium extends React.Component {
             className='high-scores-button'
           >
             <p className='high-scores-button-text'>View High Scores!</p>
+          </button>
+        </div>
+        <div>
+          <button className='back-to-lobby-button' onClick={() => this.backToLobby(this.socket)}>
+            <p className='high-scores-button-text'>Back to Lobby!</p>            
           </button>
         </div>
       </div>

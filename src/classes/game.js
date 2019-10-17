@@ -32,7 +32,6 @@ class Game {
   loadGame(socket) {
     this.placePipes(socket);
     this.placeItems(socket);
-    // this.allPresentItems(socket);
     this.emitUpdateGame(socket);
   }
 
@@ -68,10 +67,10 @@ class Game {
     return player;
   }
 
-  removePlayer(playerId) {
-    delete this.players[playerId];
-    delete this.playerSockets[playerId];
-  }
+  // removePlayer(playerId) {
+  //   delete this.players[playerId];
+  //   delete this.playerSockets[playerId];
+  // }
 
   placePipes() {
     //place a random pipe somewhere on the board: worked
@@ -290,6 +289,11 @@ class Game {
         coins: player[3]
       }))
     );
+  }
+
+  removePlayer(playerId) {
+    delete this.players[playerId]
+    delete this.playerSockets[playerId]
   }
 
   ////////////////////////Collision Helper methods//////////////////
