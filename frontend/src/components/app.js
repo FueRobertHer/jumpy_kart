@@ -22,10 +22,6 @@ import LobbyContainer from "./game/lobby_container";
 import PodiumContainer from "./podium/podium_container";
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>

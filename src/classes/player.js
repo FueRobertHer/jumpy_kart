@@ -113,7 +113,7 @@ class Player {
         this.horiSpeed += 20;
       } else if (item.type === 'Banana') {
         socket.emit("bananaSound");
-        this.horiSpeed -= 20;
+        this.horiSpeed -= 40;
       }
     } else {
       didCollide = false;

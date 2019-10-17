@@ -46,22 +46,34 @@ class HUD extends React.Component {
           <ol className='sprite-list'>
             <li className='sprite-li'>
               <div>
-                <img src={this.playerInfo.mario ? this.spriteRef.mario : ""} />
+                <img
+                  src={this.playerInfo.mario ? this.spriteRef.mario : ""}
+                  alt=''
+                />
               </div>
             </li>
             <li className='sprite-li'>
               <div>
-                <img src={this.playerInfo.peach ? this.spriteRef.peach : ""} />
+                <img
+                  src={this.playerInfo.peach ? this.spriteRef.peach : ""}
+                  alt=''
+                />
               </div>
             </li>
             <li className='sprite-li'>
               <div>
-                <img src={this.playerInfo.toad ? this.spriteRef.toad : ""} />
+                <img
+                  src={this.playerInfo.toad ? this.spriteRef.toad : ""}
+                  alt=''
+                />
               </div>
             </li>
             <li className='sprite-li'>
               <div>
-                <img src={this.playerInfo.yoshi ? this.spriteRef.yoshi : ""} />
+                <img
+                  src={this.playerInfo.yoshi ? this.spriteRef.yoshi : ""}
+                  alt=''
+                />
               </div>
             </li>
           </ol>
