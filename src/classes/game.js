@@ -39,7 +39,7 @@ class Game {
   ////////////The Game Set up///////////////////////////////////
 
   addPlayer(playerId, socket, gameId) {
-    let startPos = [150, 300];
+    let startPos = [175, 300];
     let player = new Player(startPos, playerId, gameId, socket);
 
     //fill out player info for game
@@ -97,8 +97,8 @@ class Game {
 
         while (objOverlap === true) {
           let randomPos = [
-            Math.random() * (1000 * (i + 1) - 1000 * i) + 1000 * i + 500,
-            Math.random() * (300 - 50) + 100
+            Math.random() * (1000 * (i + 1) - 1000 * i) + 1000 * i + 500, //why so complicated
+            Math.random() * (300 - 50) + 100 //why not jsut 350?
           ];
           if (this.pipeObjcollide(this.pipes, randomPos) === false) {
             objOverlap = false;
