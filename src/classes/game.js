@@ -39,7 +39,7 @@ class Game {
   ////////////The Game Set up///////////////////////////////////
 
   addPlayer(playerId, socket, gameId) {
-    let startPos = [150, 300];
+    let startPos = [175, 300];
     let player = new Player(startPos, playerId, gameId, socket);
 
     //fill out player info for game
@@ -210,7 +210,7 @@ class Game {
       if (player.pos[0] > 9600) {
         player.horiSpeed = 0;
       } else {
-        if (player.horiSpeed < 15) player.horiSpeed += 1;
+        if (player.horiSpeed < 15) player.horiSpeed += 2;
         if (player.horiSpeed > 15) player.horiSpeed -= 1;
         player.gravity = 5;
       }

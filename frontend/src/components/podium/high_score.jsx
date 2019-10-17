@@ -13,6 +13,10 @@ class HighScore extends React.Component {
     this.highScores = this.props.fetchHighScore();
   }
 
+  componentDidMount() {
+    this.props.fetchHighScore();
+  }
+
   render() {
     if (!this.highScores) return null;
 

@@ -1,11 +1,15 @@
 import { openModal, closeModal } from "../../actions/modal";
+import { fetchHighScore } from "../../actions/user_actions";
 import { connect } from "react-redux";
 import HighScore from "./high_score";
 import { fetchHighScore } from "../../actions/user_actions";
 
-const mapStateToProps = state => ({
-  modal: state.ui.modal
-});
+const mapStateToProps = state => {
+  return {
+  modal: state.ui.modal,
+  players: state.userReducer.players
+}
+};
 
 const mapDispatchToProps = dispatch => ({
   openModal: modal => dispatch(openModal(modal)),
