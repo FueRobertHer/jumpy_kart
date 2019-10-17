@@ -7,7 +7,16 @@ class HighScore extends React.Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    this.props.fetchHighScore();
+  }
+
   render() {
+    if (!this.props.players) return null
+
+    console.log(this.props.players.data);
+    
+
     return (
       <div className='high-score-master'>
         <div className='high-score-container'>

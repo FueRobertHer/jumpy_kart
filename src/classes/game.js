@@ -210,7 +210,7 @@ class Game {
       if (player.pos[0] > 9600) {
         player.horiSpeed = 0;
       } else {
-        if (player.horiSpeed < 15) player.horiSpeed += 1;
+        if (player.horiSpeed < 15) player.horiSpeed += 2;
         if (player.horiSpeed > 15) player.horiSpeed -= 1;
         player.gravity = 5;
       }
