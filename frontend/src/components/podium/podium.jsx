@@ -21,10 +21,7 @@ class Podium extends React.Component {
 
   componentDidMount() {
     this.podium.forEach(player => {
-      console.log("player coins", player.coins);
-      updateCoins(player).catch(err => {
-        console.log(err);
-      });
+      updateCoins(player)
     });
 
     this.props.fetchHighScore();

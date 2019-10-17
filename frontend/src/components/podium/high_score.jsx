@@ -6,11 +6,6 @@ class HighScore extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.highScores = null;
-  }
-
-  componentDidMount() {
-    this.highScores = this.props.fetchHighScore();
   }
 
   componentDidMount() {
@@ -18,10 +13,10 @@ class HighScore extends React.Component {
   }
 
   render() {
-    if (!this.highScores) return null;
+    const highScores = this.props.players.data.slice(0, 10);
 
-    const highScoreList = this.highScores.map(player => (
-      <HighScoreListItem username={player.username} coins={player.coins} />
+    const highScoreList = highScores.map((player, i) => (
+      <HighScoreListItem key={i} username={player.username} coins={player.coins} />
     ));
 
     return (

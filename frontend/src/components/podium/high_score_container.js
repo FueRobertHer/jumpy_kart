@@ -2,7 +2,6 @@ import { openModal, closeModal } from "../../actions/modal";
 import { fetchHighScore } from "../../actions/user_actions";
 import { connect } from "react-redux";
 import HighScore from "./high_score";
-import { fetchHighScore } from "../../actions/user_actions";
 
 const mapStateToProps = state => {
   return {
