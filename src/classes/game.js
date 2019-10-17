@@ -29,10 +29,10 @@ class Game {
     this.gameOver = false;
   }
 
-  async loadGame(socket) {
+  loadGame(socket) {
     this.placePipes(socket);
     this.placeItems(socket);
-    this.allPresentItems(socket);
+    // this.allPresentItems(socket);
     this.emitUpdateGame(socket);
   }
 
@@ -58,7 +58,9 @@ class Game {
     }
 
     Object.values(this.playerSockets).forEach(socket => {
-      socket.emit("playerJoined", {
+      socket.broadcast.emit("playerJoined", {
+        hostId: this.hostId,
+        gameId: this.gameId,
         players: this.playerInfoObject
       });
     });
@@ -136,6 +138,7 @@ class Game {
 
     // start the race
     // await ???
+    socket.broadcast.emit("triggerStart");
     this.raceStart(socket);
 
     // the race finish logic
@@ -220,7 +223,6 @@ class Game {
         this.gameClock < 70
       ) {
         this.raceEnd(socket); //can pass socket
-        console.log("podium", this.podium);
         this.gameOver = true;
         
       }
@@ -237,30 +239,17 @@ class Game {
         player.finishPlace = "DNF";
       }
     });
-    socket.emit("gameRunning");
-    // console.log(this.podium)
-    socket.emit(
+    socket.broadcast.emit("gameRunning");
+    console.log(this.podium)
+    socket.broadcast.emit(
       "raceEnd",
       this.podium.map(player => ({
         id: player[0],
         time: player[1],
-        sprite: player[2]
+        sprite: player[2],
+        coins: player[3]
       }))
     );
-    // Object.values(this.playerSockets).forEach(socket => {
-    //   socket.emit('raceEnd', {
-    //     podium: this.podium.map(player => ({
-    //       playerId: player[0],
-    //       playerTime: player[1],
-    //       playerChar: player[2]
-    //     }))
-    //     // podium: this.podium.map(player => {
-    //     //   console.log('podium player', player[0], player[1])
-    //     //   return ({playerId: player[0],
-    //     //   playerTime: player[1]})
-    //     // })
-    //   });
-    // })
   }
 
   ////////////////////////Collision Helper methods//////////////////
@@ -277,7 +266,7 @@ class Game {
   /////////////////////Emit Stuff/////////////////////////////////
 
   emitUpdateGame(socket) {
-    socket.emit("placeItems", {
+    socket.broadcast.emit("placeItems", {
       pipes: this.pipes.map(pipe => ({
         pos: pipe.pos,
         width: pipe.width,
@@ -289,7 +278,13 @@ class Game {
       }))
     });
 
-    socket.emit("updateGameState", {
+    // socket.emit("updateGameState", {
+    //   hostId: this.hostId,
+    //   gameId: this.gameId,
+    //   players: this.playerInfoObject
+    // });
+
+    socket.broadcast.emit("updateGameState", {
       hostId: this.hostId,
       gameId: this.gameId,
       players: this.playerInfoObject

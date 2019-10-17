@@ -17,14 +17,14 @@ class Instructions extends React.Component {
         <h2>GAME INSTRUCTIONS</h2>
         <div className='instruction-enumerables'>
           <p>1) Press space bar to jump</p>
-          <img className='spacebar-sprite' src={spacebar} />
+          <img className='spacebar-sprite' src={spacebar} alt='' />
           <p id='space-bar'>SPACE</p>
           <p>2) Mushrooms give you a boost</p>
-          <img className='item-sprite' src={mushroom} />
+          <img className='item-sprite' src={mushroom} alt='' />
           <p>3) Bananas slow you down</p>
-          <img className='item-sprite' src={banana} />
+          <img className='item-sprite' src={banana} alt='' />
           <p>4) Collect coins along the way</p>
-          <img className='item-sprite' src={coin} />
+          <img className='item-sprite' src={coin} alt='' />
         </div>
       </div>
     );

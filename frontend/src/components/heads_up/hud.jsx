@@ -46,22 +46,34 @@ class HUD extends React.Component {
           <ol className='sprite-list'>
             <li className='sprite-li'>
               <div>
-                <img src={this.playerInfo.mario ? this.spriteRef.mario : ""} />
+                <img
+                  src={this.playerInfo.mario ? this.spriteRef.mario : ""}
+                  alt=''
+                />
               </div>
             </li>
             <li className='sprite-li'>
               <div>
-                <img src={this.playerInfo.peach ? this.spriteRef.peach : ""} />
+                <img
+                  src={this.playerInfo.peach ? this.spriteRef.peach : ""}
+                  alt=''
+                />
               </div>
             </li>
             <li className='sprite-li'>
               <div>
-                <img src={this.playerInfo.toad ? this.spriteRef.toad : ""} />
+                <img
+                  src={this.playerInfo.toad ? this.spriteRef.toad : ""}
+                  alt=''
+                />
               </div>
             </li>
             <li className='sprite-li'>
               <div>
-                <img src={this.playerInfo.yoshi ? this.spriteRef.yoshi : ""} />
+                <img
+                  src={this.playerInfo.yoshi ? this.spriteRef.yoshi : ""}
+                  alt=''
+                />
               </div>
             </li>
           </ol>
@@ -81,7 +93,9 @@ class HUD extends React.Component {
               <div
                 className='bar player-2'
                 style={{
-                  width: this.playerInfo.peach ? this.playerInfo.peach : 0
+                  width: this.playerInfo.peach
+                    ? (this.playerInfo.peach / 9500) * 285
+                    : 0
                 }}
               ></div>
             </div>
@@ -89,7 +103,9 @@ class HUD extends React.Component {
               <div
                 className='bar player-3'
                 style={{
-                  width: this.playerInfo.toad ? this.playerInfo.toad : 0
+                  width: this.playerInfo.toad
+                    ? (this.playerInfo.toad / 9500) * 285
+                    : 0
                 }}
               ></div>
             </div>
@@ -97,7 +113,9 @@ class HUD extends React.Component {
               <div
                 className='bar player-4'
                 style={{
-                  width: this.playerInfo.yoshi ? this.playerInfo.yoshi : 0
+                  width: this.playerInfo.yoshi
+                    ? (this.playerInfo.yoshi / 9500) * 285
+                    : 0
                 }}
               ></div>
             </div>

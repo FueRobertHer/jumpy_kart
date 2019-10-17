@@ -11,7 +11,7 @@ class Player extends React.Component {
     return (
       <div>
         <div className='player'>
-          <img src={this.props.image} />
+          <img src={this.props.image} alt='' />
         </div>
       </div>
     );
