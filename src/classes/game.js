@@ -241,7 +241,7 @@ class Game {
       }
     });
     socket.broadcast.emit("gameRunning");
-    // console.log(this.podium)
+    console.log(this.podium)
     socket.broadcast.emit(
       "raceEnd",
       this.podium.map(player => ({
@@ -251,20 +251,6 @@ class Game {
         coins: player[3]
       }))
     );
-    // Object.values(this.playerSockets).forEach(socket => {
-    //   socket.emit('raceEnd', {
-    //     podium: this.podium.map(player => ({
-    //       playerId: player[0],
-    //       playerTime: player[1],
-    //       playerChar: player[2]
-    //     }))
-    //     // podium: this.podium.map(player => {
-    //     //   console.log('podium player', player[0], player[1])
-    //     //   return ({playerId: player[0],
-    //     //   playerTime: player[1]})
-    //     // })
-    //   });
-    // })
   }
 
   ////////////////////////Collision Helper methods//////////////////

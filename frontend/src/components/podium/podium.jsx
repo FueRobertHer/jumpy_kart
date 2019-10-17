@@ -31,6 +31,7 @@ class Podium extends React.Component {
 
   render() {
     if (!this.props) return null;
+    console.log(this.podium)
     return (
       <div>
         <div className='background-div'>

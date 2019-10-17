@@ -47,7 +47,6 @@ class Canvas extends React.Component {
     this.userId = props.location.userId;
     this.isHost = props.location.isHost;
     this.keyDown = false;
-    this.players = [];
     this.pipes = [];
     this.items = [];
     this.podium = [];
@@ -65,7 +64,6 @@ class Canvas extends React.Component {
       });
 
       socket.on("updateGameState", data => {
-        // this.players = Object.values(data.players);
         this.setState({
           players: Object.values(data.players)
         });
@@ -79,7 +77,6 @@ class Canvas extends React.Component {
             players: Object.values(data.players)
           });
         }
-        // this.players = Object.values(data.players);
       });
 
       socket.on("coinSound", () => {
@@ -156,8 +153,6 @@ class Canvas extends React.Component {
     });
 
     let socket = this.socket;
-    const canvas = this.refs.canvas;
-    const ctx = canvas.getContext("2d");
 
     document.body.onkeydown = function(e) {
       if (e.keyCode === 32) {

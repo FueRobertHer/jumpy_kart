@@ -11,9 +11,6 @@ export const gameState = {
   //gameState.rooms[roomInfo.roomId]
 };
 
-// this happens when socket emmission is heard
-// we will be calling game.gameloop()
-
 export const socketManager = socket => {
   console.log("a user connected");
   //test case - on connection, render game
@@ -74,8 +71,8 @@ export const socketManager = socket => {
     }
   });
 
-  socket.on("disconnect", () => {
-    console.log("user disconnected");
+  socket.on("disconnect", () => { // do something here to remove players from games
+    console.log("user disconnected"); // also consider denying access to started games?
     console.log(socket.id);
     console.log(gameState);
   });
