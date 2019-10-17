@@ -39,7 +39,7 @@ class Game {
   ////////////The Game Set up///////////////////////////////////
 
   addPlayer(playerId, socket, gameId) {
-    let startPos = [150, 300];
+    let startPos = [175, 300];
     let player = new Player(startPos, playerId, gameId, socket);
 
     //fill out player info for game
@@ -91,26 +91,66 @@ class Game {
   placeItems() {
     let itemTypes = ["coin", "mushroom", "banana"];
 
-    for (let j = 0; j < 3; j++) {
-      for (let i = 0; i < 7; i++) {
-        let objOverlap = true;
+    //banana in air
+    for (let i = 0; i < 5; i++) {
+      let objOverlap = true;
 
-        while (objOverlap === true) {
-          let randomPos = [
-            Math.random() * (1000 * (i + 1) - 1000 * i) + 1000 * i + 500,
-            Math.random() * (300 - 50) + 100
-          ];
-          if (this.pipeObjcollide(this.pipes, randomPos) === false) {
-            objOverlap = false;
+      while (objOverlap === true) {
+        let randomPos = [
+          (Math.random() * (1300 * (i + 1) - 1300 * i) + 1300 * i + 500),
+          (Math.random() * (300) + 100)
+        ];
+        if (this.pipeObjcollide(this.pipes, randomPos) === false) {
+          objOverlap = false;
+          this.bananas.push(new Banana(randomPos));
+        }
+      }
+    }
 
-            if (itemTypes[j] === "coin") {
-              this.coins.push(new Coin(randomPos));
-            } else if (itemTypes[j] === "mushroom") {
-              this.mushrooms.push(new Mushroom(randomPos));
-            } else {
-              this.bananas.push(new Banana(randomPos));
-            }
-          }
+    //banana on ground
+    for (let i = 0; i < 5; i++) {
+      let objOverlap = true;
+
+      while (objOverlap === true) {
+        let randomPos = [
+          (Math.random() * (1300 * (i + 1) - 1300 * i) + 1300 * i + 1000),
+          (445)
+        ];
+        if (this.pipeObjcollide(this.pipes, randomPos) === false) {
+          objOverlap = false;
+          this.bananas.push(new Banana(randomPos));
+        }
+      }
+    }
+
+    //mushroom
+    for (let i = 0; i < 7; i++) {
+      let objOverlap = true;
+
+      while (objOverlap === true) {
+        let randomPos = [
+          (Math.random() * (800 * (i + 1) - 800 * i) + 800 * i + 1000),
+          (Math.random() * (400 - 50) + 100)
+        ];
+        if (this.pipeObjcollide(this.pipes, randomPos) === false) {
+          objOverlap = false;
+          this.mushrooms.push(new Mushroom(randomPos));
+        }
+      }
+    }
+
+    //coin
+    for (let i = 0; i < 7; i++) {
+      let objOverlap = true;
+
+      while (objOverlap === true) {
+        let randomPos = [
+          (Math.random() * (1000 * (i + 1) - 1000 * i) + 1000 * i + 1000),
+          (Math.random() * (300 - 50) + 100)
+        ];
+        if (this.pipeObjcollide(this.pipes, randomPos) === false) {
+          objOverlap = false;
+          this.coins.push(new Coin(randomPos));
         }
       }
     }
@@ -121,11 +161,9 @@ class Game {
 
     pipes.forEach(pipe => {
       if (
-        randomPos[0] < pipe.pos[0] + pipe.width &&
-        randomPos[0] + 28 > pipe.pos[0] &&
-        randomPos[1] < pipe.pos[1] &&
-        randomPos[1] + 28 > pipe.pos[1]
-      ) {
+        (randomPos[0] < pipe.pos[0] + pipe.width) &&
+        (randomPos[0] + 28 > pipe.pos[0]))
+      {
         collide = true;
       }
     });
@@ -172,8 +210,8 @@ class Game {
       if (player.pos[0] > 9600) {
         player.horiSpeed = 0;
       } else {
-        if (player.horiSpeed < 10) player.horiSpeed += 1;
-        if (player.horiSpeed > 10) player.horiSpeed -= 1;
+        if (player.horiSpeed < 15) player.horiSpeed += 2;
+        if (player.horiSpeed > 15) player.horiSpeed -= 1;
         player.gravity = 5;
       }
       // for each player, calculate how much they should move by
@@ -226,6 +264,7 @@ class Game {
       ) {
         this.raceEnd(socket); //can pass socket
         this.gameOver = true;
+        
       }
     });
   }
@@ -241,7 +280,7 @@ class Game {
       }
     });
     socket.broadcast.emit("gameRunning");
-    // console.log(this.podium)
+    console.log(this.podium)
     socket.broadcast.emit(
       "raceEnd",
       this.podium.map(player => ({
@@ -251,20 +290,6 @@ class Game {
         coins: player[3]
       }))
     );
-    // Object.values(this.playerSockets).forEach(socket => {
-    //   socket.emit('raceEnd', {
-    //     podium: this.podium.map(player => ({
-    //       playerId: player[0],
-    //       playerTime: player[1],
-    //       playerChar: player[2]
-    //     }))
-    //     // podium: this.podium.map(player => {
-    //     //   console.log('podium player', player[0], player[1])
-    //     //   return ({playerId: player[0],
-    //     //   playerTime: player[1]})
-    //     // })
-    //   });
-    // })
   }
 
   ////////////////////////Collision Helper methods//////////////////
