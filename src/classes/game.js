@@ -225,7 +225,6 @@ class Game {
         this.gameClock < 70
       ) {
         this.raceEnd(socket); //can pass socket
-        console.log("podium", this.podium);
         this.gameOver = true;
       }
     });
@@ -248,7 +247,8 @@ class Game {
       this.podium.map(player => ({
         id: player[0],
         time: player[1],
-        sprite: player[2]
+        sprite: player[2],
+        coins: player[3]
       }))
     );
     // Object.values(this.playerSockets).forEach(socket => {
