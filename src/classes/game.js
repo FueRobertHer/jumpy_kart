@@ -95,8 +95,8 @@ class Game {
 
         while (objOverlap === true) {
           let randomPos = [
-            Math.random() * (1000 * (i + 1) - 1000 * i) + 1000 * i + 500,
-            Math.random() * (300 - 50) + 100
+            (Math.random() * (1000 * (i + 1) - 1000 * i) + 1000 * i + 500),
+            (Math.random() * (300 - 50) + 100)
           ];
           if (this.pipeObjcollide(this.pipes, randomPos) === false) {
             objOverlap = false;
@@ -119,11 +119,9 @@ class Game {
 
     pipes.forEach(pipe => {
       if (
-        randomPos[0] < pipe.pos[0] + pipe.width &&
-        randomPos[0] + 28 > pipe.pos[0] &&
-        randomPos[1] < pipe.pos[1] &&
-        randomPos[1] + 28 > pipe.pos[1]
-      ) {
+        (randomPos[0] < pipe.pos[0] + pipe.width) &&
+        (randomPos[0] + 28 > pipe.pos[0]))
+      {
         collide = true;
       }
     });
@@ -169,8 +167,8 @@ class Game {
       if (player.pos[0] > 9600) {
         player.horiSpeed = 0;
       } else {
-        if (player.horiSpeed < 10) player.horiSpeed += 1;
-        if (player.horiSpeed > 10) player.horiSpeed -= 1;
+        if (player.horiSpeed < 20) player.horiSpeed += 1;
+        if (player.horiSpeed > 20) player.horiSpeed -= 1;
         player.gravity = 5;
       }
       // for each player, calculate how much they should move by
@@ -224,6 +222,7 @@ class Game {
         this.raceEnd(socket); //can pass socket
         console.log("podium", this.podium);
         this.gameOver = true;
+        
       }
     });
   }
