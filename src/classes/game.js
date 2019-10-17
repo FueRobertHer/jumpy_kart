@@ -29,10 +29,10 @@ class Game {
     this.gameOver = false;
   }
 
-  async loadGame(socket) {
+  loadGame(socket) {
     this.placePipes(socket);
     this.placeItems(socket);
-    this.allPresentItems(socket);
+    // this.allPresentItems(socket);
     this.emitUpdateGame(socket);
   }
 
@@ -58,7 +58,9 @@ class Game {
     }
 
     Object.values(this.playerSockets).forEach(socket => {
-      socket.emit("playerJoined", {
+      socket.broadcast.emit("playerJoined", {
+        hostId: this.hostId,
+        gameId: this.gameId,
         players: this.playerInfoObject
       });
     });
@@ -138,6 +140,7 @@ class Game {
 
     // start the race
     // await ???
+    socket.broadcast.emit("triggerStart");
     this.raceStart(socket);
 
     // the race finish logic
@@ -237,9 +240,9 @@ class Game {
         player.finishPlace = "DNF";
       }
     });
-    socket.emit("gameRunning");
+    socket.broadcast.emit("gameRunning");
     // console.log(this.podium)
-    socket.emit(
+    socket.broadcast.emit(
       "raceEnd",
       this.podium.map(player => ({
         id: player[0],
@@ -278,7 +281,7 @@ class Game {
   /////////////////////Emit Stuff/////////////////////////////////
 
   emitUpdateGame(socket) {
-    socket.emit("placeItems", {
+    socket.broadcast.emit("placeItems", {
       pipes: this.pipes.map(pipe => ({
         pos: pipe.pos,
         width: pipe.width,
@@ -290,7 +293,13 @@ class Game {
       }))
     });
 
-    socket.emit("updateGameState", {
+    // socket.emit("updateGameState", {
+    //   hostId: this.hostId,
+    //   gameId: this.gameId,
+    //   players: this.playerInfoObject
+    // });
+
+    socket.broadcast.emit("updateGameState", {
       hostId: this.hostId,
       gameId: this.gameId,
       players: this.playerInfoObject
