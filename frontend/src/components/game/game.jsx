@@ -9,10 +9,13 @@ import Instructions from "../heads_up/instructions";
 import HUD from "../heads_up/hud";
 
 let SERVER;
+let conn_options = {
+  'sync disconnect on unload': false
+};
 
 if (process.env.NODE_ENV !== "production") {
   console.log(`process.env: ${process.env}`);
-  SERVER = io("http://localhost:5000", { transports: ["websocket"] });
+  SERVER = io("http://localhost:5000", conn_options, { transports: ["websocket"] });
 }
 
 if (process.env.NODE_ENV === "production") {

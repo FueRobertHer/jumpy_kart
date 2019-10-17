@@ -11,10 +11,14 @@ export const gameState = {
   //gameState.rooms[roomInfo.roomId]
 };
 
+let clients = {};
 // this happens when socket emmission is heard
 // we will be calling game.gameloop()
 
 export const socketManager = socket => {
+
+  clients[socket.id] = socket;
+  
   console.log("a user connected");
   //test case - on connection, render game
   let game;
@@ -77,9 +81,22 @@ export const socketManager = socket => {
   });
 
   socket.on("disconnect", () => {
-    console.log("user disconnected");
-    console.log(socket.id);
-    console.log(gameState);
+    console.log('disconnected')
+    // let playerId = gameState.users[socket.id]
+    // let gameId = gameState.rooms[socket.id]
+    if (socket.id) {
+      console.log('user', gameState.users[socket.id], 'game', gameState.rooms[socket.id])
+      delete gameState.users[socket.id]
+      delete gameState.rooms[socket.id]
+    }
+    console.log(socket.id)
+    // console.log(gameState)
+    // console.log(socket.id)
+    // delete clients[socket.id]
+    // if (player) delete player
+    // if (game) delete game
+    
+
   });
 };
 
