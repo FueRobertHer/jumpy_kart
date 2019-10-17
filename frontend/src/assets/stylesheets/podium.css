@@ -5,6 +5,10 @@
   position: relative;
 }
 
+.podium-master {
+  position: relative;
+}
+
 .player-div {
   position: absolute;
 }
@@ -27,4 +31,17 @@
 #third-place {
   top: 348px;
   left: 577px;
+}
+
+.back-to-lobby-button {
+  position: absolute;
+  right: 0px;
+  top: 541px;
+  height: 30px;
+  cursor: pointer;
+  padding: 5px 7px 1px;
+  color: #fa0000;
+  background-color: #ffff00;
+  box-shadow: #fa0000 0px 0px 10px;
+  border: outset #fa0000;
 }
