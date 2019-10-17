@@ -1,20 +1,34 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
+import HighScoreListItem from "./high_score_list_item";
 
 class HighScore extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.scores = [
+      { username: "owen", coins: 10 },
+      { username: "fue", coins: 9 },
+      { username: "andrew", coins: 8 },
+      { username: "taehoon", coins: 7 },
+      { username: "ernie", coins: 6 },
+      { username: "dolly", coins: 5 },
+      { username: "obama", coins: 4 },
+      { username: "abe_lincoln", coins: 3 },
+      { username: "xX_L33T_g@m3r_Xx", coins: 2 },
+      { username: "360noscope", coins: 1 }
+    ];
   }
 
   render() {
+    const highScoreList = this.scores.map(player => (
+      <HighScoreListItem username={player.username} coins={player.coins} />
+    ));
+
     return (
       <div className='high-score-master'>
         <div className='high-score-container'>
-          <button
-            className='close-button'
-            onClick={this.props.closeModal}
-          >
+          <button className='close-button' onClick={this.props.closeModal}>
             <span>X</span>
           </button>
           <table className='high-score-list'>
@@ -27,46 +41,7 @@ class HighScore extends React.Component {
                   Coins
                 </th>
               </tr>
-              <tr className='high-score'>
-                <td className='left-side'>test1</td>
-                <td className='right-side'>100</td>
-              </tr>
-              <tr className='high-score'>
-                <td className='left-side'>test2</td>
-                <td className='right-side'>90</td>
-              </tr>
-              <tr className='high-score'>
-                <td className='left-side'>test3</td>
-                <td className='right-side'>80</td>
-              </tr>
-              <tr className='high-score'>
-                <td className='left-side'>test4</td>
-                <td className='right-side'>70</td>
-              </tr>
-              <tr className='high-score'>
-                <td className='left-side'>test5</td>
-                <td className='right-side'>60</td>
-              </tr>
-              <tr className='high-score'>
-                <td className='left-side'>test6</td>
-                <td className='right-side'>50</td>
-              </tr>
-              <tr className='high-score'>
-                <td className='left-side'>test7</td>
-                <td className='right-side'>40</td>
-              </tr>
-              <tr className='high-score'>
-                <td className='left-side'>test8</td>
-                <td className='right-side'>30</td>
-              </tr>
-              <tr className='high-score'>
-                <td className='left-side'>test9</td>
-                <td className='right-side'>20</td>
-              </tr>
-              <tr className='high-score'>
-                <td className='left-side'>test10</td>
-                <td className='right-side'>10</td>
-              </tr>
+              {highScoreList}
             </tbody>
           </table>
         </div>
