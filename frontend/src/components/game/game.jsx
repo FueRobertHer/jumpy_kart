@@ -24,7 +24,7 @@ class Canvas extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      players: {},
+      players: [],
       hostId: 0,
       gameId: 0,
       pipes: [],
@@ -65,17 +65,21 @@ class Canvas extends React.Component {
       });
 
       socket.on("updateGameState", data => {
-        this.players = Object.values(data.players);
+        // this.players = Object.values(data.players);
+        this.setState({
+          players: Object.values(data.players)
+        });
       });
 
       socket.on("playerJoined", data => {
         if (this.gameRunning) {
           this.setState({
             hostId: data.hostId,
-            gameId: data.gameId
+            gameId: data.gameId,
+            players: Object.values(data.players)
           });
         }
-        this.players = Object.values(data.players);
+        // this.players = Object.values(data.players);
       });
 
       socket.on("coinSound", () => {
@@ -175,13 +179,13 @@ class Canvas extends React.Component {
       DrawUtil._drawRoad(ctx);
       DrawUtil._drawItems(ctx, this.items);
 
-      this.players.forEach(player => {
+      this.state.players.forEach(player => {
         DrawUtil._drawKart(ctx, player);
       });
 
       const currentUserID = this.props.location.userId;
       let currentUser;
-      this.players.forEach(player => {
+      this.state.players.forEach(player => {
         if (player.id === currentUserID) currentUser = player;
       });
       const x = currentUser ? currentUser.pos[0] : 0;
@@ -234,7 +238,7 @@ class Canvas extends React.Component {
           </div>
         </div>
         <div className='hud-div'>
-          <HUD players={this.players} />
+          <HUD players={this.state.players} />
         </div>
       </div>
     );
