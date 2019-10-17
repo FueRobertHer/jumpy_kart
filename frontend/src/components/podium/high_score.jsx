@@ -6,22 +6,17 @@ class HighScore extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.scores = [
-      { username: "owen", coins: 10 },
-      { username: "fue", coins: 9 },
-      { username: "andrew", coins: 8 },
-      { username: "taehoon", coins: 7 },
-      { username: "ernie", coins: 6 },
-      { username: "dolly", coins: 5 },
-      { username: "obama", coins: 4 },
-      { username: "abe_lincoln", coins: 3 },
-      { username: "xX_L33T_g@m3r_Xx", coins: 2 },
-      { username: "360noscope", coins: 1 }
-    ];
+    this.highScores = null;
+  }
+
+  componentDidMount() {
+    this.highScores = this.props.fetchHighScore();
   }
 
   render() {
-    const highScoreList = this.scores.map(player => (
+    if (!this.highScores) return null;
+
+    const highScoreList = this.highScores.map(player => (
       <HighScoreListItem username={player.username} coins={player.coins} />
     ));
 
