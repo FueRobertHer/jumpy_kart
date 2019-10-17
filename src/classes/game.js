@@ -92,7 +92,7 @@ class Game {
     let itemTypes = ["coin", "mushroom", "banana"];
 
     //banana in air
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 5; i++) {
       let objOverlap = true;
 
       while (objOverlap === true) {
@@ -108,7 +108,7 @@ class Game {
     }
 
     //banana on ground
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 5; i++) {
       let objOverlap = true;
 
       while (objOverlap === true) {
@@ -124,13 +124,13 @@ class Game {
     }
 
     //mushroom
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 7; i++) {
       let objOverlap = true;
 
       while (objOverlap === true) {
         let randomPos = [
-          (Math.random() * (450 * (i + 1) - 450 * i) + 450 * i + 500),
-          (Math.random() * (300 - 50) + 100)
+          (Math.random() * (800 * (i + 1) - 800 * i) + 800 * i + 1000),
+          (Math.random() * (400 - 50) + 100)
         ];
         if (this.pipeObjcollide(this.pipes, randomPos) === false) {
           objOverlap = false;
@@ -140,12 +140,12 @@ class Game {
     }
 
     //coin
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 7; i++) {
       let objOverlap = true;
 
       while (objOverlap === true) {
         let randomPos = [
-          (Math.random() * (450 * (i + 1) - 450 * i) + 450 * i + 500),
+          (Math.random() * (1000 * (i + 1) - 1000 * i) + 1000 * i + 1000),
           (Math.random() * (300 - 50) + 100)
         ];
         if (this.pipeObjcollide(this.pipes, randomPos) === false) {
