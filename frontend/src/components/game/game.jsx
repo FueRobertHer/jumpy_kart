@@ -105,7 +105,8 @@ class Canvas extends React.Component {
         this.podium = this.podium.concat(data);
         this.props.history.push({
           pathname: "/podium",
-          podium: this.podium
+          podium: this.podium,
+          socket: socket
         });
       });
 

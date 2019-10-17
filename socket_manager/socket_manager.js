@@ -73,8 +73,22 @@ export const socketManager = socket => {
 
   socket.on("disconnect", () => { // do something here to remove players from games
     console.log("user disconnected"); // also consider denying access to started games?
-    console.log(socket.id);
-    console.log(gameState);
+    // if (!gameState.users[socket.id]) {
+    //   return null;
+    // }
+    // console.log('socket.id', socket.id);
+    // console.log('gameState', gameState);
+    // console.log('gameState.users', gameState.users)
+    // console.log('gameState.rooms', gameState.rooms)
+    // let roomId = gameState.users[socket.id].gameId;
+    // let game = gameState.rooms[roomId];
+    // if (socket.id) {
+    //   game.removePlayer(socket.id);
+    //   delete gameState.users[socket.id];
+    //   if (Object.keys(game.players).length === 0) {
+    //     delete gameState.rooms[roomId];
+    //   }
+    // }
   });
 };
 

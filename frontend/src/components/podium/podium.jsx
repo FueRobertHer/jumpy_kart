@@ -14,6 +14,7 @@ class Podium extends React.Component {
     super(props);
     this.spriteRef = { mario: Mario, peach: Peach, toad: Toad, yoshi: Yoshi };
     this.podium = this.props.history.location.podium;
+    this.socket = this.props.history.location.socket;
     this.firstPlace = this.podium[0] || "";
     this.secondPlace = this.podium[1] || "";
     this.thirdPlace = this.podium[2] || "";
@@ -30,8 +31,8 @@ class Podium extends React.Component {
   }
 
   backToLobby() {
-    location.reload();
     this.props.history.push('/lobby');
+    window.location.reload();
   }
 
   render() {
@@ -61,9 +62,9 @@ class Podium extends React.Component {
           </button>
         </div>
         <div>
-          <button className='back-to-lobby-button'>
+          <button className='back-to-lobby-button' onClick={() => this.backToLobby(this.socket)}>
             <p className='high-scores-button-text'>Back to Lobby!</p>            
-          </button> />
+          </button>
         </div>
       </div>
     );
