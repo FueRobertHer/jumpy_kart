@@ -92,12 +92,12 @@ class Game {
     let itemTypes = ["coin", "mushroom", "banana"];
 
     //banana in air
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 6; i++) {
       let objOverlap = true;
 
       while (objOverlap === true) {
         let randomPos = [
-          (Math.random() * (450 * (i + 1) - 450 * i) + 450 * i + 500),
+          (Math.random() * (1300 * (i + 1) - 1300 * i) + 1300 * i + 500),
           (Math.random() * (300) + 100)
         ];
         if (this.pipeObjcollide(this.pipes, randomPos) === false) {
@@ -108,12 +108,12 @@ class Game {
     }
 
     //banana on ground
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 6; i++) {
       let objOverlap = true;
 
       while (objOverlap === true) {
         let randomPos = [
-          (Math.random() * (450 * (i + 1) - 450 * i) + 450 * i + 500),
+          (Math.random() * (1300 * (i + 1) - 1300 * i) + 1300 * i + 1000),
           (445)
         ];
         if (this.pipeObjcollide(this.pipes, randomPos) === false) {
@@ -210,8 +210,8 @@ class Game {
       if (player.pos[0] > 9600) {
         player.horiSpeed = 0;
       } else {
-        if (player.horiSpeed < 20) player.horiSpeed += 1;
-        if (player.horiSpeed > 20) player.horiSpeed -= 1;
+        if (player.horiSpeed < 15) player.horiSpeed += 1;
+        if (player.horiSpeed > 15) player.horiSpeed -= 1;
         player.gravity = 5;
       }
       // for each player, calculate how much they should move by
