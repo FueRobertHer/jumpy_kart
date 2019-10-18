@@ -22,11 +22,11 @@
 }
 
 .start-game-button {
-  margin: 14px auto;
-  padding-bottom: 12px;
-  padding: 20px 40px 8px;
+  margin: 11px auto;
+  width: fit-content;
+  padding: 10px 15px 3px;
   text-align: center;
-  font-size: 24px;
+  font-size: 16px;
   outline: none;
   color: #fa0000;
   background-color: #ffff00;

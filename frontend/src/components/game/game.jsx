@@ -243,10 +243,10 @@ class Canvas extends React.Component {
           </div>
           {this.roomOwner === this.props.currentUserId ? (
             <button
-              className='start-game-button input submit'
+              className='input submit login-button start-game-button'
               onClick={this.emitStartGame}
             >
-              Start Game
+              START GAME
             </button>
           ) : (
             <div />
