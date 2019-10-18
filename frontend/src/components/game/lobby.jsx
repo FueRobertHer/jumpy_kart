@@ -14,7 +14,7 @@ class Lobby extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    let roomId = Math.random().toString(36).slice(3, 11);
+    let roomId = Math.random().toString(36).slice(3, 8);
     this.props.history.push({
         pathname: `/game/${roomId}`,
         type: 'createRoom',

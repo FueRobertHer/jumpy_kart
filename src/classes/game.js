@@ -107,12 +107,12 @@ class Game {
     }
 
     //banana on ground
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 10; i++) {
       let objOverlap = true;
 
       while (objOverlap === true) {
         let randomPos = [
-          (Math.random() * (1300 * (i + 1) - 1300 * i) + 1300 * i + 1000),
+          (Math.random() * (800 * (i + 1) - 800 * i) + 800 * i + 1000),
           (445)
         ];
         if (this.pipeObjcollide(this.pipes, randomPos) === false) {
@@ -209,6 +209,7 @@ class Game {
       if (player.pos[0] > 9600) {
         player.horiSpeed = 0;
       } else {
+        if (player.horiSpeed < -20) player.horiSpeed += 10;
         if (player.horiSpeed < 15) player.horiSpeed += 2;
         if (player.horiSpeed > 15) player.horiSpeed -= 1;
         player.gravity = 5;
