@@ -10,11 +10,13 @@
   cursor: pointer;
   border: none;
   background: none;
+  outline: none;
 }
 
 .home-button {
   padding-top: 3px;
   font-size: 16px;
+  outline: none;
 }
 
 .signup-login-holder {
@@ -38,12 +40,15 @@
 }
 
 .logout-btn {
-  cursor: pointer;
-  padding: 5px 7px 1px;
-  color: #fa0000;
-  background-color: #ffff00;
-  box-shadow: #fa0000 0px 0px 10px;
-  border: outset #fa0000;
+  margin: 0;
+  padding: 4px 0px 0px 0px;
+  border: 0;
+  font-size: 16px;
+  vertical-align: baseline;
+  font-family: "press_start_2pregular";
+  color: #ffff00;
+  text-shadow: #fa0000 0px 0px 10px;
+  background: none;
 }
 
 .logout-btn:hover {

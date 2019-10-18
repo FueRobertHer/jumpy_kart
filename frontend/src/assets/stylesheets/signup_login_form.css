@@ -4,7 +4,6 @@
   align-items: center;
   flex-direction: column;
   margin-top: 100px;
-
 }
 
 .login-form {
@@ -24,6 +23,13 @@
 
 .submit {
   cursor: pointer;
-  color: #FA0000;
-  background-color: #FFFF00;
+  color: #fa0000;
+  background-color: #ffff00;
+}
+
+.login-button {
+  padding: 9px 0px 0px 0px;
+  font-size: 18px;
+  width: 200px;
+  margin: 0px 0px 15px;
 }
