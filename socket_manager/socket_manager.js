@@ -31,7 +31,7 @@ export const socketManager = socket => {
   socket.on("roomInfo", roomInfo => {
     if (roomInfo.type === "createRoom") {
       // socket.id = roomInfo.userId;
-      socket.id = roomInfo.roomId;
+      socket.id = Math.random();
       gameState.rooms[roomInfo.roomId] = new Game(roomInfo.roomId, socket.id);
       game = gameState.rooms[roomInfo.roomId];
       socket.on("loadGame", () => {
@@ -56,17 +56,18 @@ export const socketManager = socket => {
     if (roomInfo.type === "joinRoom") {
       if (gameState.rooms[roomInfo.roomId].gameId === roomInfo.roomId) {
         // socket.id = gameState.rooms[roomInfo.roomId].gameId;
-        socket.id = roomInfo.roomId;
+        socket.id = Math.random();
         game = gameState.rooms[roomInfo.roomId];
         socket.on("loadGame", () => {
           console.log("loading game");
           game.loadGame(socket);
         });
-        gameState.users[roomInfo.userId] = game.addPlayer(
+        gameState.users[socket.id] = game.addPlayer(
           roomInfo.userId,
-          socket
+          socket,
+          roomInfo.roomId
         );
-        player = gameState.users[roomInfo.userId];
+        player = gameState.users[socket.id];
 
         socket.on("pressSpace", () => {
           if (player) {
@@ -80,6 +81,8 @@ export const socketManager = socket => {
   });
 
   socket.on("disconnect", () => {
+    console.log('disconnecting');
+
     if (!gameState.users[socket.id]) {
       return null;
     }
@@ -91,6 +94,9 @@ export const socketManager = socket => {
     if (socket.id) {
       gameState.rooms[roomId].removePlayer(gameState.users[socket.id].id);
       delete gameState.users[socket.id];
+      console.log('socket', socket);
+      socket.conn.close();
+
       if (Object.keys(game.players).length === 0) {
         delete gameState.rooms[roomId];
       }
