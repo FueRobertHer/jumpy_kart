@@ -8,7 +8,7 @@ class Player {
     //position on map
     this.pos = pos;
     this.id = id;
-
+    this.gameId = gameId
     this.left = pos[0];
     this.top = pos[1];
     this.right = this.left + 55;

@@ -172,7 +172,7 @@ class Canvas extends React.Component {
 
   drawObjects() {
     requestAnimationFrame(this.drawObjects);
-    if (this.gameRunning) {
+    if (this.gameRunning && this.refs.canvas) {
       console.log(this.players)
       const canvas = this.refs.canvas;
       const ctx = canvas.getContext("2d");

@@ -5,7 +5,7 @@ import Game from "../src/classes/game";
 
 // Have the client side be able to receive and render the 'game' state sent by the server and also send out player actions to the server
 
-export const gameState = {
+export let gameState = {
   users: {},
   rooms: {}
   //gameState.rooms[roomInfo.roomId]
@@ -16,9 +16,8 @@ let clients = {};
 // we will be calling game.gameloop()
 
 export const socketManager = socket => {
-
   clients[socket.id] = socket;
-  
+
   console.log("a user connected");
   //test case - on connection, render game
   let game;
@@ -81,25 +80,30 @@ export const socketManager = socket => {
   });
 
   socket.on("disconnect", () => {
-    console.log('disconnected')
-    // let playerId = gameState.users[socket.id]
-    // let gameId = gameState.rooms[socket.id]
-    if (socket.id) {
-      console.log('user', gameState.users[socket.id])
-      console.log('game', gameState.rooms[socket.id])
-      // let user = gameState.users[socket.id]
-      // let game = gameState.rooms[socket.id]
-      delete gameState.users[socket.id]
-      delete gameState.rooms[socket.id]
-    }
-    console.log(socket.id)
-    // console.log(gameState)
-    // console.log(socket.id)
-    // delete clients[socket.id]
-    // if (player) delete player
-    // if (game) delete game
-    
+    console.log("disconnected");
+    console.log("socket.id", socket.id); 
+    console.log("users", gameState.users);
+    console.log("user", gameState.users[socket.id]); // is the player who disconnected
+    console.log("rooms", gameState.rooms);
+    console.log("game", gameState.rooms[socket.id]); // contains hostId and gameId, the room's URL
 
+    if (!gameState.users[socket.id]) {
+      return null;
+    }
+
+    let roomId = gameState.users[socket.id].gameId; // unique room URL
+    console.log('roomId', roomId);
+    let game = gameState.rooms[roomId]; //game that removed player was in
+    console.log('game', game);
+    if (socket.id) { // socket.id is room URL (unique room identifier)
+      gameState.rooms[roomId].removePlayer(gameState.users[socket.id].id);
+      delete gameState.users[socket.id];
+      if (Object.keys(game.players).length === 0) {
+        delete gameState.rooms[roomId];
+      }
+    }
+
+    console.log("rooms", gameState.rooms);
   });
 };
 
