@@ -67,7 +67,8 @@ class Game {
     return player;
   }
 
-  removePlayer(playerId) { // playerId is the id of player who left
+  removePlayer(playerId) {
+    // playerId is the id of player who left
     delete this.players[playerId];
     delete this.playerSockets[playerId];
   }
@@ -96,7 +97,7 @@ class Game {
 
       while (objOverlap === true) {
         let randomPos = [
-          (Math.random() * (1300 * (i + 1) - 1300 * i) + 1300 * i + 500),
+          (Math.random() * (1700 + 1700 * i + 500)),
           (Math.random() * (300) + 100)
         ];
         if (this.pipeObjcollide(this.pipes, randomPos) === false) {
@@ -112,7 +113,7 @@ class Game {
 
       while (objOverlap === true) {
         let randomPos = [
-          (Math.random() * (800 * (i + 1) - 800 * i) + 800 * i + 1000),
+          (Math.random() * 1700 + 1700 * i + 700),
           (445)
         ];
         if (this.pipeObjcollide(this.pipes, randomPos) === false) {
@@ -128,7 +129,7 @@ class Game {
 
       while (objOverlap === true) {
         let randomPos = [
-          (Math.random() * (800 * (i + 1) - 800 * i) + 800 * i + 1000),
+          (Math.random() * 1100 + 1100 * i + 1000),
           (Math.random() * (400 - 50) + 100)
         ];
         if (this.pipeObjcollide(this.pipes, randomPos) === false) {
@@ -144,7 +145,7 @@ class Game {
 
       while (objOverlap === true) {
         let randomPos = [
-          (Math.random() * (1000 * (i + 1) - 1000 * i) + 1000 * i + 1000),
+          (Math.random() * 1100 + 1000 * i + 1000),
           (Math.random() * (300 - 50) + 100)
         ];
         if (this.pipeObjcollide(this.pipes, randomPos) === false) {
@@ -160,9 +161,9 @@ class Game {
 
     pipes.forEach(pipe => {
       if (
-        (randomPos[0] < pipe.pos[0] + pipe.width) &&
-        (randomPos[0] + 28 > pipe.pos[0]))
-      {
+        randomPos[0] < pipe.pos[0] + pipe.width &&
+        randomPos[0] + 28 > pipe.pos[0]
+      ) {
         collide = true;
       }
     });
@@ -264,7 +265,6 @@ class Game {
       ) {
         this.raceEnd(socket); //can pass socket
         this.gameOver = true;
-        
       }
     });
   }
@@ -280,7 +280,7 @@ class Game {
       }
     });
     socket.broadcast.emit("gameRunning");
-    console.log(this.podium)
+    console.log(this.podium);
     socket.broadcast.emit(
       "raceEnd",
       this.podium.map(player => ({
@@ -293,8 +293,15 @@ class Game {
   }
 
   removePlayer(playerId) {
-    delete this.players[playerId]
-    delete this.playerSockets[playerId]
+    console.log('this.players before', this.players);
+    console.log('this.playerSockets before', this.playerSockets);
+    console.log('this.playerInfoObject before', this.playerInfoObject);
+    delete this.players[playerId];
+    delete this.playerSockets[playerId];
+    delete this.playerInfoObject[playerId];
+    console.log('this.players after', this.players);
+    console.log('this.playerSockets after', this.playerSockets);
+    console.log('this.playerInfoObject after', this.playerInfoObject);
   }
 
   ////////////////////////Collision Helper methods//////////////////
@@ -311,31 +318,25 @@ class Game {
   /////////////////////Emit Stuff/////////////////////////////////
 
   emitUpdateGame(socket) {
-    socket.broadcast.emit("placeItems", {
-      pipes: this.pipes.map(pipe => ({
-        pos: pipe.pos,
-        width: pipe.width,
-        height: pipe.height
-      })),
-      items: this.allItems.map(item => ({
-        pos: item.pos,
-        type: item.type
-      }))
-    });
-
-    // socket.emit("updateGameState", {
-    //   hostId: this.hostId,
-    //   gameId: this.gameId,
-    //   players: this.playerInfoObject
-    // });
-
-    socket.broadcast.emit("updateGameState", {
-      hostId: this.hostId,
-      gameId: this.gameId,
-      players: this.playerInfoObject
-    });
-
-    //emit end game state
+    Object.values(this.playerSockets).forEach(socket => {
+      socket.emit("placeItems", {
+        pipes: this.pipes.map(pipe => ({
+          pos: pipe.pos,
+          width: pipe.width,
+          height: pipe.height
+        })),
+        items: this.allItems.map(item => ({
+          pos: item.pos,
+          type: item.type
+        }))
+      });
+  
+      socket.emit("updateGameState", {
+        hostId: this.hostId,
+        gameId: this.gameId,
+        players: this.playerInfoObject
+      });
+    })
   }
 }
 

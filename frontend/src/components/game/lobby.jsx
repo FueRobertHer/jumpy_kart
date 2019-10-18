@@ -43,11 +43,6 @@ class Lobby extends React.Component {
                 <p className='button-text'>Join Game!</p>
               </button>
             </div>
-            {/* <div className='button-container'>
-              <button onClick={() => this.props.openModal('demoRoom')} className='join-button'>
-                <p className='button-text'>Demo Game!</p>
-              </button>
-            </div> */}
           </div>
         )}
       </div>  

@@ -6,9 +6,14 @@
   padding: 20px 0;
 }
 
+.navbar > button {
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
 .home-button {
-  padding-top: 10px;
-  fill: black;
+  padding-top: 7px;
 }
 
 .signup-login {
@@ -24,18 +29,18 @@
 }
 
 .active {
-  filter: brightness(40%)
+  filter: brightness(40%);
 }
 
 .logout-btn {
   cursor: pointer;
   padding: 5px 7px 1px;
-  color: #FA0000;
-  background-color: #FFFF00;
-	box-shadow: #FA0000 0px 0px 10px;
-  border: outset #FA0000;
+  color: #fa0000;
+  background-color: #ffff00;
+  box-shadow: #fa0000 0px 0px 10px;
+  border: outset #fa0000;
 }
 
 .logout-btn:hover {
-  filter: grayscale(70%)
+  filter: grayscale(70%);
 }

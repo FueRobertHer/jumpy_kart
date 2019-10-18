@@ -29,9 +29,9 @@ export const socketManager = socket => {
   });
 
   socket.on("roomInfo", roomInfo => {
+    console.log('rooms pre-create', gameState.rooms)
     if (roomInfo.type === "createRoom") {
-      // socket.id = roomInfo.userId;
-      socket.id = roomInfo.roomId;
+      socket.id = Math.random();
       gameState.rooms[roomInfo.roomId] = new Game(roomInfo.roomId, socket.id);
       game = gameState.rooms[roomInfo.roomId];
       socket.on("loadGame", () => {
@@ -51,22 +51,24 @@ export const socketManager = socket => {
           player.jump(socket);
         }
       });
+      console.log('rooms post-create', gameState.rooms)
     }
 
     if (roomInfo.type === "joinRoom") {
+      console.log('rooms pre-join', gameState.rooms)
       if (gameState.rooms[roomInfo.roomId].gameId === roomInfo.roomId) {
-        // socket.id = gameState.rooms[roomInfo.roomId].gameId;
-        socket.id = roomInfo.roomId;
+        socket.id = Math.random();
         game = gameState.rooms[roomInfo.roomId];
         socket.on("loadGame", () => {
           console.log("loading game");
           game.loadGame(socket);
         });
-        gameState.users[roomInfo.userId] = game.addPlayer(
+        gameState.users[socket.id] = game.addPlayer(
           roomInfo.userId,
-          socket
+          socket,
+          roomInfo.roomId
         );
-        player = gameState.users[roomInfo.userId];
+        player = gameState.users[socket.id];
 
         socket.on("pressSpace", () => {
           if (player) {
@@ -76,10 +78,13 @@ export const socketManager = socket => {
       } else {
         return null;
       }
+      console.log('rooms post-join', gameState.rooms)
     }
   });
 
   socket.on("disconnect", () => {
+    console.log("disconnecting");
+
     if (!gameState.users[socket.id]) {
       return null;
     }
@@ -87,10 +92,14 @@ export const socketManager = socket => {
     let roomId = gameState.users[socket.id].gameId;
     let game = gameState.rooms[roomId];
 
-    // socket.id is room URL (unique room identifier)
+    // socket.id is unique to each player
     if (socket.id) {
       gameState.rooms[roomId].removePlayer(gameState.users[socket.id].id);
       delete gameState.users[socket.id];
+      console.log("socket", socket);
+      socket.conn.close();
+      socket.disconnect(true);
+
       if (Object.keys(game.players).length === 0) {
         delete gameState.rooms[roomId];
       }
