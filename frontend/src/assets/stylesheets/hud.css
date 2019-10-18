@@ -1,7 +1,7 @@
 .hud-master {
   /* border: solid red 2px; */
   height: 500px;
-  width: 400px;
+  width: 324px;
 }
 
 .hud-master > * {
@@ -16,7 +16,7 @@
   text-align: center;
   text-decoration: underline;
   margin-bottom: 20px;
-  font-size: 30px;
+  font-size: 20px;
 }
 
 .lists-div {
@@ -35,7 +35,7 @@
 
 .bar-list {
   padding-left: 5px;
-  width: 310px;
+  width: 220px;
 }
 
 .bar-holder {

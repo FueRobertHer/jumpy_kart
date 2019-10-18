@@ -239,7 +239,7 @@ class Canvas extends React.Component {
         <div className='game-ui'>
           <div className='canvas-container'>
             <canvas id='background' ref='canvas' width='10500' height='500' />
-            <canvas id='viewport' ref='viewport' width='700' height='500' />
+            <canvas id='viewport' ref='viewport' width='600' height='500' />
           </div>
           {this.roomOwner === this.props.currentUserId ? (
             <button

@@ -84,7 +84,7 @@ class HUD extends React.Component {
                 className='bar player-1'
                 style={{
                   width: this.playerInfo.mario
-                    ? (this.playerInfo.mario / 9500) * 285
+                    ? (this.playerInfo.mario / 9500) * 195
                     : 0
                 }}
               ></div>
@@ -94,7 +94,7 @@ class HUD extends React.Component {
                 className='bar player-2'
                 style={{
                   width: this.playerInfo.peach
-                    ? (this.playerInfo.peach / 9500) * 285
+                    ? (this.playerInfo.peach / 9500) * 195
                     : 0
                 }}
               ></div>
@@ -104,7 +104,7 @@ class HUD extends React.Component {
                 className='bar player-3'
                 style={{
                   width: this.playerInfo.toad
-                    ? (this.playerInfo.toad / 9500) * 285
+                    ? (this.playerInfo.toad / 9500) * 195
                     : 0
                 }}
               ></div>
@@ -114,7 +114,7 @@ class HUD extends React.Component {
                 className='bar player-4'
                 style={{
                   width: this.playerInfo.yoshi
-                    ? (this.playerInfo.yoshi / 9500) * 285
+                    ? (this.playerInfo.yoshi / 9500) * 195
                     : 0
                 }}
               ></div>

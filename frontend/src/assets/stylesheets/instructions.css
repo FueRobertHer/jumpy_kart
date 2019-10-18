@@ -1,7 +1,7 @@
 .instructions-master {
   /* border: solid red 2px; */
   height: 500px;
-  width: 400px;
+  width: 324px;
 }
 
 .instructions-master > * {
@@ -9,42 +9,70 @@
 }
 
 .instructions-master > h2 {
-  font-size: 30px;
+  font-size: 20px;
   text-align: center;
-  text-decoration: underline; 
+  text-decoration: underline;
   margin-bottom: 20px;
 }
 
-.instruction-enumerables > p {
-  font-size: 12px;
+.instruction-enumerables > p,
+.scoreboard-note > p,
+.race-coins > p,
+.race-coins > span > p {
+  font-size: 10px;
   color: white;
   font-family: "press_start_2pregular";
   text-align: center;
+  margin-bottom: 8px;
 }
 
 .spacebar-sprite {
   height: 32px;
   width: fit-content;
-  margin: 10px auto 17px;
+  margin: 0px auto 12px;
 }
 
 #space-bar {
   position: absolute;
   font-size: 10px;
   color: black;
-  left: 176px;
-  top: 36px;
+  left: 139px;
+  top: 32px;
   text-shadow: none;
 }
 
 .item-sprite {
   height: 32px;
   width: 32px;
-  margin: 10px auto 17px;
+  margin: 0px auto 12px;
 }
 
-.instruction-enumerables {
+#last-sprite {
+  margin-bottom: 20px;
+}
+
+.instruction-enumerables, .scoreboard-note {
   display: flex;
   flex-direction: column;
   position: relative;
+  padding: 0px 5px;
+}
+
+.placing-span {
+  display: flex;
+  justify-content: center;
+}
+
+.placing-info {
+  height: 16px;
+  margin: 5px 7px 5px 0px;
+}
+
+.small-coin-sprite {
+  height: 16px;
+  width: 16px;
+}
+
+.race-coins {
+  margin-bottom: 20px;
 }
