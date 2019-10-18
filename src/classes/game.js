@@ -97,7 +97,7 @@ class Game {
 
       while (objOverlap === true) {
         let randomPos = [
-          (Math.random() * (1700 + 1700 * i + 500),
+          (Math.random() * (1700 + 1700 * i + 500)),
           (Math.random() * (300) + 100)
         ];
         if (this.pipeObjcollide(this.pipes, randomPos) === false) {
