@@ -67,7 +67,8 @@ class Game {
     return player;
   }
 
-  removePlayer(playerId) { // playerId is the id of player who left
+  removePlayer(playerId) {
+    // playerId is the id of player who left
     delete this.players[playerId];
     delete this.playerSockets[playerId];
   }
@@ -160,9 +161,9 @@ class Game {
 
     pipes.forEach(pipe => {
       if (
-        (randomPos[0] < pipe.pos[0] + pipe.width) &&
-        (randomPos[0] + 28 > pipe.pos[0]))
-      {
+        randomPos[0] < pipe.pos[0] + pipe.width &&
+        randomPos[0] + 28 > pipe.pos[0]
+      ) {
         collide = true;
       }
     });
@@ -263,7 +264,6 @@ class Game {
       ) {
         this.raceEnd(socket); //can pass socket
         this.gameOver = true;
-        
       }
     });
   }
@@ -279,7 +279,7 @@ class Game {
       }
     });
     socket.broadcast.emit("gameRunning");
-    console.log(this.podium)
+    console.log(this.podium);
     socket.broadcast.emit(
       "raceEnd",
       this.podium.map(player => ({
@@ -292,8 +292,9 @@ class Game {
   }
 
   removePlayer(playerId) {
-    delete this.players[playerId]
-    delete this.playerSockets[playerId]
+    delete this.players[playerId];
+    delete this.playerSockets[playerId];
+    delete this.playerInfoObject[playerId];
   }
 
   ////////////////////////Collision Helper methods//////////////////
