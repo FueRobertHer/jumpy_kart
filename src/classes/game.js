@@ -292,9 +292,15 @@ class Game {
   }
 
   removePlayer(playerId) {
+    console.log('this.players before', this.players);
+    console.log('this.playerSockets before', this.playerSockets);
+    console.log('this.playerInfoObject before', this.playerInfoObject);
     delete this.players[playerId];
     delete this.playerSockets[playerId];
     delete this.playerInfoObject[playerId];
+    console.log('this.players after', this.players);
+    console.log('this.playerSockets after', this.playerSockets);
+    console.log('this.playerInfoObject after', this.playerInfoObject);
   }
 
   ////////////////////////Collision Helper methods//////////////////
@@ -311,31 +317,25 @@ class Game {
   /////////////////////Emit Stuff/////////////////////////////////
 
   emitUpdateGame(socket) {
-    socket.broadcast.emit("placeItems", {
-      pipes: this.pipes.map(pipe => ({
-        pos: pipe.pos,
-        width: pipe.width,
-        height: pipe.height
-      })),
-      items: this.allItems.map(item => ({
-        pos: item.pos,
-        type: item.type
-      }))
-    });
-
-    // socket.emit("updateGameState", {
-    //   hostId: this.hostId,
-    //   gameId: this.gameId,
-    //   players: this.playerInfoObject
-    // });
-
-    socket.broadcast.emit("updateGameState", {
-      hostId: this.hostId,
-      gameId: this.gameId,
-      players: this.playerInfoObject
-    });
-
-    //emit end game state
+    Object.values(this.playerSockets).forEach(socket => {
+      socket.emit("placeItems", {
+        pipes: this.pipes.map(pipe => ({
+          pos: pipe.pos,
+          width: pipe.width,
+          height: pipe.height
+        })),
+        items: this.allItems.map(item => ({
+          pos: item.pos,
+          type: item.type
+        }))
+      });
+  
+      socket.emit("updateGameState", {
+        hostId: this.hostId,
+        gameId: this.gameId,
+        players: this.playerInfoObject
+      });
+    })
   }
 }
 

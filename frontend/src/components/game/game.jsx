@@ -10,12 +10,14 @@ import HUD from "../heads_up/hud";
 
 let SERVER;
 let conn_options = {
-  'sync disconnect on unload': false
+  "sync disconnect on unload": false
 };
 
 if (process.env.NODE_ENV !== "production") {
   console.log(`process.env: ${process.env}`);
-  SERVER = io("http://localhost:5000", conn_options, { transports: ["websocket"] });
+  SERVER = io("http://localhost:5000", conn_options, {
+    transports: ["websocket"]
+  });
 }
 
 if (process.env.NODE_ENV === "production") {
@@ -130,14 +132,6 @@ class Canvas extends React.Component {
     audio.setAttribute("autoPlay", true);
   }
 
-  loadGame() {
-    return new Promise(resolve => {
-      let socket = this.socket;
-      socket.emit("loadGame");
-      resolve();
-    });
-  }
-
   joinRoom() {
     return new Promise(resolve => {
       let socket = this.socket;
@@ -149,6 +143,14 @@ class Canvas extends React.Component {
       };
       socket.emit("roomInfo", roomInfo);
 
+      resolve();
+    });
+  }
+
+  loadGame() {
+    return new Promise(resolve => {
+      let socket = this.socket;
+      socket.emit("loadGame");
       resolve();
     });
   }
@@ -165,7 +167,7 @@ class Canvas extends React.Component {
     });
 
     window.addEventListener("beforeunload", e => {
-      this.gameRunningToggle()
+      this.gameRunningToggle();
     });
 
     let socket = this.socket;
@@ -225,9 +227,9 @@ class Canvas extends React.Component {
     if (!this.props) {
       return null;
     }
-    console.log('hostId',this.state.hostId)
-    console.log('userId', this.props.currentUserId)
-    console.log('roomOwner', this.roomOwner)
+    console.log("hostId", this.state.hostId);
+    console.log("userId", this.props.currentUserId);
+    console.log("roomOwner", this.roomOwner);
 
     return (
       <div className='game-master'>

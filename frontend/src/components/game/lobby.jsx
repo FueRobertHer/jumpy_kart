@@ -14,7 +14,7 @@ class Lobby extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    let roomId = Math.random().toString(36).slice(3, 11);
+    let roomId = Math.random().toString(36).slice(3, 8);
     this.props.history.push({
         pathname: `/game/${roomId}`,
         type: 'createRoom',
@@ -43,11 +43,6 @@ class Lobby extends React.Component {
                 <p className='button-text'>Join Game!</p>
               </button>
             </div>
-            {/* <div className='button-container'>
-              <button onClick={() => this.props.openModal('demoRoom')} className='join-button'>
-                <p className='button-text'>Demo Game!</p>
-              </button>
-            </div> */}
           </div>
         )}
       </div>  
