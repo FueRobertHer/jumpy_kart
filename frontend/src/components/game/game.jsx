@@ -42,6 +42,7 @@ class Canvas extends React.Component {
     this.joinRoom = this.joinRoom.bind(this);
     this.gameRunning = true;
     this.emitStartGame = this.emitStartGame.bind(this);
+    this.gameRunningToggle = this.gameRunningToggle.bind(this);
     this.socket = null;
     this.characters = ["mario", "peach", "toad", "yoshi"];
     this.userNums = [];
@@ -152,11 +153,19 @@ class Canvas extends React.Component {
     });
   }
 
+  gameRunningToggle() {
+    this.gameRunning = false;
+  }
+
   componentDidMount() {
     this.openSocket().then(() => {
       this.joinRoom().then(() => {
         this.loadGame();
       });
+    });
+
+    window.addEventListener("beforeunload", e => {
+      this.gameRunningToggle()
     });
 
     let socket = this.socket;
@@ -173,7 +182,6 @@ class Canvas extends React.Component {
   drawObjects() {
     requestAnimationFrame(this.drawObjects);
     if (this.gameRunning && this.refs.canvas) {
-      console.log(this.players)
       const canvas = this.refs.canvas;
       const ctx = canvas.getContext("2d");
 

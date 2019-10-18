@@ -80,22 +80,15 @@ export const socketManager = socket => {
   });
 
   socket.on("disconnect", () => {
-    console.log("disconnected");
-    console.log("socket.id", socket.id); 
-    console.log("users", gameState.users);
-    console.log("user", gameState.users[socket.id]); // is the player who disconnected
-    console.log("rooms", gameState.rooms);
-    console.log("game", gameState.rooms[socket.id]); // contains hostId and gameId, the room's URL
-
     if (!gameState.users[socket.id]) {
       return null;
     }
 
-    let roomId = gameState.users[socket.id].gameId; // unique room URL
-    console.log('roomId', roomId);
-    let game = gameState.rooms[roomId]; //game that removed player was in
-    console.log('game', game);
-    if (socket.id) { // socket.id is room URL (unique room identifier)
+    let roomId = gameState.users[socket.id].gameId;
+    let game = gameState.rooms[roomId];
+
+    // socket.id is room URL (unique room identifier)
+    if (socket.id) {
       gameState.rooms[roomId].removePlayer(gameState.users[socket.id].id);
       delete gameState.users[socket.id];
       if (Object.keys(game.players).length === 0) {
@@ -103,6 +96,7 @@ export const socketManager = socket => {
       }
     }
 
+    // will display remaining open rooms
     console.log("rooms", gameState.rooms);
   });
 };
