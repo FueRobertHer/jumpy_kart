@@ -36,10 +36,10 @@
 .back-to-lobby-button {
   position: absolute;
   right: 0px;
-  top: 541px;
-  height: 30px;
+  top: 545px;
+  height: 29px;
   cursor: pointer;
-  padding: 5px 7px 1px;
+  padding: 4px 7px 0px 10px;
   color: #fa0000;
   background-color: #ffff00;
   box-shadow: #fa0000 0px 0px 10px;

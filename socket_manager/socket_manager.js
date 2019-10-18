@@ -5,13 +5,19 @@ import Game from "../src/classes/game";
 
 // Have the client side be able to receive and render the 'game' state sent by the server and also send out player actions to the server
 
-export const gameState = {
+export let gameState = {
   users: {},
   rooms: {}
   //gameState.rooms[roomInfo.roomId]
 };
 
+let clients = {};
+// this happens when socket emmission is heard
+// we will be calling game.gameloop()
+
 export const socketManager = socket => {
+  clients[socket.id] = socket;
+
   console.log("a user connected");
   //test case - on connection, render game
   let game;
@@ -24,7 +30,8 @@ export const socketManager = socket => {
 
   socket.on("roomInfo", roomInfo => {
     if (roomInfo.type === "createRoom") {
-      socket.id = roomInfo.userId;
+      // socket.id = roomInfo.userId;
+      socket.id = roomInfo.roomId;
       gameState.rooms[roomInfo.roomId] = new Game(roomInfo.roomId, socket.id);
       game = gameState.rooms[roomInfo.roomId];
       socket.on("loadGame", () => {
@@ -48,7 +55,8 @@ export const socketManager = socket => {
 
     if (roomInfo.type === "joinRoom") {
       if (gameState.rooms[roomInfo.roomId].gameId === roomInfo.roomId) {
-        socket.id = gameState.rooms[roomInfo.roomId].gameId;
+        // socket.id = gameState.rooms[roomInfo.roomId].gameId;
+        socket.id = roomInfo.roomId;
         game = gameState.rooms[roomInfo.roomId];
         socket.on("loadGame", () => {
           console.log("loading game");
@@ -71,24 +79,25 @@ export const socketManager = socket => {
     }
   });
 
-  socket.on("disconnect", () => { // do something here to remove players from games
-    console.log("user disconnected"); // also consider denying access to started games?
-    // if (!gameState.users[socket.id]) {
-    //   return null;
-    // }
-    // console.log('socket.id', socket.id);
-    // console.log('gameState', gameState);
-    // console.log('gameState.users', gameState.users)
-    // console.log('gameState.rooms', gameState.rooms)
-    // let roomId = gameState.users[socket.id].gameId;
-    // let game = gameState.rooms[roomId];
-    // if (socket.id) {
-    //   game.removePlayer(socket.id);
-    //   delete gameState.users[socket.id];
-    //   if (Object.keys(game.players).length === 0) {
-    //     delete gameState.rooms[roomId];
-    //   }
-    // }
+  socket.on("disconnect", () => {
+    if (!gameState.users[socket.id]) {
+      return null;
+    }
+
+    let roomId = gameState.users[socket.id].gameId;
+    let game = gameState.rooms[roomId];
+
+    // socket.id is room URL (unique room identifier)
+    if (socket.id) {
+      gameState.rooms[roomId].removePlayer(gameState.users[socket.id].id);
+      delete gameState.users[socket.id];
+      if (Object.keys(game.players).length === 0) {
+        delete gameState.rooms[roomId];
+      }
+    }
+
+    // will display remaining open rooms
+    console.log("rooms", gameState.rooms);
   });
 };
 

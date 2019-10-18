@@ -9,10 +9,13 @@ import Instructions from "../heads_up/instructions";
 import HUD from "../heads_up/hud";
 
 let SERVER;
+let conn_options = {
+  'sync disconnect on unload': false
+};
 
 if (process.env.NODE_ENV !== "production") {
   console.log(`process.env: ${process.env}`);
-  SERVER = io("http://localhost:5000", { transports: ["websocket"] });
+  SERVER = io("http://localhost:5000", conn_options, { transports: ["websocket"] });
 }
 
 if (process.env.NODE_ENV === "production") {
@@ -39,6 +42,7 @@ class Canvas extends React.Component {
     this.joinRoom = this.joinRoom.bind(this);
     this.gameRunning = true;
     this.emitStartGame = this.emitStartGame.bind(this);
+    this.gameRunningToggle = this.gameRunningToggle.bind(this);
     this.socket = null;
     this.characters = ["mario", "peach", "toad", "yoshi"];
     this.userNums = [];
@@ -46,6 +50,7 @@ class Canvas extends React.Component {
     this.username = props.location.username;
     this.userId = props.location.userId;
     this.isHost = props.location.isHost;
+    this.roomOwner = props.location.roomOwner;
     this.keyDown = false;
     this.pipes = [];
     this.items = [];
@@ -108,6 +113,8 @@ class Canvas extends React.Component {
           podium: this.podium,
           socket: socket
         });
+
+        this.gameRunning = false;
       });
 
       resolve();
@@ -146,11 +153,19 @@ class Canvas extends React.Component {
     });
   }
 
+  gameRunningToggle() {
+    this.gameRunning = false;
+  }
+
   componentDidMount() {
     this.openSocket().then(() => {
       this.joinRoom().then(() => {
         this.loadGame();
       });
+    });
+
+    window.addEventListener("beforeunload", e => {
+      this.gameRunningToggle()
     });
 
     let socket = this.socket;
@@ -166,7 +181,7 @@ class Canvas extends React.Component {
 
   drawObjects() {
     requestAnimationFrame(this.drawObjects);
-    if (this.gameRunning) {
+    if (this.gameRunning && this.refs.canvas) {
       const canvas = this.refs.canvas;
       const ctx = canvas.getContext("2d");
 
@@ -201,6 +216,8 @@ class Canvas extends React.Component {
         viewport.width,
         viewport.height
       );
+    } else {
+      this.gameRunning = false;
     }
   }
 
@@ -208,6 +225,9 @@ class Canvas extends React.Component {
     if (!this.props) {
       return null;
     }
+    console.log('hostId',this.state.hostId)
+    console.log('userId', this.props.currentUserId)
+    console.log('roomOwner', this.roomOwner)
 
     return (
       <div className='game-master'>
@@ -219,7 +239,7 @@ class Canvas extends React.Component {
             <canvas id='background' ref='canvas' width='10500' height='500' />
             <canvas id='viewport' ref='viewport' width='700' height='500' />
           </div>
-          {this.state.hostId === this.props.currentUserId ? (
+          {this.roomOwner === this.props.currentUserId ? (
             <button
               className='start-game-button input submit'
               onClick={this.emitStartGame}

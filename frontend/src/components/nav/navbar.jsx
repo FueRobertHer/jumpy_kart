@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom'
-// import './navbar.css'
+import { Link, NavLink, withRouter } from 'react-router-dom'
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
     this.logoutUser = this.logoutUser.bind(this);
     this.getLinks = this.getLinks.bind(this);
+    this.redirectToLobby = this.redirectToLobby.bind(this);
   }
 
   logoutUser(e) {
@@ -14,7 +14,11 @@ class NavBar extends React.Component {
     this.props.logout();
   }
 
-  // Selectively render links dependent on whether the user is logged in
+  redirectToLobby() {
+    this.props.history.push('/lobby');
+    window.location.reload();
+  }
+
   getLinks() {
     if (this.props.loggedIn) {
       return (
@@ -35,11 +39,11 @@ class NavBar extends React.Component {
   render() {
     return (
       <div className="navbar">
-        <Link to="/"><h1 className='home-button'>JUMPY KART</h1></Link>
+        <button onClick={this.redirectToLobby}><h1 className='home-button'>JUMPY KART</h1></button>
         {this.getLinks()}
       </div>
     );
   }
 }
 
-export default NavBar;
+export default withRouter(NavBar);

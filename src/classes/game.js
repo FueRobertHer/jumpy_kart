@@ -67,10 +67,10 @@ class Game {
     return player;
   }
 
-  // removePlayer(playerId) {
-  //   delete this.players[playerId];
-  //   delete this.playerSockets[playerId];
-  // }
+  removePlayer(playerId) { // playerId is the id of player who left
+    delete this.players[playerId];
+    delete this.playerSockets[playerId];
+  }
 
   placePipes() {
     //place a random pipe somewhere on the board: worked
