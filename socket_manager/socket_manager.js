@@ -85,7 +85,10 @@ export const socketManager = socket => {
     // let playerId = gameState.users[socket.id]
     // let gameId = gameState.rooms[socket.id]
     if (socket.id) {
-      console.log('user', gameState.users[socket.id], 'game', gameState.rooms[socket.id])
+      console.log('user', gameState.users[socket.id])
+      console.log('game', gameState.rooms[socket.id])
+      // let user = gameState.users[socket.id]
+      // let game = gameState.rooms[socket.id]
       delete gameState.users[socket.id]
       delete gameState.rooms[socket.id]
     }

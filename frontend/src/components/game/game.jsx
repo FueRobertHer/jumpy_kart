@@ -112,6 +112,8 @@ class Canvas extends React.Component {
           podium: this.podium,
           socket: socket
         });
+
+        this.gameRunning = false;
       });
 
       resolve();
@@ -206,6 +208,8 @@ class Canvas extends React.Component {
         viewport.width,
         viewport.height
       );
+    } else {
+      this.gameRunning = false;
     }
   }
 
