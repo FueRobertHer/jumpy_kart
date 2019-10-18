@@ -96,7 +96,7 @@ class Game {
 
       while (objOverlap === true) {
         let randomPos = [
-          (Math.random() * (1300 * (i + 1) - 1300 * i) + 1300 * i + 500),
+          (Math.random() * (1700 + 1700 * i + 500),
           (Math.random() * (300) + 100)
         ];
         if (this.pipeObjcollide(this.pipes, randomPos) === false) {
@@ -112,7 +112,7 @@ class Game {
 
       while (objOverlap === true) {
         let randomPos = [
-          (Math.random() * (1300 * (i + 1) - 1300 * i) + 1300 * i + 1000),
+          (Math.random() * 1700 + 1700 * i + 700),
           (445)
         ];
         if (this.pipeObjcollide(this.pipes, randomPos) === false) {
@@ -128,7 +128,7 @@ class Game {
 
       while (objOverlap === true) {
         let randomPos = [
-          (Math.random() * (800 * (i + 1) - 800 * i) + 800 * i + 1000),
+          (Math.random() * 1100 + 1100 * i + 1000),
           (Math.random() * (400 - 50) + 100)
         ];
         if (this.pipeObjcollide(this.pipes, randomPos) === false) {
@@ -144,7 +144,7 @@ class Game {
 
       while (objOverlap === true) {
         let randomPos = [
-          (Math.random() * (1000 * (i + 1) - 1000 * i) + 1000 * i + 1000),
+          (Math.random() * 1100 + 1000 * i + 1000),
           (Math.random() * (300 - 50) + 100)
         ];
         if (this.pipeObjcollide(this.pipes, randomPos) === false) {
