@@ -85,8 +85,13 @@ class Player {
         if (playerY + 55 > pipeY) this.pos[1] = pipeY - 55;
         if (this.vertSpeed > 0) this.vertSpeed = 0;
         this.doubleJumped = false;
+      } else if (playerY + 55 > pipeY && this.horiSpeed <= 0 && playerX > pipeX) {
+        this.pos[0] = pipeX + 55;
+        this.horiSpeed = 1
       } else if ((playerY + 55 > pipeY)) {
-        this.horiSpeed = 0;
+        const speed = this.horiSpeed;
+        this.horiSpeed = -1 * speed/2;
+        this.pos[0] = pipeX - 52;
       }
     }
   }
