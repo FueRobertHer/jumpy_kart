@@ -207,7 +207,7 @@ class Canvas extends React.Component {
       drawQueue.forEach(sprite => {
         DrawUtil._drawKart(ctx, sprite);
       })
-
+      
       const currentUserID = this.props.location.userId;
       let currentUser;
       this.state.players.forEach(player => {
