@@ -192,9 +192,21 @@ class Canvas extends React.Component {
       DrawUtil._drawRoad(ctx);
       DrawUtil._drawItems(ctx, this.items);
 
+      let drawQueue = [];
+      let currSprite = [];
+
       this.state.players.forEach(player => {
-        DrawUtil._drawKart(ctx, player);
+        if (player.id === this.props.currentUserId) {
+          currSprite.push(player);
+        } else {
+          drawQueue.push(player)
+        }
       });
+
+      drawQueue = drawQueue.concat(currSprite);
+      drawQueue.forEach(sprite => {
+        DrawUtil._drawKart(ctx, sprite);
+      })
 
       const currentUserID = this.props.location.userId;
       let currentUser;
