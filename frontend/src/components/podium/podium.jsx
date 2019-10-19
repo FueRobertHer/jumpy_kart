@@ -23,11 +23,6 @@ class Podium extends React.Component {
   }
 
   componentDidMount() {
-    // this.podium.forEach(player => {
-    //   console.log(player);
-      
-    //   updateCoins(player);
-    // });
     for (let i = 0; i < this.podium.length; i++) {
       let player = this.podium[i]
       
