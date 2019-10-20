@@ -1,6 +1,8 @@
 # Jumpy Kart
 
-![alt text](https://github.com/FueRobertHer/jumpy_kart/blob/owenshaupt-patch-1/splash.gif)
+<p width="700" align="center">
+  <img src="https://github.com/FueRobertHer/jumpy_kart/blob/owenshaupt-patch-1/splash.gif" width="700">
+</p>
 
 ---
 
