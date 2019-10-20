@@ -33,7 +33,9 @@ Jumpy Kart is built using the MERN stack: MongoDB and Express make up the backen
 - Each game is private and supports up to four players. A host creates a room then shares the URL with friends. All players have their own viewport on their own device but can see all character sprites in their vicinity. THe viewport follows the user as they drive through the map.
 - Concurrent games enabled for multiple rooms at a given time.
 
-![alt text](https://github.com/FueRobertHer/jumpy_kart/blob/owenshaupt-patch-1/join_game_room.png)
+<p width="350" align="center">
+  <img src="https://github.com/FueRobertHer/jumpy_kart/blob/owenshaupt-patch-1/join_game_room.png" width="350">
+</p>
 
 ---
 
@@ -41,7 +43,9 @@ Jumpy Kart is built using the MERN stack: MongoDB and Express make up the backen
 
 - When a racer picks up coins during a race, the total will be added to their user account. When finishing a race in 1st, 2nd, or 3rd place, they will also earn coins and their account will update. Earning enough coins will land them on the leaderboard.
 
-![alt text](https://github.com/FueRobertHer/jumpy_kart/blob/owenshaupt-patch-1/high_score.png)
+<p width="450" align="center">
+  <img src="https://github.com/FueRobertHer/jumpy_kart/blob/owenshaupt-patch-1/high_score.png" width="450">
+</p>
 
 ---
 
