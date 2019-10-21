@@ -1,7 +1,7 @@
 # Jumpy Kart
 
 <p width="700" align="center">
-  <img src="https://github.com/FueRobertHer/jumpy_kart/blob/owenshaupt-patch-1/splash.gif" width="700">
+  <img src="./frontend/src/assets/images/readme/owenshaupt-patch-1/splash.gif" width="700">
 </p>
 
 ---
@@ -34,7 +34,7 @@ Jumpy Kart is built using the MERN stack: MongoDB and Express make up the backen
 - Concurrent games enabled for multiple rooms at a given time.
 
 <p width="350" align="center">
-  <img src="https://github.com/FueRobertHer/jumpy_kart/blob/owenshaupt-patch-1/join_game_room.png" width="350">
+  <img src="./frontend/src/assets/images/readme/join_game_room.png" width="350">
 </p>
 
 ---
@@ -44,7 +44,7 @@ Jumpy Kart is built using the MERN stack: MongoDB and Express make up the backen
 - When a racer picks up coins during a race, the total will be added to their user account. When finishing a race in 1st, 2nd, or 3rd place, they will also earn coins and their account will update. Earning enough coins will land them on the leaderboard.
 
 <p width="450" align="center">
-  <img src="https://github.com/FueRobertHer/jumpy_kart/blob/owenshaupt-patch-1/high_score.png" width="450">
+  <img src="./frontend/src/assets/images/readme/owenshaupt-patch-1/high_score.png" width="450">
 </p>
 
 ---
@@ -53,7 +53,7 @@ Jumpy Kart is built using the MERN stack: MongoDB and Express make up the backen
 
 - The map generates items and obstacles (pipes) every race. The pipe locations and heights are random to maintain an element of surprise each race. Items (bananas, mushrooms, coins) are also randomized and will appear around the random pipes each race. The amount of items increase with the amount of players in the room!
 
-![alt text](https://github.com/FueRobertHer/jumpy_kart/blob/owenshaupt-patch-1/items.png)
+<img src="./frontend/src/assets/images/readme/owenshaupt-patch-1/items.png" >
 
 ---
 
@@ -96,7 +96,7 @@ emitUpdateGame() {
 - Every game frame is drawn locally using information from socket emissions. Every player will see their own character sprite drawn on top as to not have their view obscured by other racers.
 
 <p width="450" align="center">
-  <img src="https://github.com/FueRobertHer/jumpy_kart/blob/owenshaupt-patch-1/sprite_drawing.png" width="450">
+  <img src="./frontend/src/assets/images/readme/owenshaupt-patch-1/sprite_drawing.png" width="450">
 </p>
 
 ---
@@ -106,7 +106,7 @@ emitUpdateGame() {
 - Racers are given a real-time representation of race progress in relation to their competitors.
 
 <p width="325" align="center">
-  <img src="https://github.com/FueRobertHer/jumpy_kart/blob/owenshaupt-patch-1/progress_tracker.png" width="325">
+  <img src="./frontend/src/assets/images/readme/owenshaupt-patch-1/progress_tracker.png" width="325">
 </p>
 
 ---
