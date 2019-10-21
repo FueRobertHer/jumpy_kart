@@ -42,9 +42,8 @@ html {
 .play {
   cursor: pointer;
   font-size: 80px;
-  padding: 20px;
+  padding: 28px 11px 7px;;
   text-decoration: underline;
-  padding-bottom: 30px;
   border-style: double;
   animation-name: growBorder;
   animation-duration: 1s;

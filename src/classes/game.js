@@ -97,8 +97,8 @@ class Game {
 
       while (objOverlap === true) {
         let randomPos = [
-          (Math.random() * (1500 + 1500 * i + 500)),
-          (Math.random() * (300) + 100)
+          Math.random() * (1500 + 1500 * i + 500),
+          Math.random() * 300 + 100
         ];
         if (this.pipeObjcollide(this.pipes, randomPos) === false) {
           objOverlap = false;
@@ -112,10 +112,7 @@ class Game {
       let objOverlap = true;
 
       while (objOverlap === true) {
-        let randomPos = [
-          (Math.random() * 1500 + 1500 * i + 700),
-          (445)
-        ];
+        let randomPos = [Math.random() * 1500 + 1500 * i + 700, 445];
         if (this.pipeObjcollide(this.pipes, randomPos) === false) {
           objOverlap = false;
           this.bananas.push(new Banana(randomPos));
@@ -129,8 +126,8 @@ class Game {
 
       while (objOverlap === true) {
         let randomPos = [
-          (Math.random() * 1100 + 1100 * i + 1000),
-          (Math.random() * (400 - 50) + 100)
+          Math.random() * 1100 + 1100 * i + 1000,
+          Math.random() * (400 - 50) + 100
         ];
         if (this.pipeObjcollide(this.pipes, randomPos) === false) {
           objOverlap = false;
@@ -145,8 +142,8 @@ class Game {
 
       while (objOverlap === true) {
         let randomPos = [
-          (Math.random() * 1100 + 1100 * i + 1000),
-          (Math.random() * (300 - 50) + 100)
+          Math.random() * 1100 + 1100 * i + 1000,
+          Math.random() * (300 - 50) + 100
         ];
         if (this.pipeObjcollide(this.pipes, randomPos) === false) {
           objOverlap = false;
@@ -293,15 +290,15 @@ class Game {
   }
 
   removePlayer(playerId) {
-    console.log('this.players before', this.players);
-    console.log('this.playerSockets before', this.playerSockets);
-    console.log('this.playerInfoObject before', this.playerInfoObject);
+    console.log("this.players before", this.players);
+    console.log("this.playerSockets before", this.playerSockets);
+    console.log("this.playerInfoObject before", this.playerInfoObject);
     delete this.players[playerId];
     delete this.playerSockets[playerId];
     delete this.playerInfoObject[playerId];
-    console.log('this.players after', this.players);
-    console.log('this.playerSockets after', this.playerSockets);
-    console.log('this.playerInfoObject after', this.playerInfoObject);
+    console.log("this.players after", this.players);
+    console.log("this.playerSockets after", this.playerSockets);
+    console.log("this.playerInfoObject after", this.playerInfoObject);
   }
 
   ////////////////////////Collision Helper methods//////////////////
@@ -310,14 +307,9 @@ class Game {
     this.allItems = [].concat(this.coins, this.bananas, this.mushrooms);
   }
 
-  /////////////////////////Race End helper////////////////////////////
-
-  gameTimeUp() {
-    //see the positions of each player and assign rankings
-  }
   /////////////////////Emit Stuff/////////////////////////////////
 
-  emitUpdateGame(socket) {
+  emitUpdateGame() {
     Object.values(this.playerSockets).forEach(socket => {
       socket.emit("placeItems", {
         pipes: this.pipes.map(pipe => ({
@@ -330,18 +322,14 @@ class Game {
           type: item.type
         }))
       });
-  
+
       socket.emit("updateGameState", {
         hostId: this.hostId,
         gameId: this.gameId,
         players: this.playerInfoObject
       });
-    })
+    });
   }
 }
 
 export default Game;
-
-//game should loop will call move, collision, fucntion each loop
-//game class will call the loop.
-// game's move call will run move functions for all the players
