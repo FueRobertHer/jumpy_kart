@@ -14,7 +14,7 @@ Jumpy Kart is a Mario-themed take on a Flappy Bird-esque platformer. But, this t
 
 ## Technologies
 
-Jumpy Kart is built using the MERN stack: MongoDB and Express make up the backend while React, Redux, and NodeJS make up the frontend. Jumpy Kart implements WebSockets (<span>Socket.IO<span>) to create private game rooms for you and your friends. The game is drawn using HTML Canvas.
+Jumpy Kart is built using the MERN stack: MongoDB and Express make up the backend while React, Redux, and Node.js make up the frontend. Jumpy Kart implements WebSockets (<span>Socket.IO<span>) to create private game rooms for you and your friends. The game is drawn using HTML Canvas.
 
 ---
 
