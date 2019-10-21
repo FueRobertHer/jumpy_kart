@@ -114,6 +114,6 @@ emitUpdateGame() {
 ## Jumpy Kart Team
 
 - Owen Haupt - [Github](https://github.com/owenshaupt) | [LinkedIn](https://www.linkedin.com/in/owenshaupt/) | [Portfolio](https://owenhaupt.io/)
-- Fue Her - [Github](https://github.com/FueRobertHer) | [LinkedIn]() | [Portfolio]()
+- Fue Her - [Github](https://github.com/FueRobertHer) | [LinkedIn](https://www.linkedin.com/in/fue-her/) | [Portfolio](https://fueher.com/)
 - Andrew Huang - [Github](https://github.com/andrewhuangg) | [LinkedIn](https://www.linkedin.com/in/anuhangg/) | [Portfolio](https://andrewhuang.io)
 - Taehoon Song - [Github](https://github.com/TSong23) | [LinkedIn](https://www.linkedin.com/in/taehoonsong94/) | [Portfolio](https://taehoonsong.dev/)
