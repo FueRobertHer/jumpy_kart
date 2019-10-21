@@ -30,7 +30,7 @@ Jumpy Kart is built using the MERN stack: MongoDB and Express make up the backen
 
 ### Game Rooms
 
-- Each game is private and supports up to four players. A host creates a room then shares the URL with friends. All players have their own viewport on their own device but can see all character sprites in their vicinity. THe viewport follows the user as they drive through the map.
+- Each game is private and supports up to four players. A host creates a room then shares the URL with friends. All players have their own viewport on their own device but can see all character sprites in their vicinity. The viewport follows the user as they drive through the map.
 - Concurrent games enabled for multiple rooms at a given time.
 
 <p width="350" align="center">
@@ -61,7 +61,7 @@ Jumpy Kart is built using the MERN stack: MongoDB and Express make up the backen
 
 - Each player has a unique socket to connect to game and access it's state. As players move, new positions are calculated and emitted to every player in the game room.
 
-``` javascript
+```javascript
 emitUpdateGame() {
   // only emitting to sockets in current game/room
   Object.values(this.playerSockets).forEach(socket => {
@@ -113,7 +113,7 @@ emitUpdateGame() {
 
 ## Jumpy Kart Team
 
-- Owen Haupt - [Github](https://github.com/owenshaupt) | [LinkedIn](https://www.linkedin.com/in/owenshaupt/) | [Portfolio]()
+- Owen Haupt - [Github](https://github.com/owenshaupt) | [LinkedIn](https://www.linkedin.com/in/owenshaupt/) | [Portfolio](https://owenhaupt.io/)
 - Fue Her - [Github](https://github.com/FueRobertHer) | [LinkedIn]() | [Portfolio]()
-- Andrew Huang - [Github](https://github.com/andrewhuangg) | [LinkedIn](https://www.linkedin.com/in/anuhangg/) | [Portfolio]()
-- Taehoon Song - [Github](https://github.com/TSong23) | [LinkedIn](https://www.linkedin.com/in/taehoonsong94/) | [Portfolio]()
+- Andrew Huang - [Github](https://github.com/andrewhuangg) | [LinkedIn](https://www.linkedin.com/in/anuhangg/) | [Portfolio](https://andrewhuang.io)
+- Taehoon Song - [Github](https://github.com/TSong23) | [LinkedIn](https://www.linkedin.com/in/taehoonsong94/) | [Portfolio](https://taehoonsong.dev/)
