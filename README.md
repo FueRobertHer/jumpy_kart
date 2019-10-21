@@ -95,7 +95,9 @@ emitUpdateGame() {
 
 - Every game frame is drawn locally using information from socket emissions. Every player will see their own character sprite drawn on top as to not have their view obscured by other racers.
 
-![alt text](https://github.com/FueRobertHer/jumpy_kart/blob/owenshaupt-patch-1/sprite_drawing.png)
+<p width="450" align="center">
+  <img src="https://github.com/FueRobertHer/jumpy_kart/blob/owenshaupt-patch-1/sprite_drawing.png" width="450">
+</p>
 
 ---
 
@@ -103,7 +105,9 @@ emitUpdateGame() {
 
 - Racers are given a real-time representation of race progress in relation to their competitors.
 
-![alt text](https://github.com/FueRobertHer/jumpy_kart/blob/owenshaupt-patch-1/progress_tracker.png)
+<p width="325" align="center">
+  <img src="https://github.com/FueRobertHer/jumpy_kart/blob/owenshaupt-patch-1/progress_tracker.png" width="325">
+</p>
 
 ---
 
