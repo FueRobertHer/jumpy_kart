@@ -160,6 +160,12 @@ class Canvas extends React.Component {
   }
 
   componentDidMount() {
+    window.onpopstate = (e) => {
+      // console.log('e', e)
+      // console.log('e.target.location.hash', e.target.location.hash)
+      if (e.target.location.hash === '#/lobby') window.location.reload();
+    };
+
     this.openSocket().then(() => {
       this.joinRoom().then(() => {
         this.loadGame();
@@ -239,9 +245,9 @@ class Canvas extends React.Component {
     if (!this.props) {
       return null;
     }
-    console.log("hostId", this.state.hostId);
-    console.log("userId", this.props.currentUserId);
-    console.log("roomOwner", this.roomOwner);
+    // console.log("hostId", this.state.hostId);
+    // console.log("userId", this.props.currentUserId);
+    // console.log("roomOwner", this.roomOwner);
 
     return (
       <div className='game-master'>
