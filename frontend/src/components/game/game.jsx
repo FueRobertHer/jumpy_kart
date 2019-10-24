@@ -243,9 +243,6 @@ class Canvas extends React.Component {
     if (!this.props) {
       return null;
     }
-    // console.log("hostId", this.state.hostId);
-    // console.log("userId", this.props.currentUserId);
-    // console.log("roomOwner", this.roomOwner);
 
     return (
       <div className='game-master'>
