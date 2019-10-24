@@ -161,8 +161,6 @@ class Canvas extends React.Component {
 
   componentDidMount() {
     window.onpopstate = (e) => {
-      // console.log('e', e)
-      // console.log('e.target.location.hash', e.target.location.hash)
       if (e.target.location.hash === '#/lobby') window.location.reload();
     };
 
@@ -258,6 +256,9 @@ class Canvas extends React.Component {
           <div className='canvas-container'>
             <canvas id='background' ref='canvas' width='10500' height='500' />
             <canvas id='viewport' ref='viewport' width='600' height='500' />
+          </div>
+          <div className='room-id-div'>
+            <h3 className='room-id'>Room ID: {this.roomId}</h3>
           </div>
           {this.roomOwner === this.props.currentUserId ? (
             <button
