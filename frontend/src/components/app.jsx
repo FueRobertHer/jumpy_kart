@@ -50,7 +50,8 @@ class App extends React.Component {
             Copyright &copy; 
             2019 Jumpy Kart 
           </p>
-            <a className="icon" href="https://github.com/FueRobertHer/jumpy_kart" target="_blank"></a>
+          
+          <a className="icon" href="https://github.com/FueRobertHer/jumpy_kart" target="_blank"></a>
         </footer>
       </div>
     );
