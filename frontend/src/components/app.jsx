@@ -49,11 +49,8 @@ class App extends React.Component {
           <p>
             Copyright &copy; 
             2019 Jumpy Kart 
-            <a className="icon" href="https://github.com/FueRobertHer/jumpy_kart" target="_blank">
-              <img src="../assets/images/github_pixel.png" alt="n"/>
-              <div>{github_pixel}</div>
-            </a>
-            </p>
+          </p>
+            <a className="icon" href="https://github.com/FueRobertHer/jumpy_kart" target="_blank"></a>
         </footer>
       </div>
     );
