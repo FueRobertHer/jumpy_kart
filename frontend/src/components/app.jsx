@@ -13,6 +13,8 @@ import "../assets/stylesheets/high_score.css";
 import "../assets/stylesheets/instructions.css";
 import "../assets/stylesheets/hud.css";
 
+import github_pixel from "../assets/images/github_pixel.png"
+
 import NavBarContainer from "./nav/navbar_container";
 import MainPage from "./main/main_page";
 import GameContainer from "./game/game_container";
@@ -43,7 +45,16 @@ class App extends React.Component {
           </Switch>
         </div>
 
-        <footer className='footer'>Copyright &copy; 2019 Jumpy Kart</footer>
+        <footer className='footer'>
+          <p>
+            Copyright &copy; 
+            2019 Jumpy Kart 
+            <a className="icon" href="https://github.com/FueRobertHer/jumpy_kart" target="_blank">
+              <img src="../assets/images/github_pixel.png" alt="n"/>
+              <div>{github_pixel}</div>
+            </a>
+            </p>
+        </footer>
       </div>
     );
   }
