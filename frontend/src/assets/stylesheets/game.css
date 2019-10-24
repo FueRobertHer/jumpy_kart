@@ -3,11 +3,9 @@
 }
 
 .instructions-div {
-  /* padding-right: 15px; */
 }
 
 .hud-div {
-  /* padding-left: 15px; */
 }
 
 .game-ui {
@@ -55,4 +53,14 @@
 
 #viewport {
   position: relative;
+}
+
+.room-id-div {
+  position: absolute;
+  left: 0px;
+  top: 520px;
+}
+
+.room-id {
+  font-size: 12px;
 }
