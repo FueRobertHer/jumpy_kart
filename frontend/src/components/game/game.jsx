@@ -7,6 +7,7 @@ import mushroomSound from "../../assets/audio/mushroom.wav";
 import bananaSound from "../../assets/audio/banana_slide.mp3";
 import Instructions from "../heads_up/instructions";
 import HUD from "../heads_up/hud";
+import { mobileAndTabletCheck } from "./mobileDetectUtil";
 
 let SERVER;
 let conn_options = {
@@ -160,8 +161,8 @@ class Canvas extends React.Component {
   }
 
   componentDidMount() {
-    window.onpopstate = (e) => {
-      if (e.target.location.hash === '#/lobby') window.location.reload();
+    window.onpopstate = e => {
+      if (e.target.location.hash === "#/lobby") window.location.reload();
     };
 
     this.openSocket().then(() => {
@@ -182,6 +183,16 @@ class Canvas extends React.Component {
         socket.emit("pressSpace");
       }
     };
+
+    if (mobileAndTabletCheck()) {
+      const game = document.querySelector(".game-ui");
+
+      game.onclick = function(e) {
+        e.preventDefault();
+        socket.emit("pressSpace");
+      };
+    }
+
     this.drawObjects();
   }
 
@@ -203,15 +214,15 @@ class Canvas extends React.Component {
         if (player.id === this.props.currentUserId) {
           currSprite.push(player);
         } else {
-          drawQueue.push(player)
+          drawQueue.push(player);
         }
       });
 
       drawQueue = drawQueue.concat(currSprite);
       drawQueue.forEach(sprite => {
         DrawUtil._drawKart(ctx, sprite);
-      })
-      
+      });
+
       const currentUserID = this.props.location.userId;
       let currentUser;
       this.state.players.forEach(player => {
