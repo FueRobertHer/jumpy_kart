@@ -15,14 +15,14 @@ let conn_options = {
 };
 
 if (process.env.NODE_ENV !== "production") {
-  console.log(`process.env: ${process.env}`);
+  // console.log(`process.env: ${process.env}`);
   SERVER = io("http://localhost:5000", conn_options, {
     transports: ["websocket"]
   });
 }
 
 if (process.env.NODE_ENV === "production") {
-  console.log(`process.env: ${process.env}`);
+  // console.log(`process.env: ${process.env}`);
   SERVER = io();
 }
 
@@ -61,7 +61,7 @@ class Canvas extends React.Component {
   }
 
   openSocket() {
-    console.log("opening socket");
+    // console.log("opening socket");
     return new Promise(resolve => {
       this.socket = SERVER;
       let socket = this.socket;
