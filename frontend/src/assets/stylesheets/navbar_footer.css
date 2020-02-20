@@ -28,11 +28,16 @@
 }
 
 .footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   left: 10vw;
   position: absolute;
   bottom: 0;
-  font-size: 8px;
-  margin: 5px 0;
+  font-size: 12px;
+  margin: 15px 0;
+  width: 80%;
 }
 
 .active {
@@ -53,4 +58,16 @@
 
 .logout-btn:hover {
   filter: grayscale(70%);
+}
+
+.icon {
+  height: 32px;
+  width: 32px;
+  background-image: url(../images/github_pixel.png);
+  background-size: cover;
+  display: inline-block;
+  color:  transparent;
+  margin-left: 10px;
+  box-shadow: #fa0000 0px 0px 10px;
+  border-radius: 100%;
 }
