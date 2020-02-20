@@ -7,6 +7,7 @@ import mushroomSound from "../../assets/audio/mushroom.wav";
 import bananaSound from "../../assets/audio/banana_slide.mp3";
 import Instructions from "../heads_up/instructions";
 import HUD from "../heads_up/hud";
+import { mobileCheck, mobileAndTabletCheck } from "./mobileDetectUtil";
 
 let SERVER;
 let conn_options = {
@@ -14,14 +15,14 @@ let conn_options = {
 };
 
 if (process.env.NODE_ENV !== "production") {
-  console.log(`process.env: ${process.env}`);
+  // console.log(`process.env: ${process.env}`);
   SERVER = io("http://localhost:5000", conn_options, {
     transports: ["websocket"]
   });
 }
 
 if (process.env.NODE_ENV === "production") {
-  console.log(`process.env: ${process.env}`);
+  // console.log(`process.env: ${process.env}`);
   SERVER = io();
 }
 
@@ -60,7 +61,7 @@ class Canvas extends React.Component {
   }
 
   openSocket() {
-    console.log("opening socket");
+    // console.log("opening socket");
     return new Promise(resolve => {
       this.socket = SERVER;
       let socket = this.socket;
@@ -160,8 +161,8 @@ class Canvas extends React.Component {
   }
 
   componentDidMount() {
-    window.onpopstate = (e) => {
-      if (e.target.location.hash === '#/lobby') window.location.reload();
+    window.onpopstate = e => {
+      if (e.target.location.hash === "#/lobby") window.location.reload();
     };
 
     this.openSocket().then(() => {
@@ -176,12 +177,60 @@ class Canvas extends React.Component {
 
     let socket = this.socket;
 
-    document.body.onkeydown = function(e) {
+    document.body.onkeydown = e => {
       if (e.keyCode === 32) {
         e.preventDefault();
         socket.emit("pressSpace");
       }
     };
+
+    if (mobileAndTabletCheck()) {
+      document.onclick = e => {
+        e.preventDefault();
+        socket.emit("pressSpace");
+      };
+    }
+
+    // insert mobile (only PHONE!) check here and create styles
+    if (mobileCheck()) {
+      // const mobileStyles = `
+      //   display: hidden
+      // `;
+
+      const html = document.querySelector("html");
+      const instructionsDiv = document.querySelector(".instructions-div");
+      const hudDiv = document.querySelector(".hud-div");
+      const startGameButton = document.querySelector(".start-game-button");
+      // const viewport = document.querySelector("#viewport");
+      const appHolder = document.querySelector(".app-holder");
+      const footer = document.querySelector("footer");
+      // const canvas = document.querySelector("canvas");
+      // const ctx = canvas.getContext("2d");
+      // ctx.scale(0.5, 0.5);
+
+      instructionsDiv.style.visibility = "hidden";
+      instructionsDiv.style.width = "0px";
+
+      hudDiv.style.visibility = "hidden";
+      hudDiv.style.width = "0px";
+
+      footer.style.visibility = "hidden";
+      footer.style.width = "0px";
+
+      appHolder.style.cssText = `
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      `;
+
+      // viewport.style.width = "vw";
+
+      startGameButton.style.marginTop = "50px";
+
+      // disables mobile double-touch zoom (also panning/scrolling)
+      html.style.touchAction = "none";
+    }
+
     this.drawObjects();
   }
 
@@ -203,15 +252,15 @@ class Canvas extends React.Component {
         if (player.id === this.props.currentUserId) {
           currSprite.push(player);
         } else {
-          drawQueue.push(player)
+          drawQueue.push(player);
         }
       });
 
       drawQueue = drawQueue.concat(currSprite);
       drawQueue.forEach(sprite => {
         DrawUtil._drawKart(ctx, sprite);
-      })
-      
+      });
+
       const currentUserID = this.props.location.userId;
       let currentUser;
       this.state.players.forEach(player => {
@@ -252,7 +301,13 @@ class Canvas extends React.Component {
         <div className='game-ui'>
           <div className='canvas-container'>
             <canvas id='background' ref='canvas' width='10500' height='500' />
-            <canvas id='viewport' ref='viewport' width='600' height='500' />
+            <canvas
+              id='viewport'
+              ref='viewport'
+              // width={mobileCheck() ? "vw" : "600"}
+              width='600'
+              height='500'
+            />
           </div>
           <div className='room-id-div'>
             <h3 className='room-id'>Room ID: {this.roomId}</h3>
@@ -267,9 +322,9 @@ class Canvas extends React.Component {
           ) : (
             <div />
           )}
-          <div>
+          <>
             <MuteButton muted={this.muted} toggleAmbient={this.toggleAmbient} />
-          </div>
+          </>
         </div>
         <div className='hud-div'>
           <HUD players={this.state.players} />

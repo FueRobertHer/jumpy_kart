@@ -26,7 +26,7 @@ import PodiumContainer from "./podium/podium_container";
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <div className='app-holder'>
         <NavBarContainer />
 
         <div className='parent'>
