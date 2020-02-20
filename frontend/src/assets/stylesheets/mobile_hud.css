@@ -1,0 +1,10 @@
+.mobile-hud-master {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 70px;
+}
+
+.mobile-bar-list {
+  width: 420px;
+}

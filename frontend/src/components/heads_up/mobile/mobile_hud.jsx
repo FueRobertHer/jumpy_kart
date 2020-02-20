@@ -44,33 +44,33 @@ export default function MobileHUD(props) {
       <div className='lists-div'>
         <ol className='sprite-list'>
           <li className='sprite-li'>
-            <div>
+            <>
               <img src={playerInfo.mario ? spriteRef.mario : ""} alt='' />
-            </div>
+            </>
           </li>
           <li className='sprite-li'>
-            <div>
+            <>
               <img src={playerInfo.peach ? spriteRef.peach : ""} alt='' />
-            </div>
+            </>
           </li>
           <li className='sprite-li'>
-            <div>
+            <>
               <img src={playerInfo.toad ? spriteRef.toad : ""} alt='' />
-            </div>
+            </>
           </li>
           <li className='sprite-li'>
-            <div>
+            <>
               <img src={playerInfo.yoshi ? spriteRef.yoshi : ""} alt='' />
-            </div>
+            </>
           </li>
         </ol>
 
-        <ol className='bar-list'>
+        <ol className='mobile-bar-list'>
           <div className='bar-holder'>
             <div
               className='bar player-1'
               style={{
-                width: playerInfo.mario ? (playerInfo.mario / 9500) * 195 : 0
+                width: playerInfo.mario ? (playerInfo.mario / 9500) * 395 : 0
               }}
             ></div>
           </div>
@@ -78,7 +78,7 @@ export default function MobileHUD(props) {
             <div
               className='bar player-2'
               style={{
-                width: playerInfo.peach ? (playerInfo.peach / 9500) * 195 : 0
+                width: playerInfo.peach ? (playerInfo.peach / 9500) * 395 : 0
               }}
             ></div>
           </div>
@@ -86,7 +86,7 @@ export default function MobileHUD(props) {
             <div
               className='bar player-3'
               style={{
-                width: playerInfo.toad ? (playerInfo.toad / 9500) * 195 : 0
+                width: playerInfo.toad ? (playerInfo.toad / 9500) * 395 : 0
               }}
             ></div>
           </div>
@@ -94,7 +94,7 @@ export default function MobileHUD(props) {
             <div
               className='bar player-4'
               style={{
-                width: playerInfo.yoshi ? (playerInfo.yoshi / 9500) * 195 : 0
+                width: playerInfo.yoshi ? (playerInfo.yoshi / 9500) * 395 : 0
               }}
             ></div>
           </div>
