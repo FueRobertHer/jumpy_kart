@@ -24,7 +24,7 @@ import PodiumContainer from "./podium/podium_container";
 class App extends React.Component {
   render() {
     return (
-      <div>
+      <>
         <NavBarContainer />
 
         <div className='parent'>
@@ -44,7 +44,7 @@ class App extends React.Component {
         </div>
 
         <footer className='footer'>Copyright &copy; 2019 Jumpy Kart</footer>
-      </div>
+      </>
     );
   }
 }

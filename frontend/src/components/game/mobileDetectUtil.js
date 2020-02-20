@@ -18,7 +18,6 @@ export function mobileAndTabletCheck() {
 
 // THIS VERSION EXCLUDES TABLETS
 // -------------------------------------
-/*
 export function mobileCheck() {
   let check = false;
   (a => {
@@ -35,4 +34,3 @@ export function mobileCheck() {
 
   return check;
 }
-*/

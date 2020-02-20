@@ -7,7 +7,7 @@ import mushroomSound from "../../assets/audio/mushroom.wav";
 import bananaSound from "../../assets/audio/banana_slide.mp3";
 import Instructions from "../heads_up/instructions";
 import HUD from "../heads_up/hud";
-import { mobileAndTabletCheck } from "./mobileDetectUtil";
+import { mobileCheck, mobileAndTabletCheck } from "./mobileDetectUtil";
 
 let SERVER;
 let conn_options = {
@@ -177,7 +177,7 @@ class Canvas extends React.Component {
 
     let socket = this.socket;
 
-    document.body.onkeydown = function(e) {
+    document.body.onkeydown = e => {
       if (e.keyCode === 32) {
         e.preventDefault();
         socket.emit("pressSpace");
@@ -185,12 +185,25 @@ class Canvas extends React.Component {
     };
 
     if (mobileAndTabletCheck()) {
-      const game = document.querySelector(".game-ui");
+      // const game = document.querySelector(".game-ui");
 
-      game.onclick = function(e) {
+      document.onclick = e => {
         e.preventDefault();
         socket.emit("pressSpace");
       };
+    }
+
+    // insert mobile (only PHONE!) check here and create styles
+    if (mobileCheck()) {
+      // const mobileStyles = `
+      //   display: hidden
+      // `;
+
+      const instructionsDiv = document.querySelector(".instructions-div");
+      const hudDiv = document.querySelector(".hud-div");
+
+      instructionsDiv.style.visibility = "hidden"
+      hudDiv.style.visibility = "hidden"
     }
 
     this.drawObjects();
