@@ -7,6 +7,7 @@ import mushroomSound from "../../assets/audio/mushroom.wav";
 import bananaSound from "../../assets/audio/banana_slide.mp3";
 import Instructions from "../heads_up/instructions";
 import HUD from "../heads_up/hud";
+import MobileHUD from "../heads_up/mobile/mobile_hud";
 import { mobileCheck, mobileAndTabletCheck } from "./mobileDetectUtil";
 
 let SERVER;
@@ -202,11 +203,19 @@ class Canvas extends React.Component {
       const startGameButton = document.querySelector(".start-game-button");
       const appHolder = document.querySelector(".app-holder");
       const footer = document.querySelector("footer");
+      const parent = document.querySelector(".parent");
 
       footer.style.visibility = "hidden";
       footer.style.width = "0px";
 
       appHolder.style.cssText = `
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      `;
+
+      parent.style.cssText = `
+        margin: 20px auto;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -281,49 +290,50 @@ class Canvas extends React.Component {
     }
 
     return (
-      <div className='game-master'>
-        {mobileCheck() ? (
-          <></>
-        ) : (
-          <div className='instructions-div'>
-            <Instructions />
-          </div>
-        )}
-        <div className='game-ui'>
-          <div className='canvas-container'>
-            <canvas id='background' ref='canvas' width='10500' height='500' />
-            <canvas
-              id='viewport'
-              ref='viewport'
-              width='600'
-              height='500'
-            />
-          </div>
-          <div className='room-id-div'>
-            <h3 className='room-id'>Room ID: {this.roomId}</h3>
-          </div>
-          {this.roomOwner === this.props.currentUserId ? (
-            <button
-              className='input submit login-button start-game-button'
-              onClick={this.emitStartGame}
-            >
-              START GAME
-            </button>
+      <>
+        <div className='game-master'>
+          {mobileCheck() ? (
+            <></>
           ) : (
-            <div />
+            <div className='instructions-div'>
+              <Instructions />
+            </div>
           )}
-          <>
-            <MuteButton muted={this.muted} toggleAmbient={this.toggleAmbient} />
-          </>
-        </div>
-        {mobileCheck() ? (
-          <></>
-        ) : (
-          <div className='hud-div'>
-            <HUD players={this.state.players} />
+          <div className='game-ui'>
+            <div className='canvas-container'>
+              <canvas id='background' ref='canvas' width='10500' height='500' />
+              <canvas id='viewport' ref='viewport' width='600' height='500' />
+            </div>
+            <div className='room-id-div'>
+              <h3 className='room-id'>Room ID: {this.roomId}</h3>
+            </div>
+            {this.roomOwner === this.props.currentUserId ? (
+              <button
+                className='input submit login-button start-game-button'
+                onClick={this.emitStartGame}
+              >
+                START GAME
+              </button>
+            ) : (
+              <div />
+            )}
+            <>
+              <MuteButton
+                muted={this.muted}
+                toggleAmbient={this.toggleAmbient}
+              />
+            </>
           </div>
-        )}
-      </div>
+          {mobileCheck() ? (
+            <></>
+          ) : (
+            <div className='hud-div'>
+              <HUD players={this.state.players} />
+            </div>
+          )}
+        </div>
+        {mobileCheck() ? <MobileHUD players={this.state.players} /> : <></>}
+      </>
     );
   }
 }
