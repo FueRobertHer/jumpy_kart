@@ -58,6 +58,7 @@ class Canvas extends React.Component {
     this.pipes = [];
     this.items = [];
     this.podium = [];
+    this.gameStartedYet = false;
   }
 
   openSocket() {
@@ -184,29 +185,25 @@ class Canvas extends React.Component {
       }
     };
 
+    const startGameButton = document.querySelector(".start-game-button");
+
     if (mobileAndTabletCheck()) {
       document.onclick = e => {
         e.preventDefault();
-        socket.emit("pressSpace");
+        if (e.target !== startGameButton) {
+          socket.emit("pressSpace");
+        }
       };
     }
 
     // insert mobile (only PHONE!) check here and create styles
     if (mobileCheck()) {
-      // const mobileStyles = `
-      //   display: hidden
-      // `;
-
       const html = document.querySelector("html");
       const instructionsDiv = document.querySelector(".instructions-div");
       const hudDiv = document.querySelector(".hud-div");
       const startGameButton = document.querySelector(".start-game-button");
-      // const viewport = document.querySelector("#viewport");
       const appHolder = document.querySelector(".app-holder");
       const footer = document.querySelector("footer");
-      // const canvas = document.querySelector("canvas");
-      // const ctx = canvas.getContext("2d");
-      // ctx.scale(0.5, 0.5);
 
       instructionsDiv.style.visibility = "hidden";
       instructionsDiv.style.width = "0px";
@@ -222,8 +219,6 @@ class Canvas extends React.Component {
         flex-direction: column;
         align-items: center;
       `;
-
-      // viewport.style.width = "vw";
 
       startGameButton.style.marginTop = "50px";
 
