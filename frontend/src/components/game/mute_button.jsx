@@ -22,12 +22,12 @@ class MuteButton extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         <button className='mute-button' onClick={this.toggleAmbient}>
           {this.state.muted ? "Unmute" : "Mute"}
           <audio id='ambient-music' src={ambientAudio} autoPlay loop />
         </button>
-      </div>
+      </>
     );
   }
 }
