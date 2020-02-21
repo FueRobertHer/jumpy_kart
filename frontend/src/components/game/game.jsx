@@ -219,9 +219,11 @@ class Canvas extends React.Component {
         display: flex;
         flex-direction: column;
         align-items: center;
+        position: relative;
       `;
 
-      startGameButton.style.marginTop = "50px";
+      startGameButton.style.marginTop = "-270px";
+      startGameButton.style.zIndex = "100";
 
       // disables mobile double-touch zoom (also panning/scrolling)
       html.style.touchAction = "none";
