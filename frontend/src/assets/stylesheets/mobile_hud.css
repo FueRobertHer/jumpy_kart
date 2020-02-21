@@ -18,4 +18,5 @@
   top: 900px;
   padding: 20px 6px 6px;
   font-size: 38px;
+  user-select: none;
 }
