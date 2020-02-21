@@ -63,7 +63,6 @@ class Canvas extends React.Component {
   }
 
   openSocket() {
-    // console.log("opening socket");
     return new Promise(resolve => {
       this.socket = SERVER;
       let socket = this.socket;
@@ -162,6 +161,13 @@ class Canvas extends React.Component {
     this.gameRunning = false;
   }
 
+  // to trigger jump button on mobile
+  emitJump(socket) {
+    // e.preventDefault();
+    // let socket = this.socket;
+    socket.emit("pressSpace");
+  }
+
   componentDidMount() {
     window.onpopstate = e => {
       if (e.target.location.hash === "#/lobby") window.location.reload();
@@ -188,14 +194,14 @@ class Canvas extends React.Component {
 
     const startGameButton = document.querySelector(".start-game-button");
 
-    if (mobileAndTabletCheck()) {
-      document.onclick = e => {
-        e.preventDefault();
-        if (e.target !== startGameButton) {
-          socket.emit("pressSpace");
-        }
-      };
-    }
+    // if (mobileAndTabletCheck()) {
+    //   document.onclick = e => {
+    //     e.preventDefault();
+    //     if (e.target !== startGameButton) {
+    //       socket.emit("pressSpace");
+    //     }
+    //   };
+    // }
 
     // insert mobile (only PHONE!) check here and create styles
     if (mobileCheck()) {
@@ -335,6 +341,7 @@ class Canvas extends React.Component {
           )}
         </div>
         {mobileCheck() ? <MobileHUD players={this.state.players} /> : <></>}
+        {mobileCheck() ? <button className='input submit login-button mobile-jump-button' onClick={() => this.emitJump(this.socket)}>JUMP</button> : <></>}
       </>
     );
   }
