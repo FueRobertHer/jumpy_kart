@@ -34,7 +34,7 @@ class Podium extends React.Component {
       updateCoins(player);
     }
 
-    if (mobileCheck) {
+    if (mobileCheck()) {
       const podiumMaster = document.querySelector(".podium-master");
       const backgroundDiv = document.querySelector(".background-div");
 
