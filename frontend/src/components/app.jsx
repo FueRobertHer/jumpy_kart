@@ -13,6 +13,7 @@ import "../assets/stylesheets/high_score.css";
 import "../assets/stylesheets/instructions.css";
 import "../assets/stylesheets/hud.css";
 import "../assets/stylesheets/mobile_hud.css";
+import "../assets/stylesheets/mobile_podium.css";
 
 import NavBarContainer from "./nav/navbar_container";
 import MainPage from "./main/main_page";

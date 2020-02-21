@@ -209,24 +209,24 @@ class Canvas extends React.Component {
       const appHolder = document.querySelector(".app-holder");
       const footer = document.querySelector("footer");
       const parent = document.querySelector(".parent");
-      
+
       footer.style.visibility = "hidden";
       footer.style.width = "0px";
-      
+
       appHolder.style.cssText = `
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       `;
-      
+
       parent.style.cssText = `
-      margin: 20px auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
+        margin: 20px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
       `;
-      
+
       if (this.roomOwner === this.props.currentUserId) {
         const startGameButton = document.querySelector(".start-game-button");
         startGameButton.style.marginTop = "-270px";
@@ -342,8 +342,21 @@ class Canvas extends React.Component {
             </div>
           )}
         </div>
-        {mobileAndTabletCheck() ? <MobileHUD players={this.state.players} /> : <></>}
-        {mobileAndTabletCheck() ? <button className='input submit login-button mobile-jump-button' onClick={() => this.emitJump(this.socket)}>JUMP</button> : <></>}
+        {mobileAndTabletCheck() ? (
+          <MobileHUD players={this.state.players} />
+        ) : (
+          <></>
+        )}
+        {mobileAndTabletCheck() ? (
+          <button
+            className='input submit login-button mobile-jump-button'
+            onClick={() => this.emitJump(this.socket)}
+          >
+            JUMP
+          </button>
+        ) : (
+          <></>
+        )}
       </>
     );
   }

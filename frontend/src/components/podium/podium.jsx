@@ -8,6 +8,7 @@ import Yoshi from "../../assets/images/yoshi_finish.png";
 import PodiumModal from "../modal/podium_modal";
 
 import { updateCoins } from "../../util/user_api_util";
+import { mobileCheck } from "../game/mobileDetectUtil";
 
 class Podium extends React.Component {
   constructor(props) {
@@ -24,20 +25,34 @@ class Podium extends React.Component {
 
   componentDidMount() {
     for (let i = 0; i < this.podium.length; i++) {
-      let player = this.podium[i]
-      
+      let player = this.podium[i];
+
       if (i === 0) player.coins += 10;
       if (i === 1) player.coins += 5;
       if (i === 2) player.coins += 3;
 
-      updateCoins(player)
+      updateCoins(player);
+    }
+
+    if (mobileCheck) {
+      const podiumMaster = document.querySelector(".podium-master");
+      const backgroundDiv = document.querySelector(".background-div");
+
+      podiumMaster.style.cssText = `
+          width: 600px;
+          overlflow: hidden;
+        `;
+
+      backgroundDiv.style.cssText = `
+          margin-left: -210px;
+        `;
     }
 
     this.props.fetchHighScore();
   }
 
   backToLobby() {
-    this.props.history.push('/lobby');
+    this.props.history.push("/lobby");
     window.location.reload();
   }
 
@@ -68,8 +83,11 @@ class Podium extends React.Component {
           </button>
         </div>
         <div>
-          <button className='back-to-lobby-button' onClick={() => this.backToLobby(this.socket)}>
-            <p className='high-scores-button-text'>Back to Lobby!</p>            
+          <button
+            className='back-to-lobby-button'
+            onClick={() => this.backToLobby(this.socket)}
+          >
+            <p className='high-scores-button-text'>Back to Lobby!</p>
           </button>
         </div>
       </div>
