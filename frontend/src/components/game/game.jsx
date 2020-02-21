@@ -192,17 +192,6 @@ class Canvas extends React.Component {
       }
     };
 
-    const startGameButton = document.querySelector(".start-game-button");
-
-    // if (mobileAndTabletCheck()) {
-    //   document.onclick = e => {
-    //     e.preventDefault();
-    //     if (e.target !== startGameButton) {
-    //       socket.emit("pressSpace");
-    //     }
-    //   };
-    // }
-
     // insert mobile (only PHONE!) check here and create styles
     if (mobileAndTabletCheck()) {
       const html = document.querySelector("html");
