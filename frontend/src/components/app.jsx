@@ -12,8 +12,8 @@ import "../assets/stylesheets/podium.css";
 import "../assets/stylesheets/high_score.css";
 import "../assets/stylesheets/instructions.css";
 import "../assets/stylesheets/hud.css";
-
-import github_pixel from "../assets/images/github_pixel.png"
+import "../assets/stylesheets/mobile_hud.css";
+import "../assets/stylesheets/mobile_podium.css";
 
 import NavBarContainer from "./nav/navbar_container";
 import MainPage from "./main/main_page";
@@ -46,12 +46,16 @@ class App extends React.Component {
         </div>
 
         <footer className='footer'>
-          <p>
-            Copyright &copy; 
-            2019 Jumpy Kart 
-          </p>
-          
-          <a className="icon" href="https://github.com/FueRobertHer/jumpy_kart" target="_blank"></a>
+          <p>Copyright &copy; 2019 Jumpy Kart</p>
+
+          <a
+            className='icon'
+            href='https://github.com/FueRobertHer/jumpy_kart'
+            target='_blank'
+            rel='noopener noreferrer'
+          >
+            {" "}
+          </a>
         </footer>
       </div>
     );

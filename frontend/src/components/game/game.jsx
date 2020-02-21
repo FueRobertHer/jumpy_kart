@@ -7,6 +7,7 @@ import mushroomSound from "../../assets/audio/mushroom.wav";
 import bananaSound from "../../assets/audio/banana_slide.mp3";
 import Instructions from "../heads_up/instructions";
 import HUD from "../heads_up/hud";
+import MobileHUD from "../heads_up/mobile/mobile_hud";
 import { mobileCheck, mobileAndTabletCheck } from "./mobileDetectUtil";
 
 let SERVER;
@@ -62,7 +63,6 @@ class Canvas extends React.Component {
   }
 
   openSocket() {
-    // console.log("opening socket");
     return new Promise(resolve => {
       this.socket = SERVER;
       let socket = this.socket;
@@ -161,6 +161,13 @@ class Canvas extends React.Component {
     this.gameRunning = false;
   }
 
+  // to trigger jump button on mobile
+  emitJump(socket) {
+    // e.preventDefault();
+    // let socket = this.socket;
+    socket.emit("pressSpace");
+  }
+
   componentDidMount() {
     window.onpopstate = e => {
       if (e.target.location.hash === "#/lobby") window.location.reload();
@@ -185,31 +192,12 @@ class Canvas extends React.Component {
       }
     };
 
-    const startGameButton = document.querySelector(".start-game-button");
-
-    if (mobileAndTabletCheck()) {
-      document.onclick = e => {
-        e.preventDefault();
-        if (e.target !== startGameButton) {
-          socket.emit("pressSpace");
-        }
-      };
-    }
-
     // insert mobile (only PHONE!) check here and create styles
-    if (mobileCheck()) {
+    if (mobileAndTabletCheck()) {
       const html = document.querySelector("html");
-      const instructionsDiv = document.querySelector(".instructions-div");
-      const hudDiv = document.querySelector(".hud-div");
-      const startGameButton = document.querySelector(".start-game-button");
       const appHolder = document.querySelector(".app-holder");
       const footer = document.querySelector("footer");
-
-      instructionsDiv.style.visibility = "hidden";
-      instructionsDiv.style.width = "0px";
-
-      hudDiv.style.visibility = "hidden";
-      hudDiv.style.width = "0px";
+      const parent = document.querySelector(".parent");
 
       footer.style.visibility = "hidden";
       footer.style.width = "0px";
@@ -220,7 +208,19 @@ class Canvas extends React.Component {
         align-items: center;
       `;
 
-      startGameButton.style.marginTop = "50px";
+      parent.style.cssText = `
+        margin: 20px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+      `;
+
+      if (this.roomOwner === this.props.currentUserId) {
+        const startGameButton = document.querySelector(".start-game-button");
+        startGameButton.style.marginTop = "-270px";
+        startGameButton.style.zIndex = "100";
+      }
 
       // disables mobile double-touch zoom (also panning/scrolling)
       html.style.touchAction = "none";
@@ -289,42 +289,64 @@ class Canvas extends React.Component {
     }
 
     return (
-      <div className='game-master'>
-        <div className='instructions-div'>
-          <Instructions />
-        </div>
-        <div className='game-ui'>
-          <div className='canvas-container'>
-            <canvas id='background' ref='canvas' width='10500' height='500' />
-            <canvas
-              id='viewport'
-              ref='viewport'
-              // width={mobileCheck() ? "vw" : "600"}
-              width='600'
-              height='500'
-            />
-          </div>
-          <div className='room-id-div'>
-            <h3 className='room-id'>Room ID: {this.roomId}</h3>
-          </div>
-          {this.roomOwner === this.props.currentUserId ? (
-            <button
-              className='input submit login-button start-game-button'
-              onClick={this.emitStartGame}
-            >
-              START GAME
-            </button>
+      <>
+        <div className='game-master'>
+          {mobileAndTabletCheck() ? (
+            <></>
           ) : (
-            <div />
+            <div className='instructions-div'>
+              <Instructions />
+            </div>
           )}
-          <>
-            <MuteButton muted={this.muted} toggleAmbient={this.toggleAmbient} />
-          </>
+          <div className='game-ui'>
+            <div className='canvas-container'>
+              <canvas id='background' ref='canvas' width='10500' height='500' />
+              <canvas id='viewport' ref='viewport' width='600' height='500' />
+            </div>
+            <div className='room-id-div'>
+              <h3 className='room-id'>Room ID: {this.roomId}</h3>
+            </div>
+            {this.roomOwner === this.props.currentUserId ? (
+              <button
+                className='input submit login-button start-game-button'
+                onClick={this.emitStartGame}
+              >
+                START GAME
+              </button>
+            ) : (
+              <div />
+            )}
+            <>
+              <MuteButton
+                muted={this.muted}
+                toggleAmbient={this.toggleAmbient}
+              />
+            </>
+          </div>
+          {mobileAndTabletCheck() ? (
+            <></>
+          ) : (
+            <div className='hud-div'>
+              <HUD players={this.state.players} />
+            </div>
+          )}
         </div>
-        <div className='hud-div'>
-          <HUD players={this.state.players} />
-        </div>
-      </div>
+        {mobileAndTabletCheck() ? (
+          <MobileHUD players={this.state.players} />
+        ) : (
+          <></>
+        )}
+        {mobileAndTabletCheck() ? (
+          <button
+            className='input submit login-button mobile-jump-button'
+            onClick={() => this.emitJump(this.socket)}
+          >
+            JUMP
+          </button>
+        ) : (
+          <></>
+        )}
+      </>
     );
   }
 }

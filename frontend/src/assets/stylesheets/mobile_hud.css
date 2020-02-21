@@ -1,0 +1,22 @@
+.mobile-hud-master {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 555px;
+}
+
+.mobile-bar-list {
+  width: 420px;
+}
+
+.mobile-jump-button {
+  z-index: 200;
+  height: 100px;
+  width: 300px;
+  position: absolute;
+  top: 900px;
+  padding: 20px 6px 6px;
+  font-size: 38px;
+  user-select: none;
+}

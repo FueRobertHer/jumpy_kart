@@ -1,5 +1,4 @@
 import React from "react";
-
 import banana from "../../assets/images/banana.png";
 import coin from "../../assets/images/coin.png";
 import smallCoin from "../../assets/images/small_coin.png";
