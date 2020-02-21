@@ -204,32 +204,34 @@ class Canvas extends React.Component {
     // }
 
     // insert mobile (only PHONE!) check here and create styles
-    if (mobileCheck()) {
+    if (mobileAndTabletCheck()) {
       const html = document.querySelector("html");
-      const startGameButton = document.querySelector(".start-game-button");
       const appHolder = document.querySelector(".app-holder");
       const footer = document.querySelector("footer");
       const parent = document.querySelector(".parent");
-
+      
       footer.style.visibility = "hidden";
       footer.style.width = "0px";
-
+      
       appHolder.style.cssText = `
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       `;
-
+      
       parent.style.cssText = `
-        margin: 20px auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        position: relative;
+      margin: 20px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
       `;
-
-      startGameButton.style.marginTop = "-270px";
-      startGameButton.style.zIndex = "100";
+      
+      if (this.roomOwner === this.props.currentUserId) {
+        const startGameButton = document.querySelector(".start-game-button");
+        startGameButton.style.marginTop = "-270px";
+        startGameButton.style.zIndex = "100";
+      }
 
       // disables mobile double-touch zoom (also panning/scrolling)
       html.style.touchAction = "none";
@@ -300,7 +302,7 @@ class Canvas extends React.Component {
     return (
       <>
         <div className='game-master'>
-          {mobileCheck() ? (
+          {mobileAndTabletCheck() ? (
             <></>
           ) : (
             <div className='instructions-div'>
@@ -332,7 +334,7 @@ class Canvas extends React.Component {
               />
             </>
           </div>
-          {mobileCheck() ? (
+          {mobileAndTabletCheck() ? (
             <></>
           ) : (
             <div className='hud-div'>
@@ -340,8 +342,8 @@ class Canvas extends React.Component {
             </div>
           )}
         </div>
-        {mobileCheck() ? <MobileHUD players={this.state.players} /> : <></>}
-        {mobileCheck() ? <button className='input submit login-button mobile-jump-button' onClick={() => this.emitJump(this.socket)}>JUMP</button> : <></>}
+        {mobileAndTabletCheck() ? <MobileHUD players={this.state.players} /> : <></>}
+        {mobileAndTabletCheck() ? <button className='input submit login-button mobile-jump-button' onClick={() => this.emitJump(this.socket)}>JUMP</button> : <></>}
       </>
     );
   }
