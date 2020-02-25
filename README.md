@@ -25,6 +25,7 @@ Jumpy Kart is built using the MERN stack: MongoDB and Express make up the backen
 - Users compete for classic Mario coins to gain a spot on the scoreboard
 - Powerups and obstacles are randomly generated each race to keep users on their feet
 - WebSockets continuously emit game state to update game responsiveley in real time
+- Game can be played on both  desktop and mobile
 
 ---
 
