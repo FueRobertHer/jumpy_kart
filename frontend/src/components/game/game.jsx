@@ -255,20 +255,23 @@ class Canvas extends React.Component {
       drawQueue.forEach(sprite => {
         DrawUtil._drawKart(ctx, sprite);
       });
-
+      
+      // get user id and find player with that id
       const currentUserID = this.props.location.userId;
       let currentUser;
       this.state.players.forEach(player => {
         if (player.id === currentUserID) currentUser = player;
       });
-      const x = currentUser ? currentUser.pos[0] : 0;
-      // const y = currentUser ? currentUser.pos[1] : 0
 
+      // get x position of the player
+      const x = currentUser ? currentUser.pos[0] : 0;
+
+      // draw unique camera for each player
       const viewport = this.refs.viewport;
       const cam = viewport.getContext("2d");
       cam.clearRect(0, 0, viewport.width, viewport.height);
       cam.drawImage(
-        canvas,
+        canvas, // the full stage
         x - viewport.width / 4,
         0,
         viewport.width,

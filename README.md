@@ -100,6 +100,40 @@ emitUpdateGame() {
   <img src="./frontend/src/assets/images/readme/sprite_drawing.png" width="450">
 </p>
 
+Utilize two canvas elements. The first one draws the whole map and is hidden. The second draws only a section around the player.
+
+```
+<canvas id='background' ref='canvas' width='10500' height='500' /> 
+<canvas id='viewport' ref='viewport' width='600' height='500' />
+```
+
+```
+// get user id and find player with that id
+const currentUserID = this.props.location.userId;
+let currentUser;
+this.state.players.forEach(player => {
+  if (player.id === currentUserID) currentUser = player;
+});
+
+// get x position of the player
+const x = currentUser ? currentUser.pos[0] : 0;
+
+// draw unique camera for each player
+const viewport = this.refs.viewport;
+const cam = viewport.getContext("2d");
+cam.clearRect(0, 0, viewport.width, viewport.height);
+cam.drawImage(
+  canvas, // the full stage
+  x - viewport.width / 4,
+  0,
+  viewport.width,
+  viewport.height,
+  0,
+  0,
+  viewport.width,
+  viewport.height
+```
+
 ---
 
 ### Progress Tracker
